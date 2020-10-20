@@ -11,7 +11,7 @@ import ambrpayDisabled from '@/assets/images/icons/dapps/ambrpay-disabled.png';
 import aave from '@/assets/images/icons/dapps/aave.svg';
 import lendMigrator from '@/assets/images/icons/dapps/lend-migrator.svg';
 import unstoppable from '@/assets/images/icons/dapps/unstoppable.png';
-import { ETH, GOERLI, ROP, RIN, KOV } from '@/networks/types';
+import { MYETH } from '@/networks/types';
 
 const dapps = {
   unstoppable: {
@@ -19,7 +19,7 @@ const dapps = {
     icon: unstoppable,
     title: 'unstoppable.title',
     desc: 'unstoppable.dapp-desc',
-    supportedNetworks: [ETH.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '4/15/2020',
     releaseDate: '4/15/2020'
   },
@@ -29,7 +29,7 @@ const dapps = {
     iconDisabled: manageEnsHov,
     title: 'ens.title',
     desc: 'ens.dapp-desc',
-    supportedNetworks: [ETH.name, GOERLI.name, ROP.name, RIN.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '11/06/2019',
     releaseDate: '10/05/2018'
   },
@@ -39,7 +39,7 @@ const dapps = {
     iconDisabled: domainSaleHov,
     title: 'subDomain.title',
     desc: 'subDomain.dapp-desc',
-    supportedNetworks: [ETH.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '09/20/2019',
     releaseDate: '10/08/2018'
   },
@@ -49,7 +49,7 @@ const dapps = {
     iconDisabled: scheduleTransactionHov,
     title: 'scheduleTx.title',
     desc: 'scheduleTx.dapp-desc',
-    supportedNetworks: [ETH.name, KOV.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '10/28/2019',
     releaseDate: '02/21/2019'
   },
@@ -59,7 +59,7 @@ const dapps = {
     iconDisabled: makerdaiDisabled,
     title: 'dappsMaker.maker_title',
     desc: 'dappsMaker.maker_desc',
-    supportedNetworks: [ETH.name, KOV.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '08/14/2019',
     releaseDate: '06/14/2019'
   },
@@ -69,7 +69,7 @@ const dapps = {
     iconDisabled: ambrpayDisabled,
     title: 'dappsAmbrpay.title',
     desc: 'dappsAmbrpay.ambrpay-popover',
-    supportedNetworks: [ETH.name, KOV.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '11/05/2019',
     releaseDate: '11/05/2019'
   },
@@ -79,7 +79,7 @@ const dapps = {
     // iconDisabled: aaveDisabled,
     title: 'dappsAave.title',
     desc: 'dappsAave.popover',
-    supportedNetworks: [ETH.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '2/26/2020',
     releaseDate: '2/26/2020'
   },
@@ -88,7 +88,7 @@ const dapps = {
     icon: lendMigrator,
     title: 'dappsAave.lend-title',
     desc: 'dappsAave.lend-popover',
-    supportedNetworks: [ETH.name],
+    supportedNetworks: [MYETH.name],
     lastUpdated: '10/2/2020',
     releaseDate: '10/2/2020'
   }
