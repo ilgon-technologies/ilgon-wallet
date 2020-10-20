@@ -219,12 +219,7 @@ const fetchMasterFile = async () => {
 };
 
 const run = async () => {
-  await fetchTokens()
-    .then(fetchContracts)
-    .then(fetchAddressDarkList)
-    .then(fetchUrlDarklist)
-    .then(fetchUrlLightlist)
-    .then(fetchMasterFile);
+  await fetchAddressDarkList().then(fetchUrlDarklist).then(fetchUrlLightlist);
 };
 
 (async () => {
