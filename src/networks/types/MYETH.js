@@ -8,7 +8,7 @@ export default {
   homePage: 'https://meth.org',
   blockExplorerTX: 'https://etherscan.io/tx/[[txHash]]',
   blockExplorerAddr: 'https://etherscan.io/address/[[address]]',
-  chainID: 1,
+  chainID: 0x696c6374,
   tokens: tokens,
   contracts: contracts,
   ens: {
