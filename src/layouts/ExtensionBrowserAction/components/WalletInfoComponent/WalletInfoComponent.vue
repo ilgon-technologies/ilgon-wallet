@@ -531,11 +531,7 @@ export default {
       const token = this.networkTokens[toChecksumAddress(address)];
       if (token) {
         const tokenSrc =
-          token.icon_png !== ''
-            ? `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
-            : token.icon !== ''
-            ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
-            : this.network.type.icon;
+          token.icon_png !== '' ? token.icon_png : this.network.type.icon;
         return tokenSrc;
       }
 
