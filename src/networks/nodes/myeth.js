@@ -2,8 +2,8 @@ import { MYETH } from '../types';
 export default {
   type: MYETH,
   service: 'meth.com',
-  url: 'http://localhost',
-  port: 8178,
+  url: 'http://52.59.194.238/rpc/eth/',
+  port: 80,
   auth: false,
   username: '',
   password: ''
