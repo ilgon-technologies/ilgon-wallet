@@ -6,7 +6,7 @@ if (store.get('notifications') === undefined) store.set('notifications', {});
 const gettingStartedDone =
   store.get('skipTutorial') !== undefined ? store.get('skipTutorial') : false;
 const storedNetwork = store.get('network');
-let network = nodeList['MYETH'][0];
+let network = nodeList['SNC'][0];
 if (BUILD_TYPE !== MEW_CX && storedNetwork !== undefined) {
   network = storedNetwork;
   if (storedNetwork.type.name !== 'CUS') {

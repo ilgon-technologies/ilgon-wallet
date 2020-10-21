@@ -1,3 +1,3 @@
-import MYETH from './MYETH.js';
+import SNC from './SNC.js';
 
-export { MYETH };
+export { SNC };

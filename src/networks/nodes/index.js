@@ -1,3 +1,3 @@
-import myeth from './myeth';
+import snc from './snc';
 
-export { myeth };
+export { snc };

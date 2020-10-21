@@ -6,7 +6,7 @@ import utils from 'web3-utils';
 import { EthereumTokens } from '@/partners';
 import MAValidator from 'multicoin-address-validator';
 import getMultiCoinAddress from '@/helpers/ENSMultiCoin.js';
-import ethMew from '@/networks/nodes/myeth';
+import ethMew from '@/networks/nodes/snc';
 import RegistryAbi from '@/dapps/ManageENS/ABI/registryAbi.js';
 import ResolverAbi from '@/dapps/ManageENS/ABI/resolverAbi.js';
 import * as nameHashPckg from 'eth-ens-namehash';

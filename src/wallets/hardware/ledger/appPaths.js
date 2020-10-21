@@ -1,8 +1,8 @@
-import { MYETH } from '@/networks/types';
+import { SNC } from '@/networks/types';
 import { ledgerEthereum, ledgerLiveEthereum } from '../../bip44/paths';
 const appList = [
   {
-    network: MYETH,
+    network: SNC,
     prefixes: ["m/44'/60'"],
     paths: [ledgerEthereum, ledgerLiveEthereum]
   }

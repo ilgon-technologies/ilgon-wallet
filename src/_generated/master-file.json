@@ -1,6 +1,6 @@
 [
   {
-    "network": "myeth",
+    "network": "snc",
     "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f61",
     "icon": "",
     "icon_png": "/img/icons/tokens/GG.png",
@@ -8,7 +8,7 @@
     "website": ""
   },
   {
-    "network": "myeth",
+    "network": "snc",
     "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f62",
     "icon": "",
     "icon_png": "/img/icons/tokens/GYD.png",
@@ -16,7 +16,7 @@
     "website": ""
   },
   {
-    "network": "myeth",
+    "network": "snc",
     "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f63",
     "icon": "",
     "icon_png": "/img/icons/tokens/MSD.png",
@@ -24,7 +24,7 @@
     "website": ""
   },
   {
-    "network": "myeth",
+    "network": "snc",
     "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f64",
     "icon": "",
     "icon_png": "/img/icons/tokens/RD.png",

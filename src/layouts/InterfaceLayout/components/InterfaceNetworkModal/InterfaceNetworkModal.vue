@@ -289,8 +289,8 @@ export default {
   data() {
     return {
       types: networkTypes,
-      selectedNetworkName: 'MYETH',
-      chainID: networkTypes['MYETH'].chainID,
+      selectedNetworkName: 'SNC',
+      chainID: networkTypes['SNC'].chainID,
       port: 443,
       name: '',
       url: '',
@@ -344,7 +344,7 @@ export default {
       homePage: '',
       blockExplorerTX: '',
       blockExplorerAddr: '',
-      chainID: networkTypes['MYETH'].chainID,
+      chainID: networkTypes['SNC'].chainID,
       tokens: [],
       contracts: [],
       currencyName: 'CUS'
@@ -362,7 +362,7 @@ export default {
         if (this.customNetworks.length > 0) {
           this.switchNetwork(this.customNetworks[0]);
         } else {
-          this.switchNetwork(this.Networks.MYETH[0]);
+          this.switchNetwork(this.Networks.SNC[0]);
         }
       }
       store.set('customNetworks', this.customNetworks);

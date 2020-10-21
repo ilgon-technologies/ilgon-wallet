@@ -11,9 +11,9 @@ class MValidator {
   }
 }
 export default {
-  MYETH: {
+  SNC: {
     id: 60,
-    symbol: 'MYETH',
+    symbol: 'SNC',
     name: 'MyEthereum',
     validator: new MValidator('Ethereum'),
     encode: formatsByName['ETH'].encoder,

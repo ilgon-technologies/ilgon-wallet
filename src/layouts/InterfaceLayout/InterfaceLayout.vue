@@ -156,7 +156,7 @@ import sortByBalance from '@/helpers/sortByBalance.js';
 import AddressQrcodeModal from '@/components/AddressQrcodeModal';
 import web3Utils from 'web3-utils';
 import { isAddress } from '@/helpers/addressUtils';
-import { MYETH } from '@/networks/types';
+import { SNC } from '@/networks/types';
 import {
   LedgerWallet,
   TrezorWallet,
@@ -788,7 +788,7 @@ export default {
             }
           }
           this.callSetENS();
-          if (this.network.type.name === MYETH.name) this.fetchNames();
+          if (this.network.type.name === SNC.name) this.fetchNames();
           this.getBlock();
           this.getBalance();
           this.setTokens();

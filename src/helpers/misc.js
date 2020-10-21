@@ -128,11 +128,11 @@ const validateHexString = str => {
 
 const reorderNetworks = () => {
   const oldObject = Object.assign({}, nodeList);
-  delete oldObject['MYETH'];
+  delete oldObject['SNC'];
   const newObject = Object.assign(
     {},
     {
-      MYETH: nodeList['MYETH'],
+      SNC: nodeList['SNC'],
       ...oldObject
     }
   );

@@ -1,11 +1,11 @@
 import tokens from '@/_generated/tokens/tokens-eth.json';
-import eth from '@/assets/images/networks/myeth.svg';
+import icon from '@/assets/images/networks/snc.png';
 import contracts from '@/networks/types/contracts';
 
 export default {
-  name: 'MYETH',
-  name_long: 'MyEthereum',
-  homePage: 'https://meth.org',
+  name: 'SNC',
+  name_long: 'SystemNativeCoin',
+  homePage: 'https://snc.com',
   blockExplorerTX: 'https://etherscan.io/tx/[[txHash]]',
   blockExplorerAddr: 'https://etherscan.io/address/[[address]]',
   chainID: 0x696c6374,
@@ -17,6 +17,6 @@ export default {
     registrarType: 'permanent',
     supportedTld: ['eth', 'xyz']
   },
-  icon: eth,
-  currencyName: 'MYETH'
+  icon: icon,
+  currencyName: 'SNC'
 };
