@@ -1,7 +1,7 @@
 [
   {
     "network": "snc",
-    "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f61",
+    "contract_address": "0xe9dc25b5181dfef4cd0086112f1315378d9f9f8a",
     "icon": "",
     "icon_png": "/img/icons/tokens/GG.png",
     "link": "",
@@ -9,7 +9,7 @@
   },
   {
     "network": "snc",
-    "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f62",
+    "contract_address": "0x2f2edd07e514ecba939a505c55cec77be35c4622",
     "icon": "",
     "icon_png": "/img/icons/tokens/GYD.png",
     "link": "",
@@ -17,7 +17,7 @@
   },
   {
     "network": "snc",
-    "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f63",
+    "contract_address": "0x2a2b8889c91c93a8aa7faccde444f510554b6b0f",
     "icon": "",
     "icon_png": "/img/icons/tokens/MSD.png",
     "link": "",
@@ -25,7 +25,7 @@
   },
   {
     "network": "snc",
-    "contract_address": "0x503a58e109472E0cCd46e71A4390763c1c8D9f64",
+    "contract_address": "0xb0826feddafecb24bd319a365d41d44fde5064b6",
     "icon": "",
     "icon_png": "/img/icons/tokens/RD.png",
     "link": "",

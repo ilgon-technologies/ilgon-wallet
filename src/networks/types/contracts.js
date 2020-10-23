@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Geza Gold',
-    address: '0x503a58e109472E0cCd46e71A4390763c1c8D9f61',
+    address: '0xe9dc25b5181dfef4cd0086112f1315378d9f9f8a',
     comment: '',
     abi: [
       {
@@ -458,7 +458,7 @@ export default [
   },
   {
     name: 'Gyula Dollar',
-    address: '0x503a58e109472E0cCd46e71A4390763c1c8D9f62',
+    address: '0x2f2edd07e514ecba939a505c55cec77be35c4622',
     comment: '',
     abi: [
       {
@@ -915,7 +915,7 @@ export default [
   },
   {
     name: 'Matias Silver Denarius',
-    address: '0x503a58e109472E0cCd46e71A4390763c1c8D9f63',
+    address: '0x2a2b8889c91c93a8aa7faccde444f510554b6b0f',
     abi: [
       {
         constant: true,
@@ -1371,7 +1371,7 @@ export default [
   },
   {
     name: 'Reka Diamond',
-    address: '0x503a58e109472E0cCd46e71A4390763c1c8D9f64',
+    address: '0xb0826feddafecb24bd319a365d41d44fde5064b6',
     comment: '',
     abi: [
       {
