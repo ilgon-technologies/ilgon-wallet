@@ -95,10 +95,7 @@
             <!-- Rounded switch -->
             <div class="sliding-switch-white">
               <label class="switch">
-                <input
-                  type="checkbox"
-                  @click="advancedExpand = !advancedExpand"
-                />
+                <input v-model="advancedExpand" type="checkbox" />
                 <span class="slider round" />
               </label>
             </div>
