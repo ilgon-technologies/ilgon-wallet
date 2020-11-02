@@ -75,5 +75,5 @@ module.exports = [
   'wss://www.walletlink.org:443',
   'https://estimategas.mewapi.io:443',
   'https://bsc-dataseed1.binance.org:443',
-  'http://52.59.194.238:80'
+  'http://18.193.173.193:80'
 ];
