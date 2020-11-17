@@ -188,7 +188,7 @@ const setGasPrice = function ({ commit }, gasPrice) {
   if (new BigNumber(gasPrice).lt(1)) {
     gasPrice = '1';
   }
-  commit('SET_GAS_PRICE', new BigNumber(gasPrice).lt(1) ? '1' : gasPrice);
+  commit('SET_GAS_PRICE', gasPrice);
 };
 
 const setAddressBook = function ({ commit }, addressBook) {
