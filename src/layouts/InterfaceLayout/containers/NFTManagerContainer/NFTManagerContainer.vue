@@ -294,7 +294,7 @@ export default {
       return this.isOnlineAndEth && this.countsRetrieved;
     },
     isOnlineAndEth() {
-      return this.online && this.network.type.name === 'ETH';
+      return this.online && this.network.type.name === 'SNC';
     }
   },
   watch: {},
@@ -392,7 +392,7 @@ export default {
     },
 
     async setup() {
-      if (this.network.type.name === 'ETH') {
+      if (this.network.type.name === 'SNC') {
         const customNFTs = store.get('customNFTs');
 
         if (customNFTs !== undefined && customNFTs !== null) {
