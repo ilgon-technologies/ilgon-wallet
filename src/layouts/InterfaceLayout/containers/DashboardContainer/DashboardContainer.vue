@@ -26,26 +26,26 @@
                 Vaults
               </caption>
               <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Deposit time</th>
-                <th scope="col">Percent</th>
-                <th scope="col">Earnings</th>
-                <th scope="col"></th>
-              </tr>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Deposit time</th>
+                  <th scope="col">Percent</th>
+                  <th scope="col">Earnings</th>
+                  <th scope="col"></th>
+                </tr>
               </thead>
               <tbody>
-              <tr v-for="d in vaults" :key="d.id">
-                <td>{{ d.id }}</td>
-                <td>{{ d.amount }}</td>
-                <td>{{ d.depositTime }}</td>
-                <td>{{ '%' }}</td>
-                <td>{{ d.earnings }}</td>
-                <td>
-                  <button @click="withdraw(d.id)">Withdraw</button>
-                </td>
-              </tr>
+                <tr v-for="d in vaults" :key="d.id">
+                  <td>{{ d.id }}</td>
+                  <td>{{ d.amount }}</td>
+                  <td>{{ d.depositTime }}</td>
+                  <td>{{ '%' }}</td>
+                  <td>{{ d.earnings }}</td>
+                  <td>
+                    <button @click="withdraw(d.id)">Withdraw</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
