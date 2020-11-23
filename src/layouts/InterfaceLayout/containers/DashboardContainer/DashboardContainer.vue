@@ -69,7 +69,7 @@
                   <td>{{ d.depositTime.toLocaleString() }}</td>
                   <td>{{ percent(d) }}</td>
                   <td style="font-family: monospace">
-                    {{ parseFloat(d.earnings).toFixed(8) }}
+                    {{ d.earnings.toFormat(8) }}
                   </td>
                   <td>
                     <span v-if="d.withdrawTime.getTime() !== 0">
@@ -94,6 +94,7 @@ import { mapState } from 'vuex';
 
 import contracts from '@/networks/types/contracts';
 import Web3 from 'web3';
+import BigNumber from 'bignumber.js';
 
 function updateVaultsLoop() {
   this.contract.methods
@@ -105,13 +106,17 @@ function updateVaultsLoop() {
           this.contract.methods
             .getVaultById(id)
             .call({ from: this.account.address })
-            .then(({ amount, depositTime, interest, withdrawTime }) => ({
-              id,
-              amount: this.web3.utils.fromWei(amount, 'ether'),
-              depositTime: new Date(depositTime * 1000),
-              earnings: this.web3.utils.fromWei(interest, 'ether'),
-              withdrawTime: new Date(withdrawTime * 1000)
-            }))
+            .then(({ amount, depositTime, interest, withdrawTime }) => {
+              return {
+                id,
+                amount: this.web3.utils.fromWei(amount, 'ether'),
+                depositTime: new Date(depositTime * 1000),
+                earnings: new BigNumber(
+                  this.web3.utils.fromWei(interest, 'ether')
+                ),
+                withdrawTime: new Date(withdrawTime * 1000)
+              };
+            })
         )
       )
     )
