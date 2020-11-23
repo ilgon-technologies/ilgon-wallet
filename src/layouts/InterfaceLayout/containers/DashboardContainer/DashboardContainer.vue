@@ -21,6 +21,22 @@
               </button>
             </div>
             <button @click="refresh">Refresh</button>
+            <br />
+            Show only:
+            <input
+              id="not-withdrawn"
+              v-model="show"
+              type="radio"
+              :value="'not-withdrawn'"
+            />
+            <label for="not-withdrawn">Not withdrawn</label>
+            <input
+              id="withdrawn"
+              v-model="show"
+              type="radio"
+              :value="'withdrawn'"
+            />
+            <label for="withdrawn">Withdrawn</label>
             <table style="width: 100%">
               <caption>
                 Vaults
@@ -36,7 +52,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="d in vaults" :key="d.id">
+                <tr
+                  v-for="d in vaults.filter(
+                    v =>
+                      (v.withdrawTime.getTime() !== 0) ===
+                      (show === 'withdrawn')
+                  )"
+                  :key="d.id"
+                >
                   <td>{{ d.id }}</td>
                   <td>{{ d.amount }}</td>
                   <td>{{ d.depositTime }}</td>
@@ -97,7 +120,9 @@ export default {
         contracts[0].abi,
         contracts[0].address
       ),
-      polling: null
+      polling: null,
+      // 'not-withdrawn' | 'withdrawn'
+      show: 'not-withdrawn'
     };
   },
 
