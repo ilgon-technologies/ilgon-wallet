@@ -28,6 +28,7 @@
               v-model="show"
               type="radio"
               :value="'not-withdrawn'"
+              style="margin-left: 3%"
             />
             <label for="not-withdrawn">Not withdrawn</label>
             <input
@@ -35,6 +36,7 @@
               v-model="show"
               type="radio"
               :value="'withdrawn'"
+              style="margin-left: 3%"
             />
             <label for="withdrawn">Withdrawn</label>
             <table style="width: 100%">
@@ -48,7 +50,9 @@
                   <th scope="col">Deposit time</th>
                   <th scope="col">Percent</th>
                   <th scope="col">Earnings</th>
-                  <th scope="col"></th>
+                  <th scope="col">
+                    {{ show === 'withdrawn' ? 'Withdraw time' : '' }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -62,11 +66,16 @@
                 >
                   <td>{{ d.id }}</td>
                   <td>{{ d.amount }}</td>
-                  <td>{{ d.depositTime }}</td>
-                  <td>{{ '%' }}</td>
-                  <td>{{ d.earnings }}</td>
+                  <td>{{ d.depositTime.toLocaleString() }}</td>
+                  <td>{{ percent(d) }}</td>
+                  <td style="font-family: monospace">
+                    {{ parseFloat(d.earnings).toFixed(8) }}
+                  </td>
                   <td>
-                    <button @click="withdraw(d.id)">Withdraw</button>
+                    <span v-if="d.withdrawTime.getTime() !== 0">
+                      {{ d.withdrawTime.toLocaleString() }}
+                    </span>
+                    <button v-else @click="withdraw(d.id)">Withdraw</button>
                   </td>
                 </tr>
               </tbody>
@@ -96,11 +105,12 @@ function updateVaultsLoop() {
           this.contract.methods
             .getVaultById(id)
             .call({ from: this.account.address })
-            .then(vault => ({
+            .then(({ amount, depositTime, interest, withdrawTime }) => ({
               id,
-              amount: this.web3.utils.fromWei(vault.amount, 'ether'),
-              depositTime: new Date(vault.depositTime * 1000).toLocaleString(),
-              earnings: this.web3.utils.fromWei(vault.interest, 'ether')
+              amount: this.web3.utils.fromWei(amount, 'ether'),
+              depositTime: new Date(depositTime * 1000),
+              earnings: this.web3.utils.fromWei(interest, 'ether'),
+              withdrawTime: new Date(withdrawTime * 1000)
             }))
         )
       )
@@ -152,6 +162,12 @@ export default {
       clearTimeout(this.polling);
       this.vaults = null;
       updateVaultsLoop.call(this);
+    },
+    percent({ amount, depositTime, earnings }) {
+      const yearInMs = 31_556_926_000;
+      const msSinceDeposit = new Date().getTime() - depositTime.getTime();
+      const percent = (earnings / amount) * (yearInMs / msSinceDeposit) * 100;
+      return percent.toFixed(2) + ' %';
     }
   }
 };
