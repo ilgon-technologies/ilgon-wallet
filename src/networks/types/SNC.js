@@ -2,7 +2,7 @@ import tokens from '@/_generated/tokens/tokens-eth.json';
 import icon from '@/assets/images/networks/snc.png';
 import contracts from '@/networks/types/contracts';
 
-const blockExplorerUrl = 'http://52.58.73.61:4000/';
+const blockExplorerUrl = 'https://explorer.ilgoindev.e-diploma.org/';
 
 export default {
   name: 'SNC',
