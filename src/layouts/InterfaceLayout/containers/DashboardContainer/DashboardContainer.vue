@@ -107,7 +107,7 @@ function updateVaultsLoop() {
     )
     .then(vaults => (this.vaults = vaults))
     .finally(() => {
-      this.polling = setTimeout(() => updateVaultsLoop.call(this), 1000);
+      this.polling = setTimeout(() => updateVaultsLoop.call(this), 10_000);
     });
 }
 
