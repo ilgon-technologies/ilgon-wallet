@@ -30,7 +30,7 @@
               :value="'not-withdrawn'"
               style="margin-left: 3%"
             />
-            <label for="not-withdrawn">Not withdrawn</label>
+            <label for="not-withdrawn">On stake</label>
             <input
               id="withdrawn"
               v-model="show"
