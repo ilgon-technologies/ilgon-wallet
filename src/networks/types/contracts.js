@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Staking contract',
-    address: '0x1901331f55aDf85c985D4AEd8561dA7F93F9A5F8',
+    address: '0x269BF6B66A87450a352118Ae52C38fe6B934b2Ec',
     comment: '',
     abi: [
       {
