@@ -18,5 +18,13 @@ export default {
     validator: new MValidator('Ethereum'),
     encode: formatsByName['ETH'].encoder,
     decode: formatsByName['ETH'].decoder
+  },
+  ETH: {
+    id: 60,
+    symbol: 'ETH',
+    name: 'Ethereum',
+    validator: new MValidator('Ethereum'),
+    encode: formatsByName['ETH'].encoder,
+    decode: formatsByName['ETH'].decoder
   }
 };

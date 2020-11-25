@@ -1,4 +1,4 @@
-import tokens from '@/_generated/tokens/tokens-eth.json';
+import tokens from './tokens-ilg.json';
 import icon from '@/assets/images/networks/snc.png';
 import contracts from '@/networks/types/contracts';
 

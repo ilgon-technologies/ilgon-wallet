@@ -11,7 +11,9 @@ import ambrpayDisabled from '@/assets/images/icons/dapps/ambrpay-disabled.png';
 import aave from '@/assets/images/icons/dapps/aave.svg';
 import lendMigrator from '@/assets/images/icons/dapps/lend-migrator.svg';
 import unstoppable from '@/assets/images/icons/dapps/unstoppable.png';
-import { SNC } from '@/networks/types';
+import { SNC, ETH } from '@/networks/types';
+
+const supportedNetworks = [SNC.name, ETH.name];
 
 const dapps = {
   unstoppable: {
@@ -19,7 +21,7 @@ const dapps = {
     icon: unstoppable,
     title: 'unstoppable.title',
     desc: 'unstoppable.dapp-desc',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '4/15/2020',
     releaseDate: '4/15/2020'
   },
@@ -29,7 +31,7 @@ const dapps = {
     iconDisabled: manageEnsHov,
     title: 'ens.title',
     desc: 'ens.dapp-desc',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '11/06/2019',
     releaseDate: '10/05/2018'
   },
@@ -39,7 +41,7 @@ const dapps = {
     iconDisabled: domainSaleHov,
     title: 'subDomain.title',
     desc: 'subDomain.dapp-desc',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '09/20/2019',
     releaseDate: '10/08/2018'
   },
@@ -49,7 +51,7 @@ const dapps = {
     iconDisabled: scheduleTransactionHov,
     title: 'scheduleTx.title',
     desc: 'scheduleTx.dapp-desc',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '10/28/2019',
     releaseDate: '02/21/2019'
   },
@@ -59,7 +61,7 @@ const dapps = {
     iconDisabled: makerdaiDisabled,
     title: 'dappsMaker.maker_title',
     desc: 'dappsMaker.maker_desc',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '08/14/2019',
     releaseDate: '06/14/2019'
   },
@@ -69,7 +71,7 @@ const dapps = {
     iconDisabled: ambrpayDisabled,
     title: 'dappsAmbrpay.title',
     desc: 'dappsAmbrpay.ambrpay-popover',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '11/05/2019',
     releaseDate: '11/05/2019'
   },
@@ -79,7 +81,7 @@ const dapps = {
     // iconDisabled: aaveDisabled,
     title: 'dappsAave.title',
     desc: 'dappsAave.popover',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '2/26/2020',
     releaseDate: '2/26/2020'
   },
@@ -88,7 +90,7 @@ const dapps = {
     icon: lendMigrator,
     title: 'dappsAave.lend-title',
     desc: 'dappsAave.lend-popover',
-    supportedNetworks: [SNC.name],
+    supportedNetworks,
     lastUpdated: '10/2/2020',
     releaseDate: '10/2/2020'
   }

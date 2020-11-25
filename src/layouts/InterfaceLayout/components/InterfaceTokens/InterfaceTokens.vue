@@ -219,8 +219,16 @@ export default {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
       if (token) {
         const tokenSrc =
-          token.icon_png !== '' ? token.icon_png : this.network.type.icon;
+          /*if*/ token.network === 'snc'
+            ? /*then*/ token.icon_png
+            : /*else if*/ token.icon_png !== ''
+            ? /*then*/ `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
+            : /*else if*/ token.icon !== ''
+            ? /*then*/ `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
+            : /*else*/ this.network.type.icon;
         return tokenSrc;
+      } else if (tok.logo && tok.logo.src && tok.logo.src !== '') {
+        return `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`;
       }
 
       return this.network.type.icon;
