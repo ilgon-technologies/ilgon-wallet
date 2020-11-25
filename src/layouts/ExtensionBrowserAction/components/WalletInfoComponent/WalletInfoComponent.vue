@@ -530,14 +530,16 @@ export default {
     iconFetch(address) {
       const token = this.networkTokens[toChecksumAddress(address)];
       if (token) {
-        const tokenSrc =
-          /*if*/ token.network === 'snc'
-            ? /*then*/ token.icon_png
-            : /*else if*/ token.icon_png !== ''
-            ? /*then*/ `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
-            : /*else if*/ token.icon !== ''
-            ? /*then*/ `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
-            : /*else*/ this.network.type.icon;
+        const tokenSrc = (() => {
+          if (token.network === 'snc') {
+            return token.icon_png;
+          } else if (token.icon_png !== '') {
+            return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;
+          } else if (token.icon !== '') {
+            return `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`;
+          }
+          return this.network.type.icon;
+        })();
         return tokenSrc;
       }
 
