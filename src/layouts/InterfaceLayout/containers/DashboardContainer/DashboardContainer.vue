@@ -3,7 +3,7 @@
     <div class="container--flex container--top">
       <div class="container--card block--swap">
         <div class="flex--row--align-center title">
-          <h4>Stacking contract</h4>
+          <h4>Staking contract</h4>
         </div>
         <div class="swap-info">
           <div v-if="vaults !== null">
