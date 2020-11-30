@@ -1,13 +1,13 @@
 import tokens from './tokens-ilg.json';
-import icon from '@/assets/images/networks/snc.png';
+import icon from '@/assets/images/networks/ilg.png';
 import contracts from '@/networks/types/contracts';
 
 const blockExplorerUrl = 'https://explorer.ilgoindev.e-diploma.org/';
 
 export default {
-  name: 'SNC',
-  name_long: 'SystemNativeCoin',
-  homePage: 'https://snc.com',
+  name: 'ILG',
+  name_long: 'ILGoin',
+  homePage: 'https://ilg.com',
   blockExplorerTX: blockExplorerUrl + 'tx/[[txHash]]',
   blockExplorerAddr: blockExplorerUrl + 'address/[[address]]',
   chainID: 0x696c6374,
@@ -20,5 +20,5 @@ export default {
     supportedTld: ['eth', 'xyz']
   },
   icon: icon,
-  currencyName: 'SNC'
+  currencyName: 'ILG'
 };

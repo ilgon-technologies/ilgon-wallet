@@ -289,8 +289,8 @@ export default {
   data() {
     return {
       types: networkTypes,
-      selectedNetworkName: 'SNC',
-      chainID: networkTypes['SNC'].chainID,
+      selectedNetworkName: 'ILG',
+      chainID: networkTypes['ILG'].chainID,
       port: 443,
       name: '',
       url: '',
@@ -344,7 +344,7 @@ export default {
       homePage: '',
       blockExplorerTX: '',
       blockExplorerAddr: '',
-      chainID: networkTypes['SNC'].chainID,
+      chainID: networkTypes['ILG'].chainID,
       tokens: [],
       contracts: [],
       currencyName: 'CUS'
@@ -362,7 +362,7 @@ export default {
         if (this.customNetworks.length > 0) {
           this.switchNetwork(this.customNetworks[0]);
         } else {
-          this.switchNetwork(this.Networks.SNC[0]);
+          this.switchNetwork(this.Networks.ILG[0]);
         }
       }
       store.set('customNetworks', this.customNetworks);

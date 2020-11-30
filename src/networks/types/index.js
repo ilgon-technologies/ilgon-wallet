@@ -1,4 +1,4 @@
-import SNC from './SNC.js';
+import ILG from './ILG.js';
 import ETH from './ETH.js';
 
-export { SNC, ETH };
+export { ILG, ETH };

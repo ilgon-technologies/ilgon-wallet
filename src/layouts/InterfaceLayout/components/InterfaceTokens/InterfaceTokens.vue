@@ -219,7 +219,7 @@ export default {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
       if (token) {
         const tokenSrc = (() => {
-          if (token.network === 'snc') {
+          if (token.network === 'ilg') {
             return token.icon_png;
           } else if (token.icon_png !== '') {
             return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;

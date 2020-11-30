@@ -11,10 +11,10 @@ class MValidator {
   }
 }
 export default {
-  SNC: {
+  ILG: {
     id: 60,
-    symbol: 'SNC',
-    name: 'MyEthereum',
+    symbol: 'ILG',
+    name: 'ILGoin',
     validator: new MValidator('Ethereum'),
     encode: formatsByName['ETH'].encoder,
     decode: formatsByName['ETH'].decoder

@@ -204,7 +204,7 @@ const fetchMasterFile = async () => {
     ['0xd8f6B7AE12829b0da9ECdCdF689c77c134C9A3C9', 'MSD'],
     ['0x551e1d371700470040e847F4ac003F5a30aBc317', 'RD']
   ].map(([contract_address, iconFileName]) => ({
-    network: 'snc',
+    network: 'ilg',
     contract_address,
     icon: '',
     icon_png: '/img/icons/tokens/' + iconFileName + '.png',

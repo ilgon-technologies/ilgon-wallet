@@ -12,9 +12,9 @@ import aave from '@/assets/images/icons/dapps/aave.svg';
 import lendMigrator from '@/assets/images/icons/dapps/lend-migrator.svg';
 import unstoppable from '@/assets/images/icons/dapps/unstoppable.png';
 import golem from '@/assets/images/icons/dapps/Golem_Submark_Positive_RGB.svg';
-import { SNC, ETH } from '@/networks/types';
+import { ILG, ETH } from '@/networks/types';
 
-const supportedNetworks = [SNC.name, ETH.name];
+const supportedNetworks = [ILG.name, ETH.name];
 
 const dapps = {
   unstoppable: {
