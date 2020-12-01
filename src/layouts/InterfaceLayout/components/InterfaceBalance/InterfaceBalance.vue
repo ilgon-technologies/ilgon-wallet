@@ -13,20 +13,20 @@
           <img alt class="icon" src="~@/assets/images/icons/wallet.svg" />
         </div>
       </div>
-      <div class="block-content">
-        <div class="information-container">
+      <div class="block-content" style="overflow: hidden">
+        <div class="information-container" style="overflow: hidden">
           <h2>{{ $t('common.balance.string') }}</h2>
           <div class="balance-text-container">
             <div v-show="balance !== undefined" class="balance-text">
-              <p>
+              <div class="balance">
                 {{ showWholes()
                 }}<span style="font-size: 75%; margin: 0">{{
                   showDecimals()
                 }}</span>
-                <span>
-                  {{ network.type.currencyName }}
-                </span>
-              </p>
+              </div>
+              <div class="currency">
+                {{ network.type.currencyName }}
+              </div>
             </div>
             <i v-show="balance === undefined" class="fa fa-spin fa-spinner" />
           </div>
