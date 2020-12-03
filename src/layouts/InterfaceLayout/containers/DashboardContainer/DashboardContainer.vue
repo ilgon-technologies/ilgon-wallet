@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="container--flex container--top">
-      <div class="container--card block--swap">
+      <div v-if="contract !== null" class="container--card block--swap">
         <div class="flex--row--align-center title">
           <h4>Staking contract</h4>
         </div>
@@ -95,6 +95,7 @@ import { mapState } from 'vuex';
 import contracts from '@/networks/types/contracts';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
+import ILG from '@/networks/types/ILG';
 
 function updateVaultsLoop() {
   this.contract.methods
@@ -126,15 +127,22 @@ function updateVaultsLoop() {
     });
 }
 
+function initContract({ network, web3 }) {
+  return network.type.name === ILG.name
+    ? new web3.eth.Contract(contracts[0].abi, contracts[0].address)
+    : null;
+}
+
 export default {
   data() {
     return {
       depositAmount: '',
       vaults: null,
-      contract: new this.$store.state.main.web3.eth.Contract(
-        contracts[0].abi,
-        contracts[0].address
-      ),
+      // null if the network does not support staking
+      contract: initContract({
+        network: this.$store.state.main.network,
+        web3: this.$store.state.main.web3
+      }),
       polling: null,
       // 'not-withdrawn' | 'withdrawn'
       show: 'not-withdrawn'
@@ -142,13 +150,23 @@ export default {
   },
 
   computed: {
-    ...mapState('main', ['web3', 'account'])
+    ...mapState('main', ['account', 'web3', 'network'])
   },
   watch: {
-    // todo network
+    // depends on that web3 changes after the network
+    web3(web3) {
+      clearTimeout(this.polling);
+      this.vaults = null;
+      this.contract = initContract({ network: this.network, web3 });
+      if (this.contract !== null) {
+        updateVaultsLoop.call(this);
+      }
+    }
   },
   mounted() {
-    updateVaultsLoop.call(this);
+    if (this.contract !== null) {
+      updateVaultsLoop.call(this);
+    }
   },
   beforeDestroy() {
     clearTimeout(this.polling);
