@@ -76,5 +76,6 @@ module.exports = [
   'https://estimategas.mewapi.io:443',
   'https://bsc-dataseed1.binance.org:443',
   'http://18.193.173.193:80',
-  'https://wallet.ilgoindev.e-diploma.org:443'
+  'https://wallet.ilgoindev.e-diploma.org:443',
+  'http://173.249.1.181:48545'
 ];

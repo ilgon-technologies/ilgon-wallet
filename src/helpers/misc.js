@@ -126,21 +126,7 @@ const validateHexString = str => {
   return utils.isHex(str);
 };
 
-const reorderNetworks = () => {
-  const oldObject = Object.assign({}, nodeList);
-  delete oldObject['ILG'];
-  const newObject = Object.assign(
-    {},
-    {
-      ILG: nodeList['ILG'],
-      ...oldObject
-    }
-  );
-  for (const net in newObject) {
-    if (newObject[net].length === 0) delete newObject[net];
-  }
-  return newObject;
-};
+const reorderNetworks = () => nodeList;
 
 const solidityType = inputType => {
   if (!inputType) inputType = '';
