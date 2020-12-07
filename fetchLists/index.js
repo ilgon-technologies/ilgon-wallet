@@ -198,19 +198,25 @@ const fetchContracts = async () => {
 };
 
 const fetchMasterFile = async () => {
-  const ilgTokens = [
+  const tokens = (network, tokenData) =>
+    tokenData.map(([contract_address, iconFileName]) => ({
+      network,
+      contract_address,
+      icon: '',
+      icon_png: '/img/icons/tokens/' + iconFileName + '.png',
+      link: '',
+      website: ''
+    }));
+
+  const ilgTokens = tokens('ilg', [
     ['0xD6e8917E46eaaAa58BDE97bC040F0C774DDA3175', 'GG'],
     ['0x498E1743C55c62c8F85a287655e7cC27E99EAb74', 'GYD'],
     ['0xd8f6B7AE12829b0da9ECdCdF689c77c134C9A3C9', 'MSD'],
     ['0x551e1d371700470040e847F4ac003F5a30aBc317', 'RD']
-  ].map(([contract_address, iconFileName]) => ({
-    network: 'ilg',
-    contract_address,
-    icon: '',
-    icon_png: '/img/icons/tokens/' + iconFileName + '.png',
-    link: '',
-    website: ''
-  }));
+  ]);
+  const ilgtTokens = tokens('ilgt', [
+    ['0x35B7eeFc753Edf875a8962b075C170166ed5bbDD', 'GG']
+  ]);
   try {
     if (!fs.existsSync(configs.MASTER_FILE_PATH)) {
       fs.mkdirSync(configs.MASTER_FILE_PATH);
@@ -223,7 +229,7 @@ const fetchMasterFile = async () => {
     if (response !== undefined) {
       fs.writeFileSync(
         `${configs.MASTER_FILE_PATH}/master-file.json`,
-        JSON.stringify(response.concat(ilgTokens))
+        JSON.stringify(response.concat(ilgTokens).concat(ilgtTokens))
       );
     }
   } catch (e) {
