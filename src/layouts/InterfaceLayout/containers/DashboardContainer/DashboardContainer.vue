@@ -96,7 +96,6 @@ import contracts from '@/networks/types/contracts';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import ILG from '@/networks/types/ILG';
-import ILGT from '@/networks/types/ILGT';
 
 function updateVaultsLoop() {
   this.contract.methods
@@ -129,7 +128,7 @@ function updateVaultsLoop() {
 }
 
 function initContract({ network, web3 }) {
-  return [ILG.name, /*ILGT.name*/].includes(network.type.name)
+  return [ILG.name /*ILGT.name*/].includes(network.type.name)
     ? new web3.eth.Contract(contracts[0].abi, contracts[0].address)
     : null;
 }
