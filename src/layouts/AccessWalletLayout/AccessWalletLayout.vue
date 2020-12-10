@@ -260,17 +260,25 @@ export default {
     });
   },
   methods: {
-    ...mapActions('main', ['decryptWallet']),
+    ...mapActions('main', [
+      'decryptWallet',
+      'switchNetwork',
+      'setWeb3Instance'
+    ]),
     openWalletConnect() {
+      const changeNetwork = chainId =>
+        this.switchNetwork(
+          Object.values(this.Networks)
+            .flat()
+            .find(n => n.type.chainID === chainId)
+        );
       this.$refs.mewconnectModal.$refs.mewConnect.hide();
-      WalletConnectWallet()
-        .then(_newWallet => {
-          this.decryptWallet([_newWallet]).then(() => {
-            this.$router.push({
-              path: 'interface'
-            });
-          });
-        })
+      WalletConnectWallet(changeNetwork)
+        .then(([_newWallet, chainId]) =>
+          this.decryptWallet([_newWallet]).then(() => changeNetwork(chainId))
+        )
+        .then(() => this.setWeb3Instance())
+        .then(() => this.$router.push({ path: 'interface' }))
         .catch(e => {
           WalletConnectWallet.errorHandler(e);
         });

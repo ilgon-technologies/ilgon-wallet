@@ -38,7 +38,7 @@ class WalletConnectWallet {
       this.walletConnect.killSession();
     };
   }
-  init() {
+  init(changeNetwork) {
     return new Promise((resolve, reject) => {
       const txSigner = tx => {
         const from = tx.from;
@@ -87,14 +87,20 @@ class WalletConnectWallet {
           });
         })
         .catch(reject);
+      this.walletConnect.on('session_update', (error, payload) => {
+        if (error) {
+          return reject(error);
+        }
+        changeNetwork(payload.params[0].chainId);
+      });
       this.walletConnect.on('connect', (error, payload) => {
         if (error) {
           return reject(error);
         }
         this.isKilled = false;
         WalletConnectQRCodeModal.close();
-        const { accounts } = payload.params[0];
-        resolve(
+        const { accounts, chainId } = payload.params[0];
+        resolve([
           new HybridWalletInterface(
             sanitizeHex(accounts[0]),
             this.isHardware,
@@ -103,15 +109,16 @@ class WalletConnectWallet {
             msgSigner,
             this.walletConnect,
             errorHandler
-          )
-        );
+          ),
+          chainId
+        ]);
       });
     });
   }
 }
-const createWallet = async () => {
+const createWallet = async changeNetwork => {
   const walletConnectWallet = new WalletConnectWallet();
-  const _tWallet = await walletConnectWallet.init();
+  const _tWallet = await walletConnectWallet.init(changeNetwork);
   return _tWallet;
 };
 createWallet.errorHandler = errorHandler;
