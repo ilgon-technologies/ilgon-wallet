@@ -3,8 +3,8 @@ import { ILGT } from '../types';
 export default {
   type: ILGT,
   service: 'ilg.com',
-  url: 'http://173.249.1.181/rpc/eth/',
-  port: 48545,
+  url: 'https://wallet.ilgointest.e-diploma.org/rpc/ilgtest/',
+  port: 443,
   auth: false,
   username: '',
   password: ''
