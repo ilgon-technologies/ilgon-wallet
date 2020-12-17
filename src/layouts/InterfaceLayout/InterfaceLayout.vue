@@ -676,6 +676,13 @@ export default {
         })
         .sort(sortByBalance);
       this.setTokensWithBalance();
+      await this.getTokenBalances();
+    },
+    async getTokenBalances() {
+      await Promise.all(
+        this.tokens.map(async t => (t.balance = await this.getTokenBalance(t)))
+      );
+      this.tokens.sort(sortByBalance);
     },
     setTokensWithBalance() {
       const customStore = store.get('customTokens');

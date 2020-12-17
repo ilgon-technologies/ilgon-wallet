@@ -75,13 +75,7 @@
                   >{{ token.symbol }}</a
                 >
               </td>
-              <td
-                v-if="token.balance === 'Load' && online"
-                class="load-token"
-                @click="online ? getSpecificTokenBalance(token) : () => {}"
-              >
-                {{ token.balance }}
-              </td>
+              <td v-if="token.balance === 'Load'">Loading</td>
               <td v-else>{{ token.balance }}</td>
             </tr>
           </table>
@@ -277,18 +271,6 @@ export default {
       )
         ? storedTokens[this.network.type.name]
         : [];
-    },
-    async getSpecificTokenBalance(token) {
-      for (let i = 0; i < this.tokens.length; i++) {
-        if (
-          toChecksumAddress(this.tokens[i].address) ===
-          toChecksumAddress(token.address)
-        ) {
-          this.tokens[i].balance = await this.getTokenBalance(token);
-        }
-      }
-      this.tokens.sort(sortByBalance);
-      this.resetTokenSelection();
     },
     addTokenModal() {
       this.$refs.tokenModal.$refs.tokenModal.show();
