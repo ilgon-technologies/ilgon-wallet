@@ -92,10 +92,9 @@
 <script>
 import { mapState } from 'vuex';
 
-import contracts from '@/networks/types/contracts';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import ILG from '@/networks/types/ILG';
+import { ILG, ILGT } from '@/networks/types';
 
 function updateVaultsLoop() {
   this.contract.methods
@@ -128,9 +127,11 @@ function updateVaultsLoop() {
 }
 
 function initContract({ network, web3 }) {
-  return [ILG.name /*ILGT.name*/].includes(network.type.name)
-    ? new web3.eth.Contract(contracts[0].abi, contracts[0].address)
-    : null;
+  if ([ILG.name, ILGT.name].includes(network.type.name)) {
+    const contract = network.type.contracts[0];
+    return new web3.eth.Contract(contract.abi, contract.address);
+  }
+  return null;
 }
 
 export default {
