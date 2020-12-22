@@ -97,6 +97,7 @@ import masterFile from '@/_generated/master-file.json';
 import { toChecksumAddress } from '@/helpers/addressUtils';
 import { mapState } from 'vuex';
 import { ILG, ILGT } from '@/networks/types';
+import Fuse from 'fuse.js';
 
 export default {
   props: {
@@ -168,7 +169,9 @@ export default {
   },
   watch: {
     overrideCurrency(newVal) {
-      this.selectedCurrency = newVal;
+      if (Object.keys(newVal).length > 0) {
+        this.selectedCurrency = newVal;
+      }
     },
     selectedCurrency(newVal) {
       this.$emit('selectedCurrency', newVal, this.fromSource ? 'to' : 'from');
@@ -187,6 +190,16 @@ export default {
               return curr;
             }
           }
+        });
+        const options = {
+          includeScore: true,
+          findAllMatches: true,
+          keys: ['symbol', 'name']
+        };
+        const fuse = new Fuse(this.localCurrencies, options);
+        const result = fuse.search(newVal);
+        this.localCurrencies = result.map(item => {
+          return item.item;
         });
       } else {
         this.rebuildLocalCurrencyList(this.currencies);
