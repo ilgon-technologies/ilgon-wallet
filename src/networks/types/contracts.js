@@ -687,7 +687,7 @@ export const dummyAbi = [
 export default [
   {
     name: 'Staking contract',
-    address: '0x89368BcfCfA37FB0eD1C917bd51Ef63AdCfa2ddC',
+    address: '0xdc9f9183A8E54764743A4d33161c5dC480A1EA1d',
     abi: stakingAbi
   },
   {
