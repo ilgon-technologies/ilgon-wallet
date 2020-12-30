@@ -1,5 +1,5 @@
 import tokens from './tokens-ilgt.json';
-import icon from '@/assets/images/networks/ilg.png';
+import icon from '@/assets/images/networks/ilg-test.png';
 import contracts from '@/networks/types/contracts-test';
 
 const blockExplorerUrl = 'http://explorer.ilgoindev.e-diploma.org:44000/';
