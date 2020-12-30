@@ -226,6 +226,8 @@ export default {
             return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;
           } else if (token.icon !== '') {
             return `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`;
+          } else if (tok.logo && tok.logo.src && tok.logo.src !== '') {
+            return `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`;
           }
           return this.network.type.icon;
         })();
