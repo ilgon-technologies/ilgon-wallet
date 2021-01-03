@@ -6,7 +6,7 @@ const blockExplorerUrl = 'https://explorer.ilgoindev.e-diploma.org/';
 
 export default {
   name: 'ILG',
-  name_long: 'ILGoin',
+  name_long: 'ILGON',
   homePage: 'https://ilg.com',
   blockExplorerTX: blockExplorerUrl + 'tx/[[txHash]]',
   blockExplorerAddr: blockExplorerUrl + 'address/[[address]]',

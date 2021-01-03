@@ -14,7 +14,7 @@ export default {
   ILG: {
     id: 60,
     symbol: 'ILG',
-    name: 'ILGoin',
+    name: 'ILGON',
     validator: new MValidator('Ethereum'),
     encode: formatsByName['ETH'].encoder,
     decode: formatsByName['ETH'].decoder
@@ -22,7 +22,7 @@ export default {
   ILGT: {
     id: 60,
     symbol: 'ILG',
-    name: 'ILGoin test',
+    name: 'ILGON test',
     validator: new MValidator('Ethereum'),
     encode: formatsByName['ETH'].encoder,
     decode: formatsByName['ETH'].decoder
