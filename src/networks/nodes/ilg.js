@@ -1,14 +1,9 @@
 import { ILG } from '../types';
-const url =
-  (process.env.NODE_ENV === 'production'
-    ? window.location.origin
-    : 'http://18.193.173.193') + '/rpc/eth/';
-const port = url.startsWith('http://') ? 80 : 443;
 export default {
   type: ILG,
   service: 'ilg.com',
-  url,
-  port,
+  url: 'https://mainnet-rpc.ilgonwallet.com',
+  port: 443,
   auth: false,
   username: '',
   password: ''

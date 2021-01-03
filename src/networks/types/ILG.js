@@ -10,7 +10,7 @@ export default {
   homePage: 'https://ilg.com',
   blockExplorerTX: blockExplorerUrl + 'tx/[[txHash]]',
   blockExplorerAddr: blockExplorerUrl + 'address/[[address]]',
-  chainID: 0x696c6374,
+  chainID: 0x696c67,
   tokens: tokens,
   contracts: contracts,
   ens: {
