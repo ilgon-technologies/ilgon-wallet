@@ -45,38 +45,52 @@
               </caption>
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Amount</th>
+                  <th scope="col">Label</th>
                   <th scope="col">Deposit time</th>
-                  <th scope="col">Percent</th>
+                  <th scope="col">Amount</th>
                   <th scope="col">Earnings</th>
-                  <th scope="col">
-                    {{ show === 'withdrawn' ? 'Withdraw time' : '' }}
-                  </th>
+                  <th scope="col">Percent</th>
+                  <th scope="col">Type</th>
+                  <template v-if="show === 'withdrawn'">
+                    <th scope="col">Withdraw time</th>
+                  </template>
+                  <template v-else>
+                    <th scope="col">Max withdrawable</th>
+                    <th scope="col" />
+                  </template>
                 </tr>
               </thead>
               <tbody>
                 <tr
                   v-for="d in vaults.filter(
                     v =>
-                      (v.withdrawTime.getTime() !== 0) ===
-                      (show === 'withdrawn')
+                      (v.withdrawTime !== undefined) === (show === 'withdrawn')
                   )"
                   :key="d.id"
                 >
-                  <td>{{ d.id }}</td>
-                  <td>{{ d.amount }}</td>
+                  <td>{{ d.label || '' }}</td>
                   <td>{{ d.depositTime.toLocaleString() }}</td>
+                  <td>{{ web3.utils.fromWei(d.amount) }}</td>
+                  <td style="font-family: monospace">{{ showInterest(d) }}</td>
                   <td>{{ percent(d) }}</td>
-                  <td style="font-family: monospace">
-                    {{ d.earnings.toFormat(8) }}
-                  </td>
-                  <td>
-                    <span v-if="d.withdrawTime.getTime() !== 0">
-                      {{ d.withdrawTime.toLocaleString() }}
-                    </span>
-                    <button v-else @click="withdraw(d.id)">Withdraw</button>
-                  </td>
+                  <td>{{ showDepositType(d) }}</td>
+                  <template v-if="d.withdrawTime !== undefined">
+                    <td>{{ d.withdrawTime }}</td>
+                  </template>
+                  <template v-else>
+                    <td>
+                      {{ web3.utils.fromWei(d.withdrawableAmount) }}
+                    </td>
+                    <td>
+                      <input
+                        v-if="d.depositType !== 'NORMAL'"
+                        v-model="d.withdrawInput"
+                        type="number"
+                        aria-label="Withdraw amount"
+                      />
+                      <button @click="withdraw(d)">Withdraw</button>
+                    </td>
+                  </template>
                 </tr>
               </tbody>
             </table>
@@ -94,39 +108,104 @@ import { mapState } from 'vuex';
 
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
+import ILGT from '@/networks/types/ILGT';
+import { Toast } from '@/helpers';
+
+/**
+ * @example
+ * // returns [0, 1, 2, 3, 4]
+ * range(5)
+ */
+const range = endExclusive => Array.from({ length: endExclusive }, (_, i) => i);
+
+const toDepositType = n => {
+  switch (n) {
+    case '0':
+      return 'NORMAL';
+    case '1':
+      return 'COMPENSATION';
+    case '2':
+      return 'PACKAGE';
+    default:
+      throw new Error('Invalid deposit enum: ' + n);
+  }
+};
 
 function updateVaultsLoop() {
   this.contract.methods
-    .getMyVaultIds()
-    .call({ from: this.account.address })
+    .getVaultsLength(this.account.address)
+    .call()
+    .then(range)
     .then(vaults =>
       Promise.all(
         vaults.map(id =>
           this.contract.methods
-            .getVaultById(id)
-            .call({ from: this.account.address })
-            .then(({ amount, depositTime, interest, withdrawTime }) => {
-              return {
-                id,
-                amount: this.web3.utils.fromWei(amount, 'ether'),
+            .getVaultById(this.account.address, id)
+            .call()
+            .then(
+              ({
+                label,
+                depositTime,
+                amount,
+                withdrawnAmount,
+                interest,
+                withdrawTime,
+                withdrawableAmount,
+                depositType
+              }) => ({
+                label,
                 depositTime: new Date(depositTime * 1000),
-                earnings: new BigNumber(
-                  this.web3.utils.fromWei(interest, 'ether')
-                ),
-                withdrawTime: new Date(withdrawTime * 1000)
-              };
-            })
+                amount,
+                withdrawnAmount,
+                interest,
+                withdrawTime: new Date(withdrawTime * 1000),
+                withdrawableAmount,
+                depositType: toDepositType(depositType)
+              })
+            )
+            .then(
+              ({
+                label,
+                depositTime,
+                amount,
+                withdrawnAmount,
+                interest,
+                withdrawTime,
+                withdrawableAmount,
+                depositType
+              }) => {
+                const remaining = new BigNumber(amount).minus(withdrawnAmount);
+                return {
+                  id,
+                  label,
+                  depositTime,
+                  ...(remaining.isEqualTo(0)
+                    ? { amount, withdrawTime }
+                    : { amount: remaining.toFixed(), withdrawableAmount }),
+                  interest,
+                  depositType
+                };
+              }
+            )
         )
       )
     )
-    .then(vaults => (this.vaults = vaults))
+    .then(
+      vaults =>
+        (this.vaults = vaults.map((v, id) => ({
+          ...v,
+          withdrawInput:
+            (this.vaults && this.vaults[id] && this.vaults[id].withdrawInput) ||
+            ''
+        })))
+    )
     .finally(() => {
       this.polling = setTimeout(() => updateVaultsLoop.call(this), 10_000);
     });
 }
 
 function initContract({ network, web3 }) {
-  if ([].includes(network.type.name)) {
+  if ([ILGT].includes(network.type)) {
     const contract = network.type.contracts[0];
     return new web3.eth.Contract(contract.abi, contract.address);
   }
@@ -172,24 +251,55 @@ export default {
     clearTimeout(this.polling);
   },
   methods: {
+    showInterest(vault) {
+      return new BigNumber(this.web3.utils.fromWei(vault.interest)).toFixed(8);
+    },
+    showDepositType(v) {
+      switch (v.depositType) {
+        case 'NORMAL':
+          return 'Normal';
+        case 'COMPENSATION':
+          return 'Compensation';
+        case 'PACKAGE':
+          return 'Pacakge';
+        default:
+          throw new Error('Invalid deposit enum: ' + v.depositType);
+      }
+    },
     deposit() {
       this.contract.methods.deposit().send({
         from: this.account.address,
         value: Web3.utils.toWei(this.depositAmount, 'ether')
       });
     },
-    withdraw(id) {
-      this.contract.methods.withdraw(id).send({ from: this.account.address });
+    withdraw(d) {
+      this.contract.methods
+        .withdraw(
+          d.id,
+          d.depositType === 'NORMAL'
+            ? d.amount
+            : this.web3.utils.toWei(d.withdrawInput)
+        )
+        .send({ from: this.account.address })
+        .then(err => {
+          if (err !== '') {
+            Toast.responseHandler(err, Toast.ERROR);
+          } else {
+            Toast.responseHandler('Successfully withdrawn', Toast.SUCCESS);
+          }
+        });
     },
     refresh() {
       clearTimeout(this.polling);
       this.vaults = null;
       updateVaultsLoop.call(this);
     },
-    percent({ amount, depositTime, earnings }) {
+    percent({ amount, depositTime, interest, withdrawTime }) {
+      console.log({amount, depositTime, interest, withdrawTime});
       const yearInMs = 31_556_926_000;
-      const msSinceDeposit = new Date().getTime() - depositTime.getTime();
-      const percent = (earnings / amount) * (yearInMs / msSinceDeposit) * 100;
+      const msSinceDeposit =
+        (withdrawTime || new Date()).getTime() - depositTime.getTime();
+      const percent = (interest / amount) * (yearInMs / msSinceDeposit) * 100;
       return percent.toFixed(2) + ' %';
     }
   }
