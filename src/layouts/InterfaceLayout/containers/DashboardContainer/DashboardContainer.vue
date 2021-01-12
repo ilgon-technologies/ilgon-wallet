@@ -295,7 +295,6 @@ export default {
       updateVaultsLoop.call(this);
     },
     percent({ amount, depositTime, interest, withdrawTime }) {
-      console.log({amount, depositTime, interest, withdrawTime});
       const yearInMs = 31_556_926_000;
       const msSinceDeposit =
         (withdrawTime || new Date()).getTime() - depositTime.getTime();
