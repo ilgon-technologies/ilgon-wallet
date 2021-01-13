@@ -45,7 +45,7 @@
                 >
               </td>
               <td>
-                {{ token.balance }}
+                {{ showBalance(token) }}
                 <i
                   class="fa fa-times-circle clickable"
                   @click="removeToken(index)"
@@ -77,8 +77,7 @@
               </td>
               <td v-if="token.balance === 'Load'">Loading</td>
               <td v-else>
-                <!-- 1000000 -> 1 000 000 -->
-                {{ token.balance.replace(/(\d)(?=(?:\d{3})+$)/g, '$1 ') }}
+                {{ showBalance(token) }}
               </td>
             </tr>
           </table>
@@ -212,6 +211,10 @@ export default {
     }
   },
   methods: {
+    showBalance(token) {
+      // 1000000 -> 1 000 000
+      return token.balance.replace(/(\d)(?=(?:\d{3})+$)/g, '$1 ');
+    },
     iconFetch(tok) {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
       if (token) {
