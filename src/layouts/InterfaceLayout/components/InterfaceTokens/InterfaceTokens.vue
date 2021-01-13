@@ -76,7 +76,10 @@
                 >
               </td>
               <td v-if="token.balance === 'Load'">Loading</td>
-              <td v-else>{{ token.balance }}</td>
+              <td v-else>
+                <!-- 1000000 -> 1 000 000 -->
+                {{ token.balance.replace(/(\d)(?=(?:\d{3})+$)/g, '$1 ') }}
+              </td>
             </tr>
           </table>
 
