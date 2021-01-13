@@ -930,30 +930,4 @@ export const dummyAbi = [
   }
 ];
 
-export default [
-  {
-    name: 'Staking contract',
-    address: '0xdc9f9183A8E54764743A4d33161c5dC480A1EA1d',
-    abi: stakingAbi
-  },
-  {
-    name: 'Geza Gold',
-    address: '0xD6e8917E46eaaAa58BDE97bC040F0C774DDA3175',
-    abi: dummyAbi
-  },
-  {
-    name: 'Gyula Dollar',
-    address: '0x498E1743C55c62c8F85a287655e7cC27E99EAb74',
-    abi: dummyAbi
-  },
-  {
-    name: 'Matias Silver Denarius',
-    address: '0xd8f6B7AE12829b0da9ECdCdF689c77c134C9A3C9',
-    abi: dummyAbi
-  },
-  {
-    name: 'Reka Diamond',
-    address: '0x551e1d371700470040e847F4ac003F5a30aBc317',
-    abi: dummyAbi
-  }
-];
+export default [];
