@@ -213,7 +213,9 @@ export default {
   methods: {
     showBalance(token) {
       // 1000000 -> 1 000 000
-      return token.balance.replace(/(\d)(?=(?:\d{3})+$)/g, '$1 ');
+      // https://stackoverflow.com/a/2901298
+      // eslint-disable-next-line security/detect-unsafe-regex
+      return token.balance.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ' ');
     },
     iconFetch(tok) {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
