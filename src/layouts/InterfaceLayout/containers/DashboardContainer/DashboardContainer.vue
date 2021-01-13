@@ -75,7 +75,7 @@
                   <td>{{ percent(d) }}</td>
                   <td>{{ showDepositType(d) }}</td>
                   <template v-if="d.withdrawTime !== undefined">
-                    <td>{{ d.withdrawTime }}</td>
+                    <td>{{ d.withdrawTime.toLocaleString() }}</td>
                   </template>
                   <template v-else>
                     <td>
