@@ -290,7 +290,10 @@ export default {
       const yearInMs = 31_556_926_000;
       const msSinceDeposit =
         (withdrawTime || new Date()).getTime() - depositTime.getTime();
-      const percent = (interest / amount) * (yearInMs / msSinceDeposit) * 100;
+      const percent = new BigNumber(interest)
+        .dividedBy(amount)
+        .multipliedBy(new BigNumber(yearInMs).dividedBy(msSinceDeposit))
+        .multipliedBy(100);
       return percent.toFixed(2) + ' %';
     }
   }
