@@ -109,7 +109,6 @@ import { mapState } from 'vuex';
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import ILGT from '@/networks/types/ILGT';
-import { Toast } from '@/helpers';
 
 /**
  * @example
@@ -280,14 +279,7 @@ export default {
             ? d.amount
             : this.web3.utils.toWei(d.withdrawInput)
         )
-        .send({ from: this.account.address })
-        .then(err => {
-          if (err !== '') {
-            Toast.responseHandler(err, Toast.ERROR);
-          } else {
-            Toast.responseHandler('Successfully withdrawn', Toast.SUCCESS);
-          }
-        });
+        .send({ from: this.account.address });
     },
     refresh() {
       clearTimeout(this.polling);
