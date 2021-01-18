@@ -358,6 +358,19 @@ export const stakingAbi = [
   },
   {
     inputs: [],
+    name: 'startTime',
+    outputs: [
+      {
+        internalType: 'uint32',
+        name: '',
+        type: 'uint32'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
     name: 'sumDeposits',
     outputs: [
       {
