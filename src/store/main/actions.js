@@ -1,6 +1,5 @@
 import url from 'url';
 import web3 from 'web3';
-import Vue from 'vue';
 import MEWProvider from '@/wallets/web3-provider';
 import {
   MEW_CONNECT,
@@ -126,8 +125,7 @@ const gettingStartedDone = function ({ commit }) {
   commit('GETTING_STARTED_DONE');
 };
 
-const clearWallet = function ({ commit, state }) {
-  const linkTo = state.path !== '' ? state.path : '/';
+const clearWallet = function ({ state }) {
   if (
     state.wallet &&
     (state.wallet.identifier === MEW_CONNECT ||
@@ -136,8 +134,7 @@ const clearWallet = function ({ commit, state }) {
   ) {
     state.wallet.getConnection().disconnect();
   }
-  Vue.router.push(linkTo);
-  commit('CLEAR_WALLET');
+  location.reload();
 };
 
 const createAndSignTx = function ({ commit }, val) {
