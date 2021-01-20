@@ -41,7 +41,10 @@
             <label for="withdrawn">Withdrawn</label>
             <table style="width: 100%">
               <caption>
-                Vaults
+                Deposits
+                <span v-if="show === 'not-withdrawn'">
+                  (on stake total: {{ showDepositsAmount() }})
+                </span>
               </caption>
               <thead>
                 <tr>
@@ -250,6 +253,19 @@ export default {
     clearTimeout(this.polling);
   },
   methods: {
+    showDepositsAmount() {
+      const weisStr = this.vaults
+        .reduce(
+          (acc, { amount, withdrawTime }) =>
+            withdrawTime === undefined ? acc.plus(amount) : acc,
+          new BigNumber(0)
+        )
+        .toFixed();
+      const ethsStr = this.web3.utils.fromWei(weisStr);
+      return parseFloat(ethsStr)
+        .toFixed(8)
+        .replace(/(\.\d)*0+$/, '$1');
+    },
     showInterest(vault) {
       return new BigNumber(this.web3.utils.fromWei(vault.interest)).toFixed(8);
     },
