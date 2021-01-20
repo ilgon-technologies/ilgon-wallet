@@ -2,14 +2,14 @@ import tokens from './tokens-ilg.json';
 import icon from '@/assets/images/networks/ilg.png';
 import contracts from '@/networks/types/contracts';
 
-const blockExplorerUrl = 'https://ilgonexplorer.com/';
+const blockExplorerUrl = 'https://ilgonexplorer.com';
 
 export default {
   name: 'ILG',
   name_long: 'ILGON',
-  homePage: 'https://ilg.com',
-  blockExplorerTX: blockExplorerUrl + 'tx/[[txHash]]',
-  blockExplorerAddr: blockExplorerUrl + 'address/[[address]]',
+  homePage: blockExplorerUrl,
+  blockExplorerTX: blockExplorerUrl + '/tx/[[txHash]]',
+  blockExplorerAddr: blockExplorerUrl + '/address/[[address]]',
   chainID: 0x696c67,
   tokens: tokens,
   contracts: contracts,

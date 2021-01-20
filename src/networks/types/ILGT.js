@@ -2,14 +2,14 @@ import tokens from './tokens-ilgt.json';
 import icon from '@/assets/images/networks/ilg-test.png';
 import contracts from '@/networks/types/contracts-test';
 
-const blockExplorerUrl = 'http://explorer.ilgoindev.e-diploma.org:44000/';
+const blockExplorerUrl = 'http://explorer.ilgoindev.e-diploma.org:44000';
 
 export default {
   name: 'ILGT',
   name_long: 'ILGON Test',
-  homePage: 'https://ilg.com',
-  blockExplorerTX: blockExplorerUrl + 'tx/[[txHash]]',
-  blockExplorerAddr: blockExplorerUrl + 'address/[[address]]',
+  homePage: blockExplorerUrl,
+  blockExplorerTX: blockExplorerUrl + '/tx/[[txHash]]',
+  blockExplorerAddr: blockExplorerUrl + '/address/[[address]]',
   chainID: 0x696c6774,
   tokens,
   contracts,
