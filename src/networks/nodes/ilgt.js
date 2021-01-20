@@ -2,7 +2,7 @@ import { ILGT } from '../types';
 
 export default {
   type: ILGT,
-  service: 'ilg.com',
+  service: ILGT.homePage,
   url: 'https://wallet.ilgointest.e-diploma.org/rpc/ilgtest/',
   port: 443,
   auth: false,
