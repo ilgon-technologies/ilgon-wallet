@@ -1,6 +1,123 @@
 export const stakingAbi = [
   {
     inputs: [],
+    name: 'deposit',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
+      },
+      {
+        internalType: 'string',
+        name: 'label',
+        type: 'string'
+      },
+      {
+        internalType: 'address',
+        name: 'target',
+        type: 'address'
+      },
+      {
+        internalType: 'enum Staking.DepositType',
+        name: 'depositType',
+        type: 'uint8'
+      },
+      {
+        internalType: 'uint256',
+        name: 'stakingBonus',
+        type: 'uint256'
+      }
+    ],
+    name: 'depositAdmin',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'target',
+        type: 'address'
+      }
+    ],
+    name: 'getVotingPower',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
+      }
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'newVotingRound',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
+      }
+    ],
+    name: 'sendToOwner',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address[]',
+        name: 'newAdmins',
+        type: 'address[]'
+      }
+    ],
+    name: 'setAdmins',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint8[]',
+        name: 'newAmountPremiums',
+        type: 'uint8[]'
+      },
+      {
+        internalType: 'uint256[]',
+        name: 'newAmountLimits',
+        type: 'uint256[]'
+      }
+    ],
+    name: 'setAmountLimitsAndPremiums',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'toggleDepositOpen',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor'
   },
@@ -46,44 +163,72 @@ export const stakingAbi = [
     type: 'fallback'
   },
   {
-    inputs: [],
-    name: 'deposit',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function'
-  },
-  {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256'
-      },
-      {
-        internalType: 'string',
-        name: 'label',
-        type: 'string'
-      },
       {
         internalType: 'address',
         name: 'target',
         type: 'address'
       },
       {
-        internalType: 'enum Staking.DepositType',
-        name: 'depositType',
-        type: 'uint8'
+        internalType: 'uint256',
+        name: 'vaultId',
+        type: 'uint256'
       },
       {
         internalType: 'uint256',
-        name: 'stakingBonus',
+        name: 'value',
         type: 'uint256'
       }
     ],
-    name: 'depositAdmin',
+    name: 'updateStakingBonus',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'target',
+        type: 'address'
+      },
+      {
+        internalType: 'uint256',
+        name: 'vaultId',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'value',
+        type: 'uint256'
+      }
+    ],
+    name: 'updateWithdrawLimit',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'vaultId',
+        type: 'uint256'
+      },
+      {
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
+      }
+    ],
+    name: 'withdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    stateMutability: 'payable',
+    type: 'receive'
   },
   {
     inputs: [],
@@ -119,6 +264,66 @@ export const stakingAbi = [
         internalType: 'uint8[]',
         name: '',
         type: 'uint8[]'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'a',
+        type: 'address'
+      }
+    ],
+    name: 'getUserData',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'deposits',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint32',
+            name: 'activityTime',
+            type: 'uint32'
+          },
+          {
+            internalType: 'uint256',
+            name: 'votingPower',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'accumulatedVotingPower',
+            type: 'uint256'
+          }
+        ],
+        internalType: 'struct Staking.UserData',
+        name: '',
+        type: 'tuple'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'a',
+        type: 'address'
+      }
+    ],
+    name: 'getUserDeposits',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
       }
     ],
     stateMutability: 'view',
@@ -184,19 +389,6 @@ export const stakingAbi = [
     type: 'function'
   },
   {
-    inputs: [],
-    name: 'getVaultUsersLength',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
     inputs: [
       {
         internalType: 'address',
@@ -216,14 +408,8 @@ export const stakingAbi = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'target',
-        type: 'address'
-      }
-    ],
-    name: 'getVotingPower',
+    inputs: [],
+    name: 'getVaultUsersLength',
     outputs: [
       {
         internalType: 'uint256',
@@ -231,7 +417,7 @@ export const stakingAbi = [
         type: 'uint256'
       }
     ],
-    stateMutability: 'nonpayable',
+    stateMutability: 'view',
     type: 'function'
   },
   {
@@ -275,13 +461,6 @@ export const stakingAbi = [
   },
   {
     inputs: [],
-    name: 'newVotingRound',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [],
     name: 'previousVoteTime',
     outputs: [
       {
@@ -313,50 +492,6 @@ export const stakingAbi = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256'
-      }
-    ],
-    name: 'sendToOwner',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address[]',
-        name: 'newAdmins',
-        type: 'address[]'
-      }
-    ],
-    name: 'setAdmins',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint8[]',
-        name: 'newAmountPremiums',
-        type: 'uint8[]'
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'newAmountLimits',
-        type: 'uint256[]'
-      }
-    ],
-    name: 'setAmountLimitsAndPremiums',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
     inputs: [],
     name: 'startTime',
     outputs: [
@@ -380,59 +515,6 @@ export const stakingAbi = [
       }
     ],
     stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'toggleDepositOpen',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'target',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'vaultId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'value',
-        type: 'uint256'
-      }
-    ],
-    name: 'updateStakingBonus',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'target',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'vaultId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'value',
-        type: 'uint256'
-      }
-    ],
-    name: 'updateWithdrawLimit',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function'
   },
   {
@@ -466,28 +548,6 @@ export const stakingAbi = [
     ],
     stateMutability: 'view',
     type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'vaultId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256'
-      }
-    ],
-    name: 'withdraw',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    stateMutability: 'payable',
-    type: 'receive'
   }
 ];
 export const dummyAbi = [
