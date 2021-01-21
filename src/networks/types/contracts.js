@@ -1003,4 +1003,10 @@ export const dummyAbi = [
   }
 ];
 
-export default [];
+export default [
+  {
+    name: 'Staking contract',
+    address: '0x0002B1f75186945ed3A03b2E1d7285F54bf817da',
+    abi: stakingAbi
+  }
+];
