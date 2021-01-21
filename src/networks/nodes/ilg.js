@@ -1,9 +1,8 @@
-import { ILG } from '../types';
-import { removeProtocol } from '@/networks/nodes/index';
+import {ILG} from '../types';
 
 export default {
   type: ILG,
-  service: removeProtocol(ILG.homePage),
+  service: ILG.homePage.replace(/^https?:\/\//, ''),
   url: 'https://mainnet-rpc.ilgonwallet.com',
   port: 443,
   auth: false,

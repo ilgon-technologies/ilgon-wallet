@@ -1,9 +1,8 @@
-import { ILG, ILGD } from '../types';
-import { removeProtocol } from '@/networks/nodes/index';
+import {ILG, ILGD} from '../types';
 
 export default {
   type: ILGD,
-  service: removeProtocol(ILG.homePage),
+  service: ILG.homePage.replace(/^https?:\/\//, ''),
   url: 'https://wallet.ilgoindev.e-diploma.org/rpc/eth/',
   port: 443,
   auth: false,
