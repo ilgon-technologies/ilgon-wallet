@@ -148,7 +148,7 @@ import PrintModal from './components/PrintModal';
 import { Web3Wallet } from '@/wallets/software';
 import { Toast, Misc } from '@/helpers';
 import { toChecksumAddress } from '@/helpers/addressUtils';
-import * as networkTypes from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 import { BigNumber } from 'bignumber.js';
 import store from 'store';
 import TokenBalance from '@myetherwallet/eth-token-balance';

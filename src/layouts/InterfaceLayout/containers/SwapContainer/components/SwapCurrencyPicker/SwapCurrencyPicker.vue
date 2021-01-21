@@ -96,7 +96,7 @@ import { hasIcon } from '@/partners';
 import masterFile from '@/_generated/master-file.json';
 import { toChecksumAddress } from '@/helpers/addressUtils';
 import { mapState } from 'vuex';
-import { ILG, ILGT } from '@/networks/types';
+import { ilgs } from '@/networks/types';
 import Fuse from 'fuse.js';
 
 export default {
@@ -250,7 +250,7 @@ export default {
         const token = this.networkTokens[toChecksumAddress(address)];
         if (token) {
           const tokenSrc = (() => {
-            if ([ILG, ILGT].some(n => n.name.toLowerCase() === token.network)) {
+            if (ilgs.some(n => n.name.toLowerCase() === token.network)) {
               return token.icon_png;
             } else if (token.icon_png !== '') {
               return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;

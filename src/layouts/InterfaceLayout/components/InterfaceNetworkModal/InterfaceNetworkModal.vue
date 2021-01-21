@@ -276,11 +276,13 @@
 import store from 'store';
 
 import InterfaceBottomText from '@/components/InterfaceBottomText';
-import * as networkTypes from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 import nodeList from '@/networks';
 import Misc from '@/helpers/misc';
 
 import { mapState, mapActions } from 'vuex';
+
+const defualtNetwork = Object.values(networkTypes)[0];
 
 export default {
   components: {
@@ -289,8 +291,8 @@ export default {
   data() {
     return {
       types: networkTypes,
-      selectedNetworkName: 'ILG',
-      chainID: networkTypes['ILG'].chainID,
+      selectedNetworkName: defualtNetwork.name,
+      chainID: defualtNetwork.chainID,
       port: 443,
       name: '',
       url: '',
@@ -344,7 +346,7 @@ export default {
       homePage: '',
       blockExplorerTX: '',
       blockExplorerAddr: '',
-      chainID: networkTypes['ILG'].chainID,
+      chainID: defualtNetwork.chainID,
       tokens: [],
       contracts: [],
       currencyName: 'CUS'

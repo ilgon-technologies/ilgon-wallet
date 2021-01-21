@@ -1,42 +1,11 @@
-const platform = require('platform');
-import * as types from './types';
+import { networkTypes } from './types';
 import * as nodes from './nodes';
-import { MEW_CX } from '@/builds/configs/types';
 
-let nodeList = {};
-Object.keys(types).forEach(key => {
-  nodeList[types[key].name] = [];
-});
+const nodeList = Object.fromEntries(
+  Object.values(networkTypes).map(type => [
+    type.name,
+    Object.values(nodes).filter(node => node.type === type)
+  ])
+);
 
-Object.keys(nodes).forEach(key => {
-  if (nodes[key].service === nodes['ilg'].service) {
-    nodeList[nodes[key].type.name].splice(0, 0, nodes[key]);
-  } else if (
-    nodes[key].service === 'infura.io' &&
-    platform.name &&
-    platform.name === 'firefox'
-  )
-    return;
-  // temp until infura fix https://github.com/INFURA/infura/issues/174
-  else {
-    nodeList[nodes[key].type.name].push(nodes[key]);
-  }
-});
-
-if (BUILD_TYPE === MEW_CX) {
-  const obj = {};
-  Object.keys(nodeList).forEach(network => {
-    obj[network] = nodeList[network].filter(item => {
-      return item.service === 'myetherwallet.com-ws';
-    });
-  });
-
-  Object.keys(obj).forEach(network => {
-    if (obj[network].length === 0) {
-      delete obj[network];
-    }
-  });
-
-  nodeList = Object.assign({}, obj);
-}
 export default nodeList;

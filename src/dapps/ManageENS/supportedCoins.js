@@ -27,6 +27,14 @@ export default {
     encode: formatsByName['ETH'].encoder,
     decode: formatsByName['ETH'].decoder
   },
+  ILGD: {
+    id: 60,
+    symbol: 'ILG',
+    name: 'ILGON dev',
+    validator: new MValidator('Ethereum'),
+    encode: formatsByName['ETH'].encoder,
+    decode: formatsByName['ETH'].decoder
+  },
   ETH: {
     id: 60,
     symbol: 'ETH',

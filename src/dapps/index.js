@@ -13,9 +13,9 @@ import lendMigrator from '@/assets/images/icons/dapps/lend-migrator.svg';
 import unstoppable from '@/assets/images/icons/dapps/unstoppable.png';
 import staked from '@/assets/images/icons/dapps/staked-logo.svg';
 import golem from '@/assets/images/icons/dapps/Golem_Submark_Positive_RGB.svg';
-import { ILG, ILGT, ETH } from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 
-const supportedNetworks = [ILG.name, ILGT.name, ETH.name];
+const supportedNetworks = Object.keys(networkTypes);
 
 const dapps = {
   unstoppable: {

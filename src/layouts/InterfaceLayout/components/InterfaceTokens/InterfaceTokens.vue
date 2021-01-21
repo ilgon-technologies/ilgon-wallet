@@ -137,9 +137,9 @@ import InterfaceTokensModal from '../InterfaceTokensModal';
 import InterfaceAds from '../InterfaceAds';
 import sortByBalance from '@/helpers/sortByBalance.js';
 import utils from 'web3-utils';
-import * as networkTypes from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 import masterFile from '@/_generated/master-file.json';
-import { ILG, ILGT } from '@/networks/types';
+import { ilgs } from '@/networks/types';
 
 export default {
   components: {
@@ -220,7 +220,7 @@ export default {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
       if (token) {
         const tokenSrc = (() => {
-          if ([ILG, ILGT].some(n => n.name.toLowerCase() === token.network)) {
+          if (ilgs.some(n => n.name.toLowerCase() === token.network)) {
             return token.icon_png;
           } else if (token.icon_png !== '') {
             return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;

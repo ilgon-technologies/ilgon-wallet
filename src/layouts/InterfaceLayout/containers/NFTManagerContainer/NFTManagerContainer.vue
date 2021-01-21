@@ -294,7 +294,7 @@ export default {
       return this.isOnlineAndEth && this.countsRetrieved;
     },
     isOnlineAndEth() {
-      return this.online && this.network.type.name === 'ILG';
+      return this.online && this.network.type.name === 'ETH';
     }
   },
   watch: {},
@@ -392,7 +392,7 @@ export default {
     },
 
     async setup() {
-      if (this.network.type.name === 'ILG') {
+      if (this.network.type.name === 'ETH') {
         const customNFTs = store.get('customNFTs');
 
         if (customNFTs !== undefined && customNFTs !== null) {
