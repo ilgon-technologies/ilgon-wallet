@@ -1,4 +1,4 @@
-import {ILG, ILGD} from '../types';
+import { ILG, ILGD } from '../types';
 
 export default {
   type: ILGD,

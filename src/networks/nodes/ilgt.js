@@ -1,4 +1,4 @@
-import {ILGT} from '../types';
+import { ILGT } from '../types';
 
 export default {
   type: ILGT,
