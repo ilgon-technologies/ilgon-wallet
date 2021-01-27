@@ -2,7 +2,7 @@ import tokens from './tokens-ilgt.json';
 import icon from '@/assets/images/networks/ilg-test.png';
 import contracts from '@/networks/types/contracts-test';
 
-const blockExplorerUrl = 'https://explorer.ilgointest.e-diploma.org';
+const blockExplorerUrl = 'https://testnet.ilgonexplorer.com';
 
 export default {
   name: 'ILGT',
