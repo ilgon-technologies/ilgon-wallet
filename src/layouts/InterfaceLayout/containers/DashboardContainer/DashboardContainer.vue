@@ -53,7 +53,7 @@
                   <th scope="col">Amount</th>
                   <th scope="col">Earnings</th>
                   <th scope="col">Percent</th>
-                  <th scope="col">Type</th>
+                  <th v-if="shouldShowDepositTypeColumn()" scope="col">Type</th>
                   <template v-if="show === 'withdrawn'">
                     <th scope="col">Withdraw time</th>
                   </template>
@@ -76,7 +76,9 @@
                   <td>{{ web3.utils.fromWei(d.amount) }}</td>
                   <td style="font-family: monospace">{{ showInterest(d) }}</td>
                   <td>{{ percent(d) }}</td>
-                  <td>{{ showDepositType(d) }}</td>
+                  <td v-if="shouldShowDepositTypeColumn()">
+                    {{ showDepositType(d) }}
+                  </td>
                   <template v-if="d.withdrawTime !== undefined">
                     <td>{{ d.withdrawTime.toLocaleString() }}</td>
                   </template>
@@ -253,6 +255,13 @@ export default {
     clearTimeout(this.polling);
   },
   methods: {
+    shouldShowDepositTypeColumn() {
+      return this.vaults
+        .filter(
+          v => (v.withdrawTime !== undefined) === (this.show === 'withdrawn')
+        )
+        .some(v => v.depositType !== 'NORMAL');
+    },
     showDepositsAmount() {
       const weisStr = this.vaults
         .reduce(
