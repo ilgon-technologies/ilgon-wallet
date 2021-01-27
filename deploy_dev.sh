@@ -2,7 +2,7 @@
 # builds the wallet and deploys it to the dev server
 # usage: deploy.sh USERNAME
 rm dist.zip
-./build.sh &&
+VUE_APP_MODE="$VUE_APP_MODE" ./build.sh &&
   zip -r dist.zip dist &&
   scp ./dist.zip "$1@18.193.173.193:" &&
   ssh \
