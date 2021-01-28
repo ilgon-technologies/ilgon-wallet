@@ -1,14 +1,8 @@
-export const stakingAbi = [
+const stakingAbi = [
   {
     inputs: [],
     name: 'deposit',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'payable',
     type: 'function'
   },
@@ -41,13 +35,7 @@ export const stakingAbi = [
       }
     ],
     name: 'depositAdmin',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -73,13 +61,7 @@ export const stakingAbi = [
   {
     inputs: [],
     name: 'newVotingRound',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -92,13 +74,7 @@ export const stakingAbi = [
       }
     ],
     name: 'sendToOwner',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -111,13 +87,7 @@ export const stakingAbi = [
       }
     ],
     name: 'setAdmins',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -135,26 +105,14 @@ export const stakingAbi = [
       }
     ],
     name: 'setAmountLimitsAndPremiums',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [],
     name: 'toggleDepositOpen',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -223,13 +181,7 @@ export const stakingAbi = [
       }
     ],
     name: 'updateStakingBonus',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -252,13 +204,7 @@ export const stakingAbi = [
       }
     ],
     name: 'updateWithdrawLimit',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -276,13 +222,7 @@ export const stakingAbi = [
       }
     ],
     name: 'withdraw',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -1066,7 +1006,7 @@ export const dummyAbi = [
 export default [
   {
     name: 'Staking contract',
-    address: '0x750D91a6fd66256d4C2Bf275c913f1740Bbd8791',
+    address: '0x0002B1f75186945ed3A03b2E1d7285F54bf817da',
     abi: stakingAbi
   }
 ];
