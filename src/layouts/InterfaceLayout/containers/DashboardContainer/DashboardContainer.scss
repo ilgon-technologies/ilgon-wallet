@@ -113,6 +113,22 @@ $actionsSwapCollepsePoint: 700px;
   }
 }
 
+#staking-table {
+  margin-top: 0.44em;
+  border-collapse: collapse;
+
+  tbody {
+    tr {
+      border-bottom: 1px solid black;
+    }
+  }
+
+
+  th, td {
+    padding: 0.25em 0.3em;
+  }
+}
+
 .block--dapps {
   .block--container {
     display: grid;

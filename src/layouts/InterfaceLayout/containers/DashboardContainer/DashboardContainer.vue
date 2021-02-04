@@ -12,34 +12,41 @@
                 v-model="depositAmount"
                 type="number"
                 aria-label="Deposit amount"
+                style="width: 7.5em"
               />
               <button
                 :disabled="depositAmount === '' || depositAmount <= 0"
+                style="margin-left: 0.5em"
                 @click="deposit"
               >
                 Deposit
               </button>
+              <span style="margin-left: 1em"><strong>Show only:</strong></span>
+              <input
+                id="not-withdrawn"
+                v-model="show"
+                type="radio"
+                :value="'not-withdrawn'"
+                style="margin-left: 1.4em"
+              />
+              <label for="not-withdrawn" style="margin-left: 0.3em">
+                On stake
+              </label>
+              <input
+                id="withdrawn"
+                v-model="show"
+                type="radio"
+                :value="'withdrawn'"
+                style="margin-left: 1.3em"
+              />
+              <label for="withdrawn" style="margin-left: 0.3em">
+                Withdrawn
+              </label>
             </div>
-            <button @click="refresh">Refresh</button>
+            <button style="margin-top: 0.25em" @click="refresh">Refresh</button>
             <br />
-            Show only:
-            <input
-              id="not-withdrawn"
-              v-model="show"
-              type="radio"
-              :value="'not-withdrawn'"
-              style="margin-left: 3%"
-            />
-            <label for="not-withdrawn">On stake</label>
-            <input
-              id="withdrawn"
-              v-model="show"
-              type="radio"
-              :value="'withdrawn'"
-              style="margin-left: 3%"
-            />
-            <label for="withdrawn">Withdrawn</label>
-            <table style="width: 100%">
+
+            <table id="staking-table" style="width: 100%">
               <caption>
                 Deposits
                 <span v-if="show === 'not-withdrawn'">
@@ -72,7 +79,7 @@
                   :key="d.id"
                 >
                   <td>{{ d.label || '' }}</td>
-                  <td>{{ d.depositTime.toLocaleString() }}</td>
+                  <td>{{ showDate(d.depositTime) }}</td>
                   <td>{{ web3.utils.fromWei(d.amount) }}</td>
                   <td style="font-family: monospace">{{ showInterest(d) }}</td>
                   <td>{{ percent(d) }}</td>
@@ -80,20 +87,27 @@
                     {{ showDepositType(d) }}
                   </td>
                   <template v-if="d.withdrawTime !== undefined">
-                    <td>{{ d.withdrawTime.toLocaleString() }}</td>
+                    <td>
+                      {{ d.withdrawTime.toLocaleString([], withoutSeconds) }}
+                    </td>
                   </template>
                   <template v-else>
                     <td>
                       {{ web3.utils.fromWei(d.withdrawableAmount) }}
                     </td>
                     <td>
-                      <input
-                        v-if="d.depositType !== 'NORMAL'"
-                        v-model="d.withdrawInput"
-                        type="number"
-                        aria-label="Withdraw amount"
-                      />
-                      <button @click="withdraw(d)">Withdraw</button>
+                      <div style="display: flex">
+                        <input
+                          v-if="d.depositType !== 'NORMAL'"
+                          v-model="d.withdrawInput"
+                          type="number"
+                          aria-label="Withdraw amount"
+                          style="width: 7.5em"
+                        />
+                        <button style="margin-left: auto" @click="withdraw(d)">
+                          Withdraw
+                        </button>
+                      </div>
                     </td>
                   </template>
                 </tr>
@@ -108,12 +122,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex';
 
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 import { ILG, ILGT } from '@/networks/types';
+// eslint-disable-next-line no-unused-vars
+import { Contract } from 'web3-eth-contract';
+import Vue from 'vue';
 
 /**
  * @example
@@ -121,6 +138,9 @@ import { ILG, ILGT } from '@/networks/types';
  * range(5)
  */
 const range = endExclusive => Array.from({ length: endExclusive }, (_, i) => i);
+const withoutSeconds = Object.fromEntries(
+  ['year', 'month', 'day', 'hour', 'minute'].map(key => [key, 'numeric'])
+);
 
 const toDepositType = n => {
   switch (n) {
@@ -135,90 +155,45 @@ const toDepositType = n => {
   }
 };
 
-function updateVaultsLoop() {
-  this.contract.methods
-    .getVaultsLength(this.account.address)
-    .call()
-    .then(range)
-    .then(vaults =>
-      Promise.all(
-        vaults.map(id =>
-          this.contract.methods
-            .getVaultById(this.account.address, id)
-            .call()
-            .then(
-              ({
-                label,
-                depositTime,
-                amount,
-                withdrawnAmount,
-                interest,
-                withdrawTime,
-                withdrawableAmount,
-                depositType
-              }) => ({
-                label,
-                depositTime: new Date(depositTime * 1000),
-                amount,
-                withdrawnAmount,
-                interest,
-                withdrawTime: new Date(withdrawTime * 1000),
-                withdrawableAmount,
-                depositType: toDepositType(depositType)
-              })
-            )
-            .then(
-              ({
-                label,
-                depositTime,
-                amount,
-                withdrawnAmount,
-                interest,
-                withdrawTime,
-                withdrawableAmount,
-                depositType
-              }) => {
-                const remaining = new BigNumber(amount).minus(withdrawnAmount);
-                return {
-                  id,
-                  label,
-                  depositTime,
-                  ...(remaining.isEqualTo(0)
-                    ? { amount, withdrawTime }
-                    : { amount: remaining.toFixed(), withdrawableAmount }),
-                  interest,
-                  depositType
-                };
-              }
-            )
-        )
-      )
-    )
-    .then(
-      vaults =>
-        (this.vaults = vaults.map((v, id) => ({
-          ...v,
-          withdrawInput:
-            (this.vaults && this.vaults[id] && this.vaults[id].withdrawInput) ||
-            ''
-        })))
-    )
-    .finally(() => {
-      this.polling = setTimeout(() => updateVaultsLoop.call(this), 10_000);
-    });
-}
+type Vault = {
+  id: number;
+  label: string;
+  depositTime: Date;
+  amount: string;
+  interest: string;
+  depositType: 'NORMAL' | 'COMPENSATION' | 'PACKAGE';
+  withdrawInput: string;
+} & (
+  | { withdrawTime: Date; withdrawableAmount?: never }
+  | { withdrawTime?: never; withdrawableAmount: string }
+);
 
-function initContract({ network, web3 }) {
+function initContract({
+  network,
+  web3
+}: {
+  network: any;
+  web3: Web3;
+}): Contract | null {
   if ([ILG, ILGT].includes(network.type)) {
     const contract = network.type.contracts[0];
-    return new web3.eth.Contract(contract.abi, contract.address);
+    return (new web3.eth.Contract(
+      contract.abi,
+      contract.address
+    ) as unknown) as Contract;
   }
   return null;
 }
 
-export default {
+export default Vue.extend({
   data() {
-    return {
+    const newVar: {
+      depositAmount: string;
+      contract: Contract | null;
+      vaults: null | Vault[];
+      show: 'not-withdrawn' | 'withdrawn';
+      polling: null | number;
+    } = {
       depositAmount: '',
       vaults: null,
       // null if the network does not support staking
@@ -230,6 +205,7 @@ export default {
       // 'not-withdrawn' | 'withdrawn'
       show: 'not-withdrawn'
     };
+    return newVar;
   },
 
   computed: {
@@ -238,38 +214,113 @@ export default {
   watch: {
     // depends on that web3 changes after the network
     web3(web3) {
-      clearTimeout(this.polling);
+      if (this.polling !== null) {
+        clearTimeout(this.polling);
+      }
       this.vaults = null;
       this.contract = initContract({ network: this.network, web3 });
       if (this.contract !== null) {
-        updateVaultsLoop.call(this);
+        this.updateVaultsLoop();
       }
     }
   },
   mounted() {
     if (this.contract !== null) {
-      updateVaultsLoop.call(this);
+      this.updateVaultsLoop();
     }
   },
   beforeDestroy() {
-    clearTimeout(this.polling);
+    if (this.polling !== null) {
+      clearTimeout(this.polling);
+    }
   },
   methods: {
-    shouldShowDepositTypeColumn() {
-      return this.vaults
-        .filter(
-          v => (v.withdrawTime !== undefined) === (this.show === 'withdrawn')
+    showDate: (d: Date) => d.toLocaleString([], withoutSeconds),
+    updateVaultsLoop() {
+      this.contract!.methods.getVaultsLength(this.account.address)
+        .call()
+        .then(range)
+        .then(vaults =>
+          Promise.all(
+            vaults.map((id: number) =>
+              this.contract!.methods.getVaultById(this.account.address, id)
+                .call()
+                .then(
+                  ({
+                    label,
+                    depositTime,
+                    amount,
+                    withdrawnAmount,
+                    interest,
+                    withdrawTime,
+                    withdrawableAmount,
+                    depositType
+                  }) => ({
+                    label,
+                    depositTime: new Date(depositTime * 1000),
+                    amount,
+                    withdrawnAmount,
+                    interest,
+                    withdrawTime: new Date(withdrawTime * 1000),
+                    withdrawableAmount,
+                    depositType: toDepositType(depositType)
+                  })
+                )
+                .then(
+                  ({
+                    label,
+                    depositTime,
+                    amount,
+                    withdrawnAmount,
+                    interest,
+                    withdrawTime,
+                    withdrawableAmount,
+                    depositType
+                  }) => {
+                    const remaining = new BigNumber(amount).minus(
+                      withdrawnAmount
+                    );
+                    return {
+                      id,
+                      label,
+                      depositTime,
+                      ...(remaining.isEqualTo(0)
+                        ? { amount, withdrawTime }
+                        : { amount: remaining.toFixed(), withdrawableAmount }),
+                      interest,
+                      depositType
+                    };
+                  }
+                )
+            )
+          )
         )
-        .some(v => v.depositType !== 'NORMAL');
+        .then(
+          vaults =>
+            (this.vaults = vaults.map((v, id) => ({
+              ...v,
+              withdrawInput:
+                (this.vaults &&
+                  this.vaults[id] &&
+                  this.vaults[id].withdrawInput) ||
+                ''
+            })))
+        )
+        .finally(() => {
+          // this.polling = setTimeout(() => updateVaultsLoop.call(this), 10_000);
+        });
+    },
+    shouldShowDepositTypeColumn() {
+      return this.vaults!.filter(
+        v => (v.withdrawTime !== undefined) === (this.show === 'withdrawn')
+      ).some(v => v.depositType !== 'NORMAL');
     },
     showDepositsAmount() {
-      const weisStr = this.vaults
-        .reduce(
-          (acc, { amount, withdrawTime }) =>
-            withdrawTime === undefined ? acc.plus(amount) : acc,
-          new BigNumber(0)
-        )
-        .toFixed();
+      const weisStr = this.vaults!.reduce(
+        (acc, vault) =>
+          vault.withdrawTime === undefined ? acc.plus(vault.amount) : acc,
+        new BigNumber(0)
+      ).toFixed();
       const ethsStr = this.web3.utils.fromWei(weisStr);
       return parseFloat(ethsStr)
         .toFixed(8)
@@ -291,25 +342,23 @@ export default {
       }
     },
     deposit() {
-      this.contract.methods.deposit().send({
+      this.contract!.methods.deposit().send({
         from: this.account.address,
         value: Web3.utils.toWei(this.depositAmount, 'ether')
       });
     },
     withdraw(d) {
-      this.contract.methods
-        .withdraw(
-          d.id,
-          d.depositType === 'NORMAL'
-            ? d.amount
-            : this.web3.utils.toWei(d.withdrawInput)
-        )
-        .send({ from: this.account.address });
+      this.contract!.methods.withdraw(
+        d.id,
+        d.depositType === 'NORMAL'
+          ? d.amount
+          : this.web3.utils.toWei(d.withdrawInput)
+      ).send({ from: this.account.address });
     },
     refresh() {
-      clearTimeout(this.polling);
+      clearTimeout(this.polling!);
       this.vaults = null;
-      updateVaultsLoop.call(this);
+      this.updateVaultsLoop();
     },
     percent({ amount, depositTime, interest, withdrawTime }) {
       const yearInMs = 31_556_926_000;
@@ -322,7 +371,7 @@ export default {
       return percent.toFixed(2) + ' %';
     }
   }
-};
+});
 </script>
 
 <style lang="scss" scoped>
