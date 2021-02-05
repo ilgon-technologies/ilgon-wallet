@@ -137,12 +137,13 @@ import Vue from 'vue';
  * // returns [0, 1, 2, 3, 4]
  * range(5)
  */
-const range = endExclusive => Array.from({ length: endExclusive }, (_, i) => i);
+const range = (endExclusive: number) =>
+  Array.from({ length: endExclusive }, (_, i) => i);
 const withoutSeconds = Object.fromEntries(
   ['year', 'month', 'day', 'hour', 'minute'].map(key => [key, 'numeric'])
 );
 
-const toDepositType = n => {
+const toDepositType = (n: string) => {
   switch (n) {
     case '0':
       return 'NORMAL';
@@ -240,11 +241,22 @@ export default Vue.extend({
       this.contract!.methods.getVaultsLength(this.account.address)
         .call()
         .then(range)
-        .then(vaults =>
+        .then((vaults: number[]) =>
           Promise.all(
-            vaults.map((id: number) =>
-              this.contract!.methods.getVaultById(this.account.address, id)
-                .call()
+            vaults.map(id =>
+              (this.contract!.methods.getVaultById(
+                this.account.address,
+                id
+              ).call() as Promise<{
+                label: string;
+                depositTime: string;
+                amount: string;
+                withdrawnAmount: string;
+                interest: string;
+                withdrawTime: string;
+                withdrawableAmount: string;
+                depositType: string;
+              }>)
                 .then(
                   ({
                     label,
@@ -257,11 +269,11 @@ export default Vue.extend({
                     depositType
                   }) => ({
                     label,
-                    depositTime: new Date(depositTime * 1000),
+                    depositTime: new Date(parseInt(depositTime) * 1000),
                     amount,
                     withdrawnAmount,
                     interest,
-                    withdrawTime: new Date(withdrawTime * 1000),
+                    withdrawTime: new Date(parseInt(withdrawTime) * 1000),
                     withdrawableAmount,
                     depositType: toDepositType(depositType)
                   })
@@ -296,7 +308,7 @@ export default Vue.extend({
           )
         )
         .then(
-          vaults =>
+          (vaults: any[]) =>
             (this.vaults = vaults.map((v, id) => ({
               ...v,
               withdrawInput:
@@ -326,10 +338,10 @@ export default Vue.extend({
         .toFixed(8)
         .replace(/(\.\d)*0+$/, '$1');
     },
-    showInterest(vault) {
+    showInterest(vault: Vault) {
       return new BigNumber(this.web3.utils.fromWei(vault.interest)).toFixed(8);
     },
-    showDepositType(v) {
+    showDepositType(v: Vault) {
       switch (v.depositType) {
         case 'NORMAL':
           return 'Normal';
@@ -347,7 +359,7 @@ export default Vue.extend({
         value: Web3.utils.toWei(this.depositAmount, 'ether')
       });
     },
-    withdraw(d) {
+    withdraw(d: Vault) {
       this.contract!.methods.withdraw(
         d.id,
         d.depositType === 'NORMAL'
@@ -360,7 +372,7 @@ export default Vue.extend({
       this.vaults = null;
       this.updateVaultsLoop();
     },
-    percent({ amount, depositTime, interest, withdrawTime }) {
+    percent({ amount, depositTime, interest, withdrawTime }: Vault) {
       const yearInMs = 31_556_926_000;
       const msSinceDeposit =
         (withdrawTime || new Date()).getTime() - depositTime.getTime();
