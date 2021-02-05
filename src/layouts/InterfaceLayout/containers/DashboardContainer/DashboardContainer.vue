@@ -324,9 +324,10 @@ export default Vue.extend({
                 ''
             })))
         )
-        .finally(() => {
-          // this.polling = setTimeout(() => updateVaultsLoop.call(this), 10_000);
-        });
+        .finally(
+          () =>
+            (this.polling = setTimeout(() => this.updateVaultsLoop(), 10_000))
+        );
     },
     shouldShowDepositTypeColumn() {
       return this.vaults!.filter(
