@@ -131,6 +131,8 @@ import { ILG, ILGT } from '@/networks/types';
 // eslint-disable-next-line no-unused-vars
 import { Contract } from 'web3-eth-contract';
 import Vue from 'vue';
+// eslint-disable-next-line no-unused-vars
+import { DateTimeFormatOptions } from 'vue-i18n';
 
 /**
  * @example
@@ -139,9 +141,13 @@ import Vue from 'vue';
  */
 const range = (endExclusive: number) =>
   Array.from({ length: endExclusive }, (_, i) => i);
-const withoutSeconds = Object.fromEntries(
-  ['year', 'month', 'day', 'hour', 'minute'].map(key => [key, 'numeric'])
-);
+const withoutSeconds: DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric'
+};
 
 const toDepositType = (n: string) => {
   switch (n) {
