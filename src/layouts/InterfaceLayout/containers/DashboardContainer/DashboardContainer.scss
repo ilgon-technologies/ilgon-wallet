@@ -114,6 +114,12 @@ $actionsSwapCollepsePoint: 700px;
 }
 
 #staking-table {
+  caption {
+    * {
+      font-size: 12px;
+    }
+    font-size: 12px;
+  }
   margin-top: 0.44em;
   border-collapse: collapse;
 
@@ -126,6 +132,13 @@ $actionsSwapCollepsePoint: 700px;
 
   th, td {
     padding: 0.25em 0.3em;
+    font-size: 12px;
+  }
+
+  tr th:last-child, tr td:last-child {
+    display:table-cell;
+    width:100px;
+    min-width:100px;
   }
 }
 

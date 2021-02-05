@@ -22,26 +22,30 @@
                 Deposit
               </button>
               <span style="margin-left: 1em"><strong>Show only:</strong></span>
-              <input
-                id="not-withdrawn"
-                v-model="show"
-                type="radio"
-                :value="'not-withdrawn'"
-                style="margin-left: 1.4em"
-              />
-              <label for="not-withdrawn" style="margin-left: 0.3em">
-                On stake
-              </label>
-              <input
-                id="withdrawn"
-                v-model="show"
-                type="radio"
-                :value="'withdrawn'"
-                style="margin-left: 1.3em"
-              />
-              <label for="withdrawn" style="margin-left: 0.3em">
-                Withdrawn
-              </label>
+              <div style="display: inline-block">
+                <input
+                  id="not-withdrawn"
+                  v-model="show"
+                  type="radio"
+                  :value="'not-withdrawn'"
+                  style="margin-left: 1.4em"
+                />
+                <label for="not-withdrawn" style="margin-left: 0.3em">
+                  On stake
+                </label>
+              </div>
+              <div style="display: inline-block">
+                <input
+                  id="withdrawn"
+                  v-model="show"
+                  type="radio"
+                  :value="'withdrawn'"
+                  style="margin-left: 1.3em"
+                />
+                <label for="withdrawn" style="margin-left: 0.3em">
+                  Withdrawn
+                </label>
+              </div>
             </div>
             <button style="margin-top: 0.25em" @click="refresh">Refresh</button>
             <br />
@@ -102,7 +106,7 @@
                           v-model="d.withdrawInput"
                           type="number"
                           aria-label="Withdraw amount"
-                          style="width: 7.5em"
+                          style="width: 7.5em; margin-right: 0.5em"
                         />
                         <button style="margin-left: auto" @click="withdraw(d)">
                           Withdraw
