@@ -88,7 +88,7 @@
                   </td>
                   <template v-if="d.withdrawTime !== undefined">
                     <td>
-                      {{ d.withdrawTime.toLocaleString([], withoutSeconds) }}
+                      {{ showDate(d.withdrawTime) }}
                     </td>
                   </template>
                   <template v-else>
