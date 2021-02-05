@@ -203,7 +203,7 @@ export default Vue.extend({
       contract: Contract | null;
       vaults: null | Vault[];
       show: 'not-withdrawn' | 'withdrawn';
-      polling: null | number;
+      polling: null | NodeJS.Timeout;
     } = {
       depositAmount: '',
       vaults: null,
