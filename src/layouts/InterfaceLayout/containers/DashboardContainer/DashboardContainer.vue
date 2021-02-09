@@ -174,10 +174,7 @@ type Vault = {
   interest: string;
   depositType: 'NORMAL' | 'COMPENSATION' | 'PACKAGE';
   withdrawInput: string;
-} & (
-  | { withdrawTime: Date; withdrawableAmount?: never }
-  | { withdrawTime?: never; withdrawableAmount: string }
-);
+} & ({ withdrawTime: Date } | { withdrawableAmount: string });
 
 function initContract({
   network,
@@ -335,13 +332,13 @@ export default Vue.extend({
     },
     shouldShowDepositTypeColumn() {
       return this.vaults!.filter(
-        v => (v.withdrawTime !== undefined) === (this.show === 'withdrawn')
+        v => 'withdrawTime' in v === (this.show === 'withdrawn')
       ).some(v => v.depositType !== 'NORMAL');
     },
     showDepositsAmount() {
       const weisStr = this.vaults!.reduce(
         (acc, vault) =>
-          vault.withdrawTime === undefined ? acc.plus(vault.amount) : acc,
+          'withdrawTime' in vault ? acc : acc.plus(vault.amount),
         new BigNumber(0)
       ).toFixed();
       const ethsStr = this.web3.utils.fromWei(weisStr);
@@ -383,12 +380,13 @@ export default Vue.extend({
       this.vaults = null;
       this.updateVaultsLoop();
     },
-    percent({ amount, depositTime, interest, withdrawTime }: Vault) {
+    percent(v: Vault) {
       const yearInMs = 31_556_926_000;
       const msSinceDeposit =
-        (withdrawTime || new Date()).getTime() - depositTime.getTime();
-      const percent = new BigNumber(interest)
-        .dividedBy(amount)
+        ('withdrawTime' in v ? v.withdrawTime : new Date()).getTime() -
+        v.depositTime.getTime();
+      const percent = new BigNumber(v.interest)
+        .dividedBy(v.amount)
         .multipliedBy(new BigNumber(yearInMs).dividedBy(msSinceDeposit))
         .multipliedBy(100);
       return percent.toFixed(2) + ' %';
