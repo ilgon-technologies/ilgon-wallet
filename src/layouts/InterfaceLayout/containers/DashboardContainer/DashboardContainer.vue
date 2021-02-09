@@ -265,25 +265,33 @@ export default Vue.extend({
                 this.account.address,
                 id
               ).call() as Promise<{
-                label: string;
-                depositTime: string;
-                amount: string;
-                withdrawnAmount: string;
+                vault: {
+                  owner: string;
+                  depositTime: string;
+                  withdrawTime: string;
+                  amount: string;
+                  label: string;
+                  withdrawnAmount: string;
+                  depositType: string;
+                  withdrawLimit: string;
+                  firstWithdrawTime: string;
+                  stakingBonus: string;
+                };
                 interest: string;
-                withdrawTime: string;
                 withdrawableAmount: string;
-                depositType: string;
               }>)
                 .then(
                   ({
-                    label,
-                    depositTime,
-                    amount,
-                    withdrawnAmount,
+                    vault: {
+                      label,
+                      depositTime,
+                      amount,
+                      withdrawnAmount,
+                      withdrawTime,
+                      depositType
+                    },
                     interest,
-                    withdrawTime,
-                    withdrawableAmount,
-                    depositType
+                    withdrawableAmount
                   }) => ({
                     label,
                     depositTime: new Date(parseInt(depositTime) * 1000),
