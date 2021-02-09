@@ -20,5 +20,5 @@ export default {
     supportedTld: ['eth', 'xyz']
   },
   icon: icon,
-  currencyName: 'ILG'
+  currencyName: 'ILGT'
 };
