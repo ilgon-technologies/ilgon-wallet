@@ -123,7 +123,6 @@
         </div>
       </div>
     </div>
-    <error-modal :messages="errorMessages" :close="clearErrors" />
   </div>
 </template>
 
@@ -138,7 +137,6 @@ import { Contract } from 'web3-eth-contract';
 import Vue from 'vue';
 // eslint-disable-next-line no-unused-vars
 import { DateTimeFormatOptions } from 'vue-i18n';
-import SimpleErrorModal from '@/components/SimpleErrorModal';
 
 /**
  * @example
@@ -196,9 +194,6 @@ function initContract({
 }
 
 export default Vue.extend({
-  components: {
-    'error-modal': SimpleErrorModal
-  },
   data() {
     const newVar: {
       depositAmount: string;
@@ -206,7 +201,6 @@ export default Vue.extend({
       vaults: null | Vault[];
       show: 'not-withdrawn' | 'withdrawn';
       polling: null | NodeJS.Timeout;
-      errorMessages: string[];
     } = {
       depositAmount: '',
       vaults: null,
@@ -217,8 +211,7 @@ export default Vue.extend({
       }),
       polling: null,
       // 'not-withdrawn' | 'withdrawn'
-      show: 'not-withdrawn',
-      errorMessages: []
+      show: 'not-withdrawn'
     };
     return newVar;
   },
@@ -250,9 +243,6 @@ export default Vue.extend({
     }
   },
   methods: {
-    clearErrors() {
-      this.errorMessages = [];
-    },
     showDate: (d: Date) => d.toLocaleString([], withoutSeconds),
     updateVaultsLoop() {
       this.contract!.methods.getVaultsLength(this.account.address)
