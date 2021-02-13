@@ -1,24 +1,25 @@
 <template>
   <b-modal
-    ref="errorModal"
+    v-if="messages.length > 0"
     centered
     hide-footer
     hide-header
     class="bootstrap-modal"
     static
-    lazy
+    :visible="true"
+    @hide="handleHide"
   >
     <div class="d-block text-center">
       <i class="check-icon fa fa-close" aria-hidden="true" />
       <h2 class="title">{{ $t('confirmation.error') }}</h2>
-      <p>{{ message }}</p>
+      <p v-for="(m, i) in messages" :key="i">{{ m }}</p>
     </div>
     <div class="button-container">
       <b-btn
         class="mid-round-button-lightgrey-filled close-button"
-        @click="hideModal"
+        @click="close"
       >
-        {{ linkMessage === '' ? 'An Error Occured' : linkMessage }}
+        {{ 'Close' }}
       </b-btn>
     </div>
   </b-modal>
@@ -27,29 +28,28 @@
 <style lang="scss" scoped>
 @import 'ErrorModal';
 </style>
-<script>
-export default {
+<script lang="ts">
+// eslint-disable-next-line no-unused-vars
+import { BvModalEvent } from 'bootstrap-vue';
+// eslint-disable-next-line no-unused-vars
+import Vue, { PropType } from 'vue';
+
+export default Vue.extend({
   props: {
-    message: {
-      type: String,
-      default: ''
+    messages: {
+      type: Array as PropType<string[]>,
+      required: true
     },
-    linkMessage: {
-      type: String,
-      default: ''
-    },
-    linkTo: {
-      type: String,
-      default: '/'
+    close: {
+      type: Function as PropType<() => void>,
+      required: true
     }
   },
   methods: {
-    hideModal() {
-      if (this.linkTo !== '/') {
-        this.$router.push({ path: this.linkTo });
-      }
-      this.$refs.success.hide();
+    handleHide(e: BvModalEvent): void {
+      e.preventDefault();
+      this.close();
     }
   }
-};
+});
 </script>
