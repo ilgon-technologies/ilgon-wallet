@@ -9,7 +9,8 @@
       :class="[
         selected ? 'selected' : '',
         'wallet-option-container',
-        link !== '' || name === 'BitBox' ? 'has-link' : ''
+        link !== '' || name === 'BitBox' ? 'has-link' : '',
+        disabled ? 'disabled' : ''
       ]"
     >
       <div class="img-title-container">
@@ -96,7 +97,9 @@ export default {
   },
   methods: {
     select(name) {
-      this.$emit('updateSelected', name);
+      if (!this.disabled) {
+        this.$emit('updateSelected', name);
+      }
     }
   }
 };
