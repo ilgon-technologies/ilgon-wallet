@@ -37,9 +37,6 @@
           class="submit-button"
         />
       </div>
-      <div class="customer-support-block">
-        <customer-support />
-      </div>
     </div>
   </b-modal>
 </template>
@@ -50,13 +47,11 @@ import { PRIV_KEY as privKeyType } from '@/wallets/bip44/walletTypes';
 import { mapState, mapActions } from 'vuex';
 import { isHexString } from 'ethereumjs-util';
 import WarningMessage from '@/components/WarningMessage';
-import CustomerSupport from '@/components/CustomerSupport';
 import StandardButton from '@/components/Buttons/StandardButton';
 import { Toast } from '@/helpers';
 
 export default {
   components: {
-    'customer-support': CustomerSupport,
     'warning-message': WarningMessage,
     'standard-button': StandardButton
   },

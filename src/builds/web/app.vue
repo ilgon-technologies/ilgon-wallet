@@ -10,7 +10,6 @@
     <welcome-modal ref="welcome" />
     <router-view />
     <footer-container />
-    <wallet-launched-footer-banner />
     <confirmation-container v-if="wallet !== null" />
   </div>
 </template>
@@ -22,9 +21,7 @@ import ConfirmationContainer from '@/containers/ConfirmationContainer';
 import WelcomeModal from '@/components/WelcomeModal';
 import store from 'store';
 import { mapState, mapActions } from 'vuex';
-import { Toast } from '@/helpers';
 import LogoutWarningModal from '@/components/LogoutWarningModal';
-import WalletLaunchedBanner from '@/components/WalletLaunchedBanner';
 
 export default {
   name: 'App',
@@ -33,8 +30,7 @@ export default {
     'footer-container': FooterContainer,
     'confirmation-container': ConfirmationContainer,
     'logout-warning-modal': LogoutWarningModal,
-    'welcome-modal': WelcomeModal,
-    'wallet-launched-footer-banner': WalletLaunchedBanner
+    'welcome-modal': WelcomeModal
   },
   computed: {
     ...mapState('main', ['wallet', 'online'])
@@ -51,15 +47,6 @@ export default {
     }
   },
   created() {
-    const succMsg = this.$t('common.updates.new');
-    const errMsg = this.$t('common.updates.update-error');
-
-    window.addEventListener('PWA_UPDATED', () => {
-      Toast.responseHandler(succMsg, Toast.SUCCESS);
-    });
-    window.addEventListener('PWA_MOUNT_ERROR', () => {
-      Toast.responseHandler(errMsg, Toast.WARN);
-    });
     window.addEventListener('online', () => {
       this.checkIfOnline(true);
     });
@@ -82,7 +69,6 @@ export default {
     });
   },
   destroyed() {
-    window.removeEventListener('PWA_UPDATED');
     window.removeEventListener('offline');
     window.removeEventListener('online');
   },

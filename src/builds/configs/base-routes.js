@@ -18,8 +18,6 @@ const AboutYourTeam = () =>
 const DappSummary = () =>
   import('@/layouts/DappSubmissionLayout/containers/SummaryContainer');
 
-const DappsContainer = () =>
-  import('@/layouts/InterfaceLayout/containers/DappsContainer');
 const DeployContractContainer = () =>
   import('@/layouts/InterfaceLayout/containers/DeployContractContainer');
 const InteractWithContractContainer = () =>
@@ -30,8 +28,6 @@ const SendCurrencyContainer = () =>
   import('@/layouts/InterfaceLayout/containers/SendCurrencyContainer');
 const SendOfflineContainer = () =>
   import('@/layouts/InterfaceLayout/containers/SendOfflineContainer');
-const SwapContainer = () =>
-  import('@/layouts/InterfaceLayout/containers/SwapContainer');
 const SignMessageContainer = () =>
   import('@/layouts/InterfaceLayout/containers/SignMessageContainer');
 const VerifyMessageContainer = () =>
@@ -40,8 +36,6 @@ const HardwaresLayout = () => import('@/layouts/HardwaresLayout');
 const PhishingCatcherLayout = () => import('@/layouts/PhishingCatcherLayout');
 const DashboardContainer = () =>
   import('@/layouts/InterfaceLayout/containers/DashboardContainer');
-
-import dapps from '@/dapps/routes';
 
 const router = [
   {
@@ -174,11 +168,6 @@ const router = [
         component: DashboardContainer
       },
       {
-        path: 'dapps',
-        name: 'Dapps',
-        component: DappsContainer
-      },
-      {
         path: 'deploy-contract',
         name: 'Deploy Contract',
         component: DeployContractContainer
@@ -199,11 +188,6 @@ const router = [
         component: SendOfflineContainer
       },
       {
-        path: 'swap',
-        name: 'Swap',
-        component: SwapContainer
-      },
-      {
         path: 'sign-message',
         name: 'Sign Message',
         component: SignMessageContainer
@@ -221,9 +205,5 @@ const router = [
     ]
   }
 ];
-
-Object.keys(dapps).forEach(dapp => {
-  router[router.length - 1].children.push(dapps[dapp]);
-});
 
 export default router;

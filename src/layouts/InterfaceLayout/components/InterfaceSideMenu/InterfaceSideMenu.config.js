@@ -66,44 +66,6 @@ const config = {
       ]
     },
     {
-      name: 'swap',
-      onlineOnly: true,
-      routes: ['/interface/swap'],
-      icons: {
-        active: require('@/assets/images/sidemenu/swap-active.svg'),
-        inactive: require('@/assets/images/sidemenu/swap.svg')
-      },
-      titleKey: 'common.swap',
-      children: []
-    },
-    {
-      name: 'dapps',
-      onlineOnly: true,
-      routes: [
-        '/interface/dapps',
-        '/interface/dapps/manage-ens',
-        '/interface/dapps/manage-ens/owned',
-        '/interface/dapps/manage-ens/forbidden',
-        '/interface/dapps/manage-ens/manage',
-        '/interface/dapps/manage-ens/fifs',
-        '/interface/dapps/manage-ens/claim',
-        '/interface/dapps/manage-ens/dns-error',
-        '/interface/dapps/manage-ens/no-txt-setup',
-        '/interface/dapps/manage-ens/transfer-registrar',
-        '/interface/dapps/manage-ens/create-commitment',
-        '/interface/dapps/manage-ens/permanent-registration',
-        '/interface/dapps/domain-sale',
-        '/interface/dapps/schedule-transaction',
-        '/interface/dapps/maker-dai'
-      ],
-      icons: {
-        active: require('@/assets/images/sidemenu/dapps-active.svg'),
-        inactive: require('@/assets/images/sidemenu/dapps.svg')
-      },
-      titleKey: 'common.dapps',
-      children: []
-    },
-    {
       name: 'contracts',
       onlineOnly: true,
       routes: [

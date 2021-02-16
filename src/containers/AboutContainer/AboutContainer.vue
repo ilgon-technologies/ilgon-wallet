@@ -51,32 +51,6 @@
                 <p>{{ $t('home.hardware-support.text') }}</p>
               </div>
             </dir>
-            <dir class="content">
-              <div class="image">
-                <img src="~@/assets/images/home/icon-swap.svg" alt />
-              </div>
-              <div class="text">
-                <h3>{{ $t('common.swap') }}</h3>
-                <p>{{ $t('home.swap.text') }}</p>
-              </div>
-            </dir>
-            <dir class="content">
-              <div class="image">
-                <img src="~@/assets/images/home/icon-mew-connect.svg" alt />
-              </div>
-              <div class="text">
-                <h3>{{ $t('common.mew-wallet.string') }}</h3>
-                <i18n tag="p" path="common.mew-wallet.desc">
-                  <a
-                    slot="learn-more"
-                    target="_blank"
-                    href="https://www.mewwallet.com/"
-                  >
-                    {{ $t('common.learn-more') }}...
-                  </a>
-                </i18n>
-              </div>
-            </dir>
           </div>
         </div>
       </div>

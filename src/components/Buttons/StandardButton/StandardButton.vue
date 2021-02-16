@@ -79,9 +79,6 @@
         />
       </button>
     </div>
-    <div v-if="options.customerSupport" class="customer-support-block">
-      <customer-support />
-    </div>
     <div v-if="options.helpCenter" class="help-center-block">
       <p>
         {{ $t('common.having-issues') }}
@@ -98,12 +95,10 @@
 
 <script>
 import CheckBox from '@/components/Buttons/CheckBox';
-import CustomerSupport from '@/components/CustomerSupport';
 
 export default {
   components: {
-    'check-box': CheckBox,
-    'customer-support': CustomerSupport
+    'check-box': CheckBox
   },
   props: {
     options: {

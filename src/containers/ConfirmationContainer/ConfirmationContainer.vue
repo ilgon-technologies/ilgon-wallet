@@ -65,15 +65,6 @@
       :message="successMessage"
       :link-message="linkMessage"
     />
-    <swap-widget
-      v-if="fromAddress !== null"
-      ref="swapWidget"
-      :supplied-from="swapWigetData['fromCurrency']"
-      :supplied-to="swapWigetData['toCurrency']"
-      :supplied-from-amount="swapWigetData['fromValue']"
-      :supplied-to-amount="swapWigetData['toValue']"
-      :dest-address="swapWigetData['destAddress']"
-    />
   </div>
 </template>
 
@@ -92,7 +83,6 @@ import { WEB3_WALLET, KEEPKEY } from '@/wallets/bip44/walletTypes';
 import { Toast, Misc } from '@/helpers';
 import locStore from 'store';
 import parseTokensData from '@/helpers/parseTokensData.js';
-import SwapWidget from '@/layouts/InterfaceLayout/containers/SwapContainer/components/SwapWidget';
 
 const events = {
   showSuccessModal: 'showSuccessModal',
@@ -110,8 +100,7 @@ export default {
     'confirm-collection-modal': ConfirmCollectionModal,
     'success-modal': SuccessModal,
     'error-modal': ErrorModal,
-    'confirm-sign-modal': ConfirmSignModal,
-    'swap-widget': SwapWidget
+    'confirm-sign-modal': ConfirmSignModal
   },
   props: {
     active: {

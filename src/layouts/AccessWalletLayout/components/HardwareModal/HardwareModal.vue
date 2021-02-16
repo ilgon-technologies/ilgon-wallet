@@ -41,22 +41,13 @@
           {{ $t('accessWallet.hardware.modal.button-choose') }}
         </div>
       </div>
-      <customer-support />
     </div>
   </b-modal>
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 import ledger from '@/assets/images/icons/HardwareWallet/ledger.svg';
-import bitbox from '@/assets/images/icons/HardwareWallet/bitbox.svg';
-import secalot from '@/assets/images/icons/HardwareWallet/secalot.svg';
 import trezor from '@/assets/images/icons/HardwareWallet/trezor.svg';
-import keepkey from '@/assets/images/icons/HardwareWallet/keepkey.svg';
-import finney from '@/assets/images/icons/button-finney-hover.png';
-import xwallet from '@/assets/images/icons/HardwareWallet/xwallet.svg';
-import bcvault from '@/assets/images/icons/HardwareWallet/bcvault.svg';
-import coolwallet from '@/assets/images/icons/HardwareWallet/coolwallet.svg';
 import WalletOption from '../WalletOption';
 import { Toast } from '@/helpers';
 import { isSupported, ensureSupport } from 'u2f-api';
@@ -80,7 +71,6 @@ import {
 } from '@/wallets/bip44/walletTypes';
 export default {
   components: {
-    'customer-support': CustomerSupport,
     'wallet-option': WalletOption
   },
   props: {
@@ -140,64 +130,6 @@ export default {
               ? 'Browser not supported by Trezor'
               : '',
           link: 'https://trezor.io/?offer_id=12&aff_id=2029'
-        },
-        {
-          name: KEEPKEY_TYPE,
-          imgPath: keepkey,
-          text: 'KeepKey',
-          disabled: false,
-          msg: '',
-          link: 'http://lddy.no/a4im'
-        },
-        {
-          name: COOLWALLET_TYPE,
-          imgPath: coolwallet,
-          text: 'CoolWallet',
-          disabled: false,
-          msg: '',
-          link: 'https://www.coolwallet.io/mew/?ref=myetherwallet1'
-        },
-        {
-          name: FINNEY_TYPE,
-          imgPath: finney,
-          text: 'FINNEY',
-          disabled: false,
-          msg: '',
-          link:
-            'http://shop.sirinlabs.com?rfsn=2397639.54fdf&utm_source=refersion&utm_medium=affiliate&utm_campaign=2397639.54fdf'
-        },
-        {
-          name: 'BitBox',
-          imgPath: bitbox,
-          text: 'BitBox',
-          disabled: false,
-          msg: '',
-          // link: 'https://shiftcrypto.ch/?ref=MEW'
-          link: ''
-        },
-        {
-          name: XWALLET_TYPE,
-          imgPath: xwallet,
-          text: 'XWallet',
-          disabled: false,
-          msg: '',
-          link: 'https://xwallet.pundix.com'
-        },
-        {
-          name: SECALOT_TYPE,
-          imgPath: secalot,
-          text: 'Secalot',
-          disabled: false,
-          msg: '',
-          link: 'https://www.secalot.com/'
-        },
-        {
-          name: BCVAULT_TYPE,
-          imgPath: bcvault,
-          text: 'BC Vault',
-          disabled: false,
-          msg: '',
-          link: 'https://bc-vault.com/?wpam_id=53'
         }
       ]
     };

@@ -46,7 +46,6 @@ import ConcatAddr from '@/filters/ConcatAddr';
 import languages from '@/translations';
 import VueMq from 'vue-mq';
 import VeeValidate from 'vee-validate';
-import './registerServiceWorker';
 import { Promise } from 'q';
 import VueI18n from 'vue-i18n';
 import langShortCodes from '@/translations/getShortCodes';
