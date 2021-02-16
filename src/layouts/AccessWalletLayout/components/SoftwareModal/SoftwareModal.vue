@@ -11,6 +11,9 @@
     <div class="warning">
       <warning-message />
     </div>
+    <div v-if="isSafari()" class="warning">
+      <safari-warning-message />
+    </div>
     <div class="content-block">
       <div class="d-block content-container text-center">
         <div class="button-options">
@@ -19,8 +22,14 @@
             :key="item.name + idx"
             :selected="selected === item.name"
             :hover-icon="item.imgHoverPath"
-            :text="$t(item.text)"
+            :text="
+              $t(item.text) +
+              (isSafari() && item.name === 'byJson'
+                ? ' (not supported on Safari)'
+                : '')
+            "
             :name="item.name"
+            :disabled="isSafari() && item.name === 'byJson'"
             @updateSelected="updateSelected"
           />
         </div>
@@ -64,11 +73,19 @@ import privKeyImgHov from '@/assets/images/icons/button-key-hover.svg';
 import WalletOption from '../WalletOption';
 import StandardButton from '@/components/Buttons/StandardButton';
 import { Toast } from '@/helpers';
+import SafariWarningMessage from '@/components/SafariWarningMessage';
+
+const isSafari = (() => {
+  const includes = s => window.navigator.userAgent.includes(s);
+  // Chrome's user agent includes Safari
+  return includes('Safari') && !includes('Chrome');
+})();
 
 export default {
   components: {
     'wallet-option': WalletOption,
     'warning-message': WarningMessage,
+    'safari-warning-message': SafariWarningMessage,
     'standard-button': StandardButton
   },
   props: {
@@ -113,6 +130,7 @@ export default {
     };
   },
   methods: {
+    isSafari: () => isSafari,
     uploadClick() {
       const jsonInput = this.$refs.jsonInput;
       jsonInput.value = '';
