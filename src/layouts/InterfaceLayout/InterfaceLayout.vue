@@ -216,6 +216,7 @@ export default {
       pollBlock: () => {},
       pollNetwork: () => {},
       pollddress: () => {},
+      pollBalance: () => {},
       highestGas: '0',
       alert: {
         show: false,
@@ -796,6 +797,7 @@ export default {
           this.getBlockUpdater().then(_sub => {
             this.pollBlock = _sub;
           });
+          this.pollBalance = setInterval(this.getBalance, 20_000);
         }
       } else {
         this.receivedTokens = true;
@@ -855,6 +857,7 @@ export default {
       else clearInterval(this.pollBlock);
       clearInterval(this.pollNetwork);
       clearInterval(this.pollAddress);
+      clearInterval(this.pollBalance);
     },
     web3WalletPollNetwork() {
       if (!window.web3.eth) {
