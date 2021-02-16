@@ -10,75 +10,9 @@
           <b-tabs class="x100">
             <div v-if="showProgressBar && false" class="progress-bar" />
             <b-tab
-              :title="this.$t('common.mew-wallet.string')"
-              class="mew-connect-block"
-              active
-              @click="showProgressBar = false"
-            >
-              <div class="tab-content-block">
-                <div class="title-block">
-                  <div class="title-popover">
-                    <h3>{{ $t('createWallet.mew-wallet.title') }}</h3>
-                    <popover
-                      :popcontent="$t('createWallet.mew-wallet.tooltip')"
-                    />
-                  </div>
-                  <h3 class="mew-wallet-desc mt-2">
-                    {{ $t('createWallet.mew-wallet.desc') }}
-                  </h3>
-                  <p class="download-txt mt-3">
-                    {{ $t('createWallet.mew-wallet.details') }}
-                  </p>
-                </div>
-                <div class="appstores">
-                  <div class="icons">
-                    <a
-                      v-if="canDownloadApple"
-                      href="https://itunes.apple.com/app/id1464614025"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        alt
-                        src="~@/assets/images/icons/button-app-store.png"
-                        height="40"
-                      />
-                    </a>
-                    <div v-else @click="openIpadModal">
-                      <img
-                        alt
-                        src="~@/assets/images/icons/button-app-store.png"
-                        height="40"
-                      />
-                    </div>
-                    <a
-                      href="https://play.google.com/store/apps/details?id=com.myetherwallet.mewwallet"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img
-                        alt
-                        src="~@/assets/images/icons/button-google-play-color.png"
-                        height="40"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div class="qr-container mt-5">
-                  <qrcode :value="qrRedirectLink" :options="{ size: 150 }" />
-                </div>
-              </div>
-              <div class="bottom-image">
-                <img alt src="@/assets/images/icons/snippet-mew-wallet.png" />
-              </div>
-            </b-tab>
-            <b-tab
               :title="$t('createWallet.keystore.title-tab')"
               @click="showProgressBar = true"
             >
-              <div class="warning">
-                <warning-message warning-type="create" />
-              </div>
               <div class="tab-content-block">
                 <div class="title-block">
                   <div class="title-popover">
@@ -98,9 +32,6 @@
               :title="$t('createWallet.mnemonic.title-tab')"
               @click="showProgressBar = true"
             >
-              <div class="warning">
-                <warning-message warning-type="create" />
-              </div>
               <div class="tab-content-block">
                 <div class="title-block">
                   <div class="title-popover">
@@ -127,7 +58,6 @@
 </template>
 
 <script>
-import WarningMessage from '@/components/WarningMessage';
 import ByJsonFileContainer from './containers/ByJsonFileContainer';
 import ByMnemonicContainer from './containers/ByMnemonicContainer';
 import TutorialModal from './components/TutorialModal';
@@ -151,8 +81,7 @@ export default {
     'create-wallet-input': CreateWalletInput,
     'create-wallet-input-footer': CreateWalletInputFooter,
     'by-json-page-footer': PageFooter,
-    'ipad-modal': IpadModal,
-    'warning-message': WarningMessage
+    'ipad-modal': IpadModal
   },
   data() {
     return {

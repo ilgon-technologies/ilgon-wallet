@@ -123,7 +123,6 @@
           </p>
         </div>
       </div>
-      <interface-ads></interface-ads>
     </div>
   </div>
 </template>
@@ -134,7 +133,6 @@ import { mapState } from 'vuex';
 import { Toast } from '@/helpers';
 import { toChecksumAddress } from '@/helpers/addressUtils';
 import InterfaceTokensModal from '../InterfaceTokensModal';
-import InterfaceAds from '../InterfaceAds';
 import sortByBalance from '@/helpers/sortByBalance.js';
 import utils from 'web3-utils';
 import * as networkTypes from '@/networks/types';
@@ -142,8 +140,7 @@ import masterFile from '@/_generated/master-file.json';
 
 export default {
   components: {
-    'interface-tokens-modal': InterfaceTokensModal,
-    'interface-ads': InterfaceAds
+    'interface-tokens-modal': InterfaceTokensModal
   },
   props: {
     tokens: {

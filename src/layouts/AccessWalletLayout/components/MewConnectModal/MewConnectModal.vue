@@ -1,7 +1,7 @@
 <template>
   <b-modal
     ref="mewConnect"
-    :title="$t('accessWallet.mobile-app.modal.title')"
+    :title="$t('accessWallet.mobile-app.mew-wallet')"
     hide-footer
     class="bootstrap-modal nopadding modal-mew-connect"
     centered

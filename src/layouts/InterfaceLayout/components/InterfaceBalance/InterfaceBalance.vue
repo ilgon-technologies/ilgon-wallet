@@ -1,6 +1,5 @@
 <template>
   <div class="info-block-container">
-    <interface-balance-modal ref="balance" :balance="balance" />
     <div class="info-block balance">
       <div class="block-image">
         <div class="icon-border">
@@ -23,13 +22,6 @@
           </div>
         </div>
         <div class="icon-container">
-          <b-btn
-            id="balanceCheck"
-            class="custom-tooltip"
-            @click="balanceModalOpen"
-          >
-            <img alt src="~@/assets/images/icons/more.svg" />
-          </b-btn>
           <b-btn
             id="refreshBalance"
             class="custom-tooltip"
@@ -65,12 +57,9 @@
 </template>
 
 <script>
-import InterfaceBalanceModal from '../InterfaceBalanceModal';
 import { mapState } from 'vuex';
 export default {
-  components: {
-    'interface-balance-modal': InterfaceBalanceModal
-  },
+  components: {},
   props: {
     balance: {
       type: String,

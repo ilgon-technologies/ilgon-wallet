@@ -1,20 +1,6 @@
 <template>
   <div class="dashboard-container">
     <div class="container--flex container--top">
-      <div class="container--card block--actions">
-        <div class="title">
-          <h4>{{ $t('interface.actions') }}</h4>
-        </div>
-        <div class="buttons">
-          <button-send-tx :go-to="goTo" class="clickable" />
-          <button-nft-manager
-            :disabled="!isOnlineAndEth"
-            :go-to="goTo"
-            class="clickable"
-          />
-        </div>
-      </div>
-
       <div class="container--card block--swap">
         <div class="flex--row--align-center title">
           <h4>{{ $t('common.swap') }}</h4>
@@ -60,44 +46,12 @@
         </div>
       </div>
     </div>
-
-    <div class="container--card bottom--buttons">
-      <div class="block--dapps">
-        <div class="flex--row--align-center title">
-          <h4>{{ $t('common.dapps') }}</h4>
-          <button
-            class="title-button prevent-user-select"
-            @click="goTo('dapps')"
-          >
-            {{ $t('interface.view-all') }}
-          </button>
-        </div>
-        <div class="block--container">
-          <dapp-buttons
-            v-for="dapp in sortedObject"
-            :key="dapp.title"
-            :title="$t(dapp.title)"
-            :icon="dapp.icon"
-            :icon-disabled="dapp.iconDisabled"
-            :desc="$t(dapp.desc)"
-            :param="dapp.route"
-            :release-date="dapp.releaseDate"
-            :supported-networks="dapp.supportedNetworks"
-            class="dapp"
-          />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import tabsConfig from '../../components/InterfaceSideMenu/InterfaceSideMenu.config';
-import DappButtons from '../../components/DappButtons';
-import dapps from '@/dapps';
-import ButtonNftManager from './components/ButtonNftManager';
-import ButtonSendTx from './components/ButtonSendTx';
 import { hasIcon } from '@/partners';
 
 import { SwapProviders, providers } from '@/partners';
@@ -108,11 +62,7 @@ const toBigNumber = num => {
 };
 
 export default {
-  components: {
-    'dapp-buttons': DappButtons,
-    'button-nft-manager': ButtonNftManager,
-    'button-send-tx': ButtonSendTx
-  },
+  components: {},
   props: {
     tokensWithBalance: {
       type: Array,
@@ -177,20 +127,6 @@ export default {
 
   computed: {
     ...mapState('main', ['account', 'web3', 'network', 'online']),
-    sortedObject() {
-      const arrayedDapp = [];
-      const actualReturnedDapp = [];
-      Object.keys(dapps).forEach(dapp => {
-        if (dapp === 'manageEns' || dapp === 'maker')
-          actualReturnedDapp.push(dapps[dapp]);
-        arrayedDapp.push(dapps[dapp]);
-      });
-      const newestDapp = arrayedDapp.sort((a, b) => {
-        return new Date(b.releaseDate) - new Date(a.releaseDate);
-      })[0];
-      actualReturnedDapp.push(newestDapp);
-      return actualReturnedDapp;
-    },
     isOnlineAndEth() {
       return this.online && this.network.type.name === 'ETH';
     }

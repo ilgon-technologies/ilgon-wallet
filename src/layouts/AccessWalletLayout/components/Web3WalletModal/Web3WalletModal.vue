@@ -136,14 +136,12 @@
           >
         </div>
       </div>
-      <customer-support />
     </div>
     <!-- .modal-content -->
   </b-modal>
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 import { Web3Wallet } from '@/wallets/software';
 import { Toast } from '@/helpers';
 import Web3 from 'web3';
@@ -155,9 +153,7 @@ import firefox from '@/assets/images/browser/firefox.png';
 import opera from '@/assets/images/browser/opera.png';
 
 export default {
-  components: {
-    'customer-support': CustomerSupport
-  },
+  components: {},
   props: {
     networkAndAddressOpen: {
       type: Function,

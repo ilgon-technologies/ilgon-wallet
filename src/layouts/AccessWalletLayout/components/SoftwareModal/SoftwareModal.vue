@@ -52,13 +52,11 @@
           :click-function="continueAccess"
         />
       </div>
-      <customer-support />
     </div>
   </b-modal>
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 import WarningMessage from '@/components/WarningMessage';
 import byJsonImgHov from '@/assets/images/icons/button-json-hover.svg';
 import byMnemImgHov from '@/assets/images/icons/button-mnemonic-hover.svg';
@@ -69,7 +67,6 @@ import { Toast } from '@/helpers';
 
 export default {
   components: {
-    'customer-support': CustomerSupport,
     'wallet-option': WalletOption,
     'warning-message': WarningMessage,
     'standard-button': StandardButton

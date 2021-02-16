@@ -268,7 +268,6 @@
             >{{ $t('common.wallet.access-my') }}</b-btn
           >
         </div>
-        <customer-support />
       </div>
     </div>
     <!-- .modal-content-container -->
@@ -276,7 +275,6 @@
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 import { mapState, mapActions } from 'vuex';
 import { Misc, Toast, pathHelpers } from '@/helpers';
 import web3utils from 'web3-utils';
@@ -288,7 +286,6 @@ import clipboardCopy from 'clipboard-copy';
 const MAX_ADDRESSES = 5;
 export default {
   components: {
-    'customer-support': CustomerSupport,
     blockie: Blockie
   },
   props: {

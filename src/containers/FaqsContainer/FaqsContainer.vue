@@ -16,7 +16,6 @@
               </a>
             </h5>
           </div>
-          <customer-support />
         </div>
 
         <div class="qa-cards">
@@ -58,22 +57,11 @@
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 export default {
-  components: {
-    'customer-support': CustomerSupport
-  },
+  components: {},
   data() {
     return {
       faqs: {
-        faq1: {
-          open: false,
-          title: 'home.faqs.mew-wallet.title',
-          content: 'home.faqs.mew-wallet.text',
-          linkText: 'home.faqs.button-learn-more',
-          link:
-            'https://kb.myetherwallet.com/en/mewwallet/mewwallet-user-guide/'
-        },
         faq2: {
           open: false,
           title: 'home.faqs.other-wallets.title',

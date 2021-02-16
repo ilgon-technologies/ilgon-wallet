@@ -86,13 +86,11 @@
           />
         </div>
       </form>
-      <customer-support />
     </div>
   </b-modal>
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 import WarningMessage from '@/components/WarningMessage';
 import StandardButton from '@/components/Buttons/StandardButton';
 import CreateWalletInput from './components/CreateWalletInput';
@@ -102,7 +100,6 @@ import { Toast } from '@/helpers';
 
 export default {
   components: {
-    'customer-support': CustomerSupport,
     'warning-message': WarningMessage,
     'standard-button': StandardButton,
     'create-wallet-input': CreateWalletInput,

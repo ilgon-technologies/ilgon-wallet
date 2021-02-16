@@ -20,12 +20,7 @@
     }
   },
   "mobile-app": {
-    "option-title": "Mobile App",
-    "examples": "WalletConnect; WalletLink",
-    "modal": {
-      "title": "Access by Mobile App"
-    },
-    "mew-wallet": "MEW wallet"
+    "mew-wallet": "WalletConnect"
   },
   "finney": {
     "scan-info": "To connect, scan the QR code from {wallet} app on your {finney-bc}",
@@ -46,7 +41,7 @@
       "button-buy": "Buy Now",
       "button-choose": "Continue"
     },
-    "examples": "Ledger wallet, FINNEY, Trezor, BitBox, Secalot, KeepKey, XWallet"
+    "examples": "Ledger wallet, Trezor"
   },
   "bitbox": {
     "modal": {
