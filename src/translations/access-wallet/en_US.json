@@ -1,6 +1,6 @@
 {
   "mewconnect": {
-    "option-text": "To see your mobile wallet on MEW web.",
+    "option-text": "To see your mobile wallet on IW web.",
     "modal": {
       "title": "Mobile Access",
       "text1": "Please use MEW wallet App to scan the QR code above",
@@ -75,7 +75,7 @@
     },
     "modal": {
       "title": "Access via MetaMask",
-      "text": "Please use MyEtherWallet on a secure (SSL/HTTPS) connection to connect.",
+      "text": "Please use ILGON Wallet on a secure (SSL/HTTPS) connection to connect.",
       "button-install": "Install Metamask",
       "button-refresh": "Refresh",
       "terms": "To Access my Wallet, I accept {terms}."
@@ -145,7 +145,7 @@
   "invalid-path-desc": "The path: {path} is not valid for this device",
   "wallet-info": "Wallet Information",
   "wallet-options": "Check your transaction history, download a new keystore file, print a paper wallet, and more!",
-  "xwallet-desc": "Use Pundi X Savings account by MEW to scan the QR code above",
+  "xwallet-desc": "Use Pundi X Savings account by IW to scan the QR code above",
   "xwallet-title": "Access by XWallet",
   "get-it-now": "Get It Now",
   "or": "OR CONNECT WITH",

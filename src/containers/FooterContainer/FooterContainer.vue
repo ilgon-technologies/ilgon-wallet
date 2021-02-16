@@ -176,7 +176,7 @@ export default {
       lowerLinks: [
         {
           title: 'footer.feedback',
-          href: 'mailto:support@myetherwallet.com'
+          href: 'mailto:support@ilgonwallet.com'
         },
         {
           title: 'footer.privacy',
@@ -273,7 +273,7 @@ export default {
             },
             {
               text: 'common.cstm-support',
-              href: 'mailto:support@myetherwallet.com'
+              href: 'mailto:support@ilgonwallet.com'
             },
             {
               text: 'common.help-center',

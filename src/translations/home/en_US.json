@@ -1,7 +1,7 @@
 {
-  "tagline1": "Ethereum's",
+  "tagline1": "ILGON's",
   "tagline2": "Original Wallet",
-  "subheading": "MyEtherWallet (our friends call us MEW) is a free, client-side interface helping you interact with the Ethereum blockchain. Our easy-to-use, open-source platform allows you to generate wallets, interact with smart contracts, and so much more.",
+  "subheading": "ILGON Wallet (our friends call us IW) is a free, client-side interface helping you interact with the Ethereum blockchain. Our easy-to-use, open-source platform allows you to generate wallets, interact with smart contracts, and so much more.",
   "create-new-wallet": {
     "text": "Generate your own unique Ethereum wallet. Receive a public address (0x...) and choose a method for access and recovery."
   },
@@ -13,19 +13,19 @@
     "button": "Access Now"
   },
   "about-mew": {
-    "title": "About MEW",
-    "text": "MyEtherWallet - please, call us MEW - puts the Ethereum blockchain at your fingertips. We are a team of crypto-enthusiasts dedicated to bring you the most secure, most intuitive, and dare we say prettiest way to manage your ETH and ERC20 tokens. We're always here to help, and we're never giving away ETH. Cheers!"
+    "title": "About IW",
+    "text": "ILGON Wallet - please, call us IW - puts the Ethereum blockchain at your fingertips. We are a team of crypto-enthusiasts dedicated to bring you the most secure, most intuitive, and dare we say prettiest way to manage your ETH and ERC20 tokens. We're always here to help, and we're never giving away ETH. Cheers!"
   },
   "join-mew": {
-    "title": "Join MEW",
+    "title": "Join IW",
     "text": "Access the Ethereum blockchain's original and most-trusted wallet client, now with a host of new features all contained in an elegant, easy-to-use interface."
   },
   "hardware-support": {
     "title": "Hardware Wallet Support",
-    "text": "MEW offers support for all major hardware wallets including Ledger, Trezor, and many more."
+    "text": "IW offers support for all major hardware wallets including Ledger, Trezor, and many more."
   },
   "swap": {
-    "text": "MEW has partnered with Bity, Kyber Network, Changelly, and Simplex to allow users to swap fiat to crypto, ETH and BTC, ETH and ERC20."
+    "text": "IW has partnered with Bity, Kyber Network, Changelly, and Simplex to allow users to swap fiat to crypto, ETH and BTC, ETH and ERC20."
   },
   "faqs": {
     "subtitle": "Have not found the question that you are looking for?",
@@ -38,27 +38,27 @@
     },
     "create-wallet": {
       "title": "How do I create a new wallet?",
-      "text": "MyEtherWallet (MEW) offers three ways to create a new ETH wallet. These are via MEW wallet, Keystore file, or Mnemonic phrase. For more information, click"
+      "text": "ILGON Wallet (IW) offers three ways to create a new ETH wallet. These are via MEW wallet, Keystore file, or Mnemonic phrase. For more information, click"
     },
     "mewconnect": {
       "title": "What is MEWconnect?",
-      "text": "MEWconnect is our companion mobile app for MyEtherWallet. We call it a hardware wallet without all the hardware. Now available for all Android and iOS smartphones! Read more"
+      "text": "MEWconnect is our companion mobile app for ILGON Wallet. We call it a hardware wallet without all the hardware. Now available for all Android and iOS smartphones! Read more"
     },
     "other-wallets": {
-      "title": "Can MEW work with other wallets?",
-      "text": "MEW supports many different wallet types including hardware wallets, such as the Ledger Nano S or Trezor, and third-party wallets like MetaMask. We are also open for anyone to use their Ethereum wallets with the appropriate information. Read more"
+      "title": "Can IW work with other wallets?",
+      "text": "IW supports many different wallet types including hardware wallets, such as the Ledger Nano S or Trezor, and third-party wallets like MetaMask. We are also open for anyone to use their Ethereum wallets with the appropriate information. Read more"
     },
     "send-txs": {
       "title": "How can I send a transaction?",
-      "text": "MEW lets anyone with a balance of ETH or ERC20 tokens send a transaction, without additional charges. Using the Ethereum blockchain takes gas, which is paid for in ETH, so we recommend having at least .01 ETH to cover around 2 - 3 transactions. Read more"
+      "text": "IW lets anyone with a balance of ETH or ERC20 tokens send a transaction, without additional charges. Using the Ethereum blockchain takes gas, which is paid for in ETH, so we recommend having at least .01 ETH to cover around 2 - 3 transactions. Read more"
     },
     "forgot-pwd": {
       "title": "I forgot my password/private key! What can I do?",
-      "text": "MEW does not offer support to recover or reset passwords/private keys. We always suggest writing down private keys and passwords on physical paper/notebooks for safekeeping. Maybe you saved it on your computer! For ideas on what to look for, read more"
+      "text": "IW does not offer support to recover or reset passwords/private keys. We always suggest writing down private keys and passwords on physical paper/notebooks for safekeeping. Maybe you saved it on your computer! For ideas on what to look for, read more"
     }
   },
   "social": {
-    "title": "Join MEW Community",
+    "title": "Join IW Community",
     "facebook": "Facebook",
     "twitter": "Twitter",
     "medium": "Medium",

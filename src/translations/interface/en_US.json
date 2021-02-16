@@ -72,7 +72,7 @@
   "tx-history": "Transaction History",
   "investigate": "Use the transaction hash to investigate why this transaction failed.",
   "contract-creation": "Contract Creation",
-  "mewconnect-disconnected": "Seems like you are disconnected from MEWconnect / MEW wallet, please reconnect using the App.",
+  "mewconnect-disconnected": "Seems like you are disconnected from mobile wallet, please reconnect using the ILG mobile app.",
   "config": {
     "tx-speed": "Transaction Speed",
     "import": "Import Configuration",
@@ -113,7 +113,7 @@
     "header": "MY ADDRESS ICON",
     "subheader": "Always look for this icon when sending to this wallet",
     "paper": "Paper Wallet",
-    "link2": "https://www.myetherwallet.com",
+    "link2": "https://www.ilgonwallet.com",
     "my-priv": "MY PRIVATE KEY",
     "warning": "Please Keep Your Paper Wallet at a {safe} Place! {extend}",
     "dont-share-priv-key": "Please {doNot} Share Your Private Key With Anyone!",
