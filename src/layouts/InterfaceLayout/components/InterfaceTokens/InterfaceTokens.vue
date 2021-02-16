@@ -45,7 +45,7 @@
                 >
               </td>
               <td>
-                {{ token.balance }}
+                {{ showBalance(token) }}
                 <i
                   class="fa fa-times-circle clickable"
                   @click="removeToken(index)"
@@ -75,14 +75,10 @@
                   >{{ token.symbol }}</a
                 >
               </td>
-              <td
-                v-if="token.balance === 'Load' && online"
-                class="load-token"
-                @click="online ? getSpecificTokenBalance(token) : () => {}"
-              >
-                {{ token.balance }}
+              <td v-if="token.balance === 'Load'">Loading</td>
+              <td v-else>
+                {{ showBalance(token) }}
               </td>
-              <td v-else>{{ token.balance }}</td>
             </tr>
           </table>
 
@@ -213,6 +209,12 @@ export default {
     }
   },
   methods: {
+    showBalance(token) {
+      // 1000000 -> 1 000 000
+      // https://stackoverflow.com/a/2901298
+      // eslint-disable-next-line security/detect-unsafe-regex
+      return token.balance.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ' ');
+    },
     iconFetch(tok) {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
       if (token) {
@@ -281,18 +283,6 @@ export default {
       )
         ? storedTokens[this.network.type.name]
         : [];
-    },
-    async getSpecificTokenBalance(token) {
-      for (let i = 0; i < this.tokens.length; i++) {
-        if (
-          toChecksumAddress(this.tokens[i].address) ===
-          toChecksumAddress(token.address)
-        ) {
-          this.tokens[i].balance = await this.getTokenBalance(token);
-        }
-      }
-      this.tokens.sort(sortByBalance);
-      this.resetTokenSelection();
     },
     addTokenModal() {
       this.$refs.tokenModal.$refs.tokenModal.show();
