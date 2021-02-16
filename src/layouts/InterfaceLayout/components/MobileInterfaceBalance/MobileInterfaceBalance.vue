@@ -12,16 +12,28 @@
           <div class="balance-text-container">
             <div v-show="balance !== undefined" class="balance-data">
               <div class="balance-value">
-                {{ balance }}
+                {{ showWholes()
+                }}<span style="font-size: 75%; margin: 0">{{
+                  showDecimals()
+                }}</span>
               </div>
               <div class="currency">
                 {{ network.type.currencyName }}
               </div>
             </div>
             <i v-show="balance === undefined" class="fa fa-spin fa-spinner" />
+            <input
+              ref="mobileCopyBalance"
+              :value="balance"
+              class="mobile-hidden-input"
+              autocomplete="off"
+            />
           </div>
         </div>
         <div class="icon-container">
+          <b-btn class="custom-tooltip" @click="copy">
+            <img alt src="~@/assets/images/icons/copy.svg" />
+          </b-btn>
           <b-btn
             v-if="false"
             id="refreshBalance"
@@ -59,6 +71,9 @@
 
 <script>
 import { mapState } from 'vuex';
+import { showWholes, showDecimals } from '../InterfaceBalance';
+import { Toast } from '@/helpers';
+
 export default {
   components: {},
   props: {
@@ -85,8 +100,19 @@ export default {
     }
   },
   methods: {
+    copy() {
+      this.$refs.mobileCopyBalance.select();
+      document.execCommand('copy');
+      Toast.responseHandler(this.$t('common.copied'), Toast.INFO);
+    },
     balanceModalOpen() {
       this.$refs.balance.$refs.balance.show();
+    },
+    showWholes() {
+      return showWholes(this.balance);
+    },
+    showDecimals() {
+      return showDecimals(this.balance);
     },
     fetchBalance() {
       this.fetchingBalance = true;

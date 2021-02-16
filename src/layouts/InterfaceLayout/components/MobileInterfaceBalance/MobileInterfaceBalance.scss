@@ -12,6 +12,9 @@
   display: flex;
   flex-grow: 1;
   justify-content: space-between;
+  /* bugfix: if the balance was too long
+     you could scroll horizontally */
+  overflow: hidden;
 }
 
 .block-image {
@@ -56,5 +59,11 @@
 }
 
 .balance-contents {
-  width: calc(100% - 50px);
+  width: calc(100% - 75px);
+}
+
+.mobile-hidden-input {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
 }
