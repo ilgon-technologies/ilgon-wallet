@@ -3,7 +3,6 @@ const UglifyJS = require('uglify-es');
 const env_vars = require('../ENV_VARS');
 const defaultConfigs = require('./defaultConfigs');
 const webpackConfig = {
-  devtool: defaultConfigs.devtool,
   node: {
     process: true
   },
@@ -34,6 +33,7 @@ const webpackConfig = {
 const exportObj = {
   publicPath: process.env.ROUTER_MODE === 'history' ? '/' : './',
   configureWebpack: webpackConfig,
+  productionSourceMap: false,
   lintOnSave: process.env.NODE_ENV === 'production' ? 'error' : true,
   integrity: process.env.WEBPACK_INTEGRITY === 'false' ? false : true,
   pwa: defaultConfigs.pwa
