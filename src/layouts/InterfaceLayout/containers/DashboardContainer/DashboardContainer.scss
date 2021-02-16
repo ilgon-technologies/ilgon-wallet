@@ -11,7 +11,7 @@ $actionsSwapCollepsePoint: 700px;
 
 .container--flex {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 15px;
 
   @media all and (max-width: $actionsSwapCollepsePoint) {
@@ -38,23 +38,6 @@ $actionsSwapCollepsePoint: 700px;
 
   .section-description {
     margin-bottom: 20px;
-  }
-}
-
-.block--actions {
-  .buttons {
-    > * {
-      height: 150px;
-      margin-bottom: 15px;
-
-      @media all and (max-width: $actionsSwapCollepsePoint) {
-        height: 100px;
-      }
-    }
-
-    > *:last-child {
-      margin-bottom: 0;
-    }
   }
 }
 
@@ -109,60 +92,6 @@ $actionsSwapCollepsePoint: 700px;
     img {
       height: 25px;
       padding: 0 12px;
-    }
-  }
-}
-
-.block--dapps {
-  .block--container {
-    display: grid;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-
-    @media all and (max-width: $dapps-container-mobile-width) {
-      > * {
-        margin-bottom: 10px;
-      }
-    }
-
-    > *:last-child {
-      margin-bottom: 0;
-    }
-
-    @media all and (max-width: $dapps-container-mobile-width) {
-      display: block;
-    }
-
-    .dapp {
-      place-self: center stretch;
-
-      p {
-        font-weight: 600;
-        font-size: 18px;
-      }
-      span {
-        height: 35px;
-      }
-      img {
-        height: 25px;
-        padding: 0 10px;
-      }
-    }
-  }
-}
-
-.bottom--buttons {
-  .button-container {
-    $collepse-width: 650px;
-
-    @media all and (max-width: $collepse-width) {
-      overflow-y: auto;
-
-      > * {
-        width: $collepse-width;
-      }
     }
   }
 }

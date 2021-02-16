@@ -16,17 +16,11 @@
             {{ $t('common.issue-log.error-text') }}
           </div>
           <div class="buttons mt-5">
-            <div class="button-block-text">
-              {{ $t('common.issue-log.inform-error') }}
-            </div>
             <div class="mt-3 d-flex">
-              <b-btn class="mr-1" @click="() => sendError(true)">{{
-                $t('common.issue-log.send-button')
-              }}</b-btn>
               <b-btn
                 variant="outline-secondary"
                 @click="() => sendError(false)"
-                >{{ $t('common.issue-log.no-thanks') }}</b-btn
+                >{{ $t('common.close') }}</b-btn
               >
             </div>
 

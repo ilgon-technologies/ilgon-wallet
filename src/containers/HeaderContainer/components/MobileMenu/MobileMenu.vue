@@ -33,16 +33,6 @@
         </div>
       </router-link>
       <div class="mobile-menu-button--container">
-        <a
-          href="https://ccswap.myetherwallet.com/#/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="buy-eth">
-            <img src="@/assets/images/icons/buy-eth.svg" alt />
-            <p>{{ $t('common.buy-eth') }}</p>
-          </div>
-        </a>
         <mobile-menu-button :ismenuopen="false" @click.native="openMenu" />
       </div>
     </div>

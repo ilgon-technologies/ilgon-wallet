@@ -46,22 +46,17 @@
           <i v-show="spinner" class="fa fa-spin fa-spinner fa-lg" />
         </button>
       </form>
-      <div class="support-block">
-        <customer-support />
-      </div>
     </div>
   </b-modal>
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 import { MnemonicWallet } from '@/wallets';
 import { Toast } from '@/helpers';
 import WarningMessage from '@/components/WarningMessage';
 export default {
   components: {
-    'warning-message': WarningMessage,
-    'customer-support': CustomerSupport
+    'warning-message': WarningMessage
   },
   props: {
     hardwareWalletOpen: {

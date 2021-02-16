@@ -69,35 +69,6 @@
               </router-link>
               <div class="top-menu">
                 <b-nav>
-                  <b-nav-item
-                    href="https://ccswap.myetherwallet.com/#/"
-                    target="_blank"
-                    class="buy-eth"
-                    rel="noopener noreferrer"
-                  >
-                    <img
-                      alt
-                      class="buy-eth-icon"
-                      src="@/assets/images/icons/buy-eth.svg"
-                    />
-                    {{ $t('common.buy-eth') }}
-                  </b-nav-item>
-
-                  <b-nav-item-dropdown
-                    v-if="!isMewCx"
-                    id="my-nav-dropdown"
-                    :text="$t('common.info')"
-                    toggle-class="nav-link-custom"
-                    right
-                  >
-                    <b-dropdown-item v-if="isHomePage" to="/#about-mew">
-                      {{ $t('common.about') }}
-                    </b-dropdown-item>
-                    <b-dropdown-item to="/#faqs">{{
-                      $t('common.faqs')
-                    }}</b-dropdown-item>
-                  </b-nav-item-dropdown>
-
                   <b-nav-item-dropdown
                     v-if="address !== null"
                     right
@@ -129,37 +100,6 @@
                       }})</b-dropdown-item
                     >
                   </b-nav-item-dropdown>
-                  <div v-show="!isMewCx" class="language-menu-container">
-                    <div class="down-arrow"></div>
-                    <b-nav-item-dropdown
-                      class="language-menu"
-                      extra-toggle-classes="nav-link-custom"
-                      right
-                    >
-                      <template slot="button-content">
-                        <div class="current-language-flag">
-                          <img
-                            v-if="currentFlag !== null"
-                            :src="
-                              require(`@/assets/images/flags/${currentFlag}.svg`)
-                            "
-                            alt
-                            class="show"
-                          />
-                          <p>{{ currentName }}</p>
-                        </div>
-                      </template>
-                      <b-dropdown-item
-                        v-for="language in supportedLanguages"
-                        :key="language.key"
-                        :active="$root._i18n.locale === language.langCode"
-                        :data-language-code="language.langCode"
-                        :data-flag-name="language.flag"
-                        @click="languageItemClicked(language)"
-                        >{{ language.name }}</b-dropdown-item
-                      >
-                    </b-nav-item-dropdown>
-                  </div>
                   <div class="notification-menu-container">
                     <notification
                       v-if="
