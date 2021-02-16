@@ -18,9 +18,7 @@
           MyEtherWallet website, MEW wallet App, MEWconnect App and MEW CX
         </strong>
         report it to
-        <a href="mailto:bugbounty@myetherwallet.com">
-          bugbounty@myetherwallet.com
-        </a>
+        <a href="mailto:bugbounty@ilgonwallet.com">bugbounty@ilgonwallet.com</a>
         according to our guidelines (jump to reporting rules)!
       </p>
       <p>

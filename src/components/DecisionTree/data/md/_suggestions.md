@@ -6,5 +6,5 @@
 
 #### Contact Form:
 
-* Email us at <mailto:support@myetherwallet.com>
+* Email us at <mailto:support@ilgonwallet.com>
 * Include a detailed description of the suggestion.

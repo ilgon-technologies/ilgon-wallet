@@ -5,7 +5,7 @@
     "preview": "Preview"
   },
   "mew-support": {
-    "title": "MEW Support",
+    "title": "IW Support",
     "info": "Any question? Get in touch and we’ll get back as soon as we can."
   },
   "sotd": {
@@ -33,7 +33,7 @@
     "dapp-status": "Dapp status",
     "launch-us": "Launch in the U.S. market",
     "mock-flow-title": "Mock user flow",
-    "mock-user-flow": "For live Dapps, representative documentation of the current user flow. For dapps in development, a rough mockup of what prospective user flow as it might look on the MEW interface.",
+    "mock-user-flow": "For live Dapps, representative documentation of the current user flow. For dapps in development, a rough mockup of what prospective user flow as it might look on the IW interface.",
     "mock-requirements": "Dimensions must be 1200px width by 630px height; JPEG or PDF file only; Image size no large than 5MB",
     "contract-address-title": "Contract address",
     "contract-address": "Dapps without contract addresses will not be considered.",

@@ -1,9 +1,9 @@
 {
   "title": "Get a New Wallet",
   "sub-title": "Already have a wallet?",
-  "page-footer-title": "Want to learn more about Blockchain or MEW? Please go to {faq}",
+  "page-footer-title": "Want to learn more about Blockchain or IW? Please go to {faq}",
   "welcome": {
-    "title": "Welcome to MEW",
+    "title": "Welcome to IW",
     "desc": "Please take a moment to read through this short introduction. It’s very important for your own security that you understand these warnings. Ignoring this step will highly increase the chances of your funds being lost or stolen, in which case we won’t be able to help you. {skip} at your own risk.",
     "button-skip": "Skip"
   },
