@@ -96,6 +96,7 @@ import { hasIcon } from '@/partners';
 import masterFile from '@/_generated/master-file.json';
 import { toChecksumAddress } from '@/helpers/addressUtils';
 import { mapState } from 'vuex';
+import { ilgs } from '@/networks/types';
 import Fuse from 'fuse.js';
 
 export default {
@@ -248,12 +249,16 @@ export default {
         }
         const token = this.networkTokens[toChecksumAddress(address)];
         if (token) {
-          const tokenSrc =
-            token.icon_png !== ''
-              ? `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
-              : token.icon !== ''
-              ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
-              : this.network.type.icon;
+          const tokenSrc = (() => {
+            if (ilgs.some(n => n.name.toLowerCase() === token.network)) {
+              return token.icon_png;
+            } else if (token.icon_png !== '') {
+              return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;
+            } else if (token.icon !== '') {
+              return `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`;
+            }
+            return this.network.type.icon;
+          })();
           return tokenSrc;
         }
         return this.network.type.icon;

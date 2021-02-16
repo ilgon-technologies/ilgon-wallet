@@ -276,11 +276,13 @@
 import store from 'store';
 
 import InterfaceBottomText from '@/components/InterfaceBottomText';
-import * as networkTypes from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 import nodeList from '@/networks';
 import Misc from '@/helpers/misc';
 
 import { mapState, mapActions } from 'vuex';
+
+const defualtNetwork = Object.values(networkTypes)[0];
 
 export default {
   components: {
@@ -289,8 +291,8 @@ export default {
   data() {
     return {
       types: networkTypes,
-      selectedNetworkName: 'ETH',
-      chainID: networkTypes['ETH'].chainID,
+      selectedNetworkName: defualtNetwork.name,
+      chainID: defualtNetwork.chainID,
       port: 443,
       name: '',
       url: '',
@@ -344,7 +346,7 @@ export default {
       homePage: '',
       blockExplorerTX: '',
       blockExplorerAddr: '',
-      chainID: networkTypes['ETH'].chainID,
+      chainID: defualtNetwork.chainID,
       tokens: [],
       contracts: [],
       currencyName: 'CUS'
@@ -362,7 +364,7 @@ export default {
         if (this.customNetworks.length > 0) {
           this.switchNetwork(this.customNetworks[0]);
         } else {
-          this.switchNetwork(this.Networks.ETH[0]);
+          this.switchNetwork(this.Networks.ILG[0]);
         }
       }
       store.set('customNetworks', this.customNetworks);

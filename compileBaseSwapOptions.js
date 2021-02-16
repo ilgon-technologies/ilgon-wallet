@@ -59,6 +59,7 @@ class CompileSwapOptions {
       } catch (e) {
         console.error(e);
       }
+      console.error("could not get decimals for", address);
       console.error(e);
     }
     return {};

@@ -368,7 +368,7 @@ import { mapState, mapActions } from 'vuex';
 import Misc from '@/helpers/misc';
 import BigNumber from 'bignumber.js';
 import web3Utils from 'web3-utils';
-import * as networkTypes from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 import store from 'store';
 import PageTitleComponent from '@/components/PageTitleComponent';
 import AccordionMenu from '@/components/AccordionMenu';

@@ -20,7 +20,7 @@ export default {
       window.chrome.storage.sync.get(null, obj => {
         const defaultNetwork = obj.hasOwnProperty('defNetwork')
           ? this.Networks[JSON.parse(obj['defNetwork']).key][0]
-          : this.Networks['ETH'][0];
+          : Object.values(this.Networks)[0][0];
         this.switchNetwork(defaultNetwork).then(() => {
           this.setWeb3Instance().then(() => {
             this.setENS(

@@ -182,6 +182,10 @@ const setAccountBalance = function ({ commit }, balance) {
 };
 
 const setGasPrice = function ({ commit }, gasPrice) {
+  // workaround because our ethereum server someties gives us 0 gas price
+  if (new BigNumber(gasPrice).lt(1)) {
+    gasPrice = '1';
+  }
   commit('SET_GAS_PRICE', gasPrice);
 };
 

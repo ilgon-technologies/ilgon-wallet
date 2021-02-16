@@ -324,7 +324,7 @@ import createBlob from '@/helpers/createBlob.js';
 import web3utils from 'web3-utils';
 import TokenBalance from '@myetherwallet/eth-token-balance';
 import sortByBalance from '@/helpers/sortByBalance.js';
-import { ETH } from '@/networks/types';
+import { ETH, ilgs } from '@/networks/types';
 export default {
   components: {
     blockie: Blockie,
@@ -530,12 +530,16 @@ export default {
     iconFetch(address) {
       const token = this.networkTokens[toChecksumAddress(address)];
       if (token) {
-        const tokenSrc =
-          token.icon_png !== ''
-            ? `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
-            : token.icon !== ''
-            ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
-            : this.network.type.icon;
+        const tokenSrc = (() => {
+          if (ilgs.some(n => n.name.toLowerCase() === token.network)) {
+            return token.icon_png;
+          } else if (token.icon_png !== '') {
+            return `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`;
+          } else if (token.icon !== '') {
+            return `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`;
+          }
+          return this.network.type.icon;
+        })();
         return tokenSrc;
       }
 
