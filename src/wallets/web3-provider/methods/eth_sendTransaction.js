@@ -67,28 +67,25 @@ export default async (
             _response.rawTransaction
           );
 
-          _promiObj
-            .once('transactionHash', hash => {
-              if (store.state.wallet !== null) {
-                const localStoredObj = locStore.get(
-                  utils.sha3(store.state.wallet.getChecksumAddressString())
-                );
-                locStore.set(
-                  utils.sha3(store.state.wallet.getChecksumAddressString()),
-                  {
-                    nonce: Misc.sanitizeHex(
-                      new BigNumber(localStoredObj.nonce).plus(1).toString(16)
-                    ),
-                    timestamp: localStoredObj.timestamp
-                  }
-                );
-              }
-              res(null, toPayload(payload.id, hash));
-            })
-            .on('error', err => {
-              res(err);
-            });
+          _promiObj.once('transactionHash', hash => {
+            if (store.state.wallet !== null) {
+              const localStoredObj = locStore.get(
+                utils.sha3(store.state.wallet.getChecksumAddressString())
+              );
+              locStore.set(
+                utils.sha3(store.state.wallet.getChecksumAddressString()),
+                {
+                  nonce: Misc.sanitizeHex(
+                    new BigNumber(localStoredObj.nonce).plus(1).toString(16)
+                  ),
+                  timestamp: localStoredObj.timestamp
+                }
+              );
+            }
+            res(null, toPayload(payload.id, hash));
+          });
           setEvents(_promiObj, _tx, store.dispatch);
+          return _promiObj;
         });
       }
     })

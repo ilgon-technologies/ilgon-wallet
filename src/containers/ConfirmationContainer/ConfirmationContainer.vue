@@ -47,7 +47,6 @@
       v-if="fromAddress !== null"
       ref="signConfirmModal"
       :confirm-sign-message="messageReturn"
-      :show-success="showSuccessModal"
       :message-to-sign="messageToSign"
       :signed-message="signedMessage"
       :is-hardware-wallet="isHardwareWallet"
@@ -61,9 +60,8 @@
       :tx-hash-exlporrer="txHashExlporrer"
     />
     <error-modal
-      ref="errorModal"
-      :message="successMessage"
-      :link-message="linkMessage"
+      :close="closeError"
+      :messages="errorMessage === null ? [] : [errorMessage]"
     />
   </div>
 </template>
@@ -71,7 +69,6 @@
 <script>
 import * as unit from 'ethjs-unit';
 import BigNumber from 'bignumber.js';
-import { Transaction } from 'ethereumjs-tx';
 import ConfirmModal from './components/ConfirmModal';
 import ConfirmCollectionModal from './components/ConfirmCollectionModal';
 import SuccessModal from './components/SuccessModal';
@@ -86,9 +83,7 @@ import parseTokensData from '@/helpers/parseTokensData.js';
 
 const events = {
   showSuccessModal: 'showSuccessModal',
-  showErrorModal: 'showErrorModal',
   showTxConfirmModal: 'showTxConfirmModal',
-  showSendSignedTx: 'showSendSignedTx',
   showWeb3Wallet: 'showWeb3Wallet',
   showTxCollectionConfirmModal: 'showTxCollectionConfirmModal',
   showMessageConfirmModal: 'showMessageConfirmModal'
@@ -116,17 +111,15 @@ export default {
   },
   data() {
     return {
+      errorMessage: null,
       isHardwareWallet: false,
       responseFunction: null,
-      advancedExpand: false,
       addressValid: true,
       amount: '',
-      amountValid: true,
       nonce: '',
       gasLimit: '21000',
       data: '0x',
       gasPrice: '0',
-      parsedBalance: 0,
       toAddress: '',
       transactionFee: '',
       raw: {},
@@ -137,13 +130,12 @@ export default {
       signedTx: '',
       messageToSign: '',
       signedMessage: '',
-      successMessage: 'Success',
-      linkMessage: 'OK',
+      successMessage: '',
+      linkMessage: '',
       linkTo: '/',
       txHashExlporrer: '',
       dismissed: true,
       signedArray: [],
-      txBatch: null,
       sending: false,
       unSignedArray: [],
       signCallback: {},
@@ -229,27 +221,15 @@ export default {
     });
   },
   created() {
-    this.$eventHub.$on(
-      'showSuccessModal',
-      (message, linkMessage, txHashExlporrer) => {
-        if (!message) message = null;
-        this.showSuccessModal(message, linkMessage, txHashExlporrer);
-      }
-    );
+    this.$eventHub.$on(events.showSuccessModal, this.showSuccessModal);
 
-    this.$eventHub.$on('showErrorModal', (message, linkMessage) => {
-      if (!message) message = null;
-      this.showErrorModal(message, linkMessage);
-    });
-
-    this.$eventHub.$on('showTxConfirmModal', (tx, resolve) => {
+    this.$eventHub.$on(events.showTxConfirmModal, (tx, resolve) => {
       this.parseRawTx(tx);
       if (tx.hasOwnProperty('ensObj')) {
         delete tx['ensObj'];
       }
       this.isHardwareWallet = this.account.isHardware;
       this.responseFunction = resolve;
-      this.successMessage = 'Sending Transaction';
 
       const signPromise = this.wallet.signTransaction(tx);
 
@@ -270,34 +250,8 @@ export default {
       }
     });
 
-    this.$eventHub.$on('showSendSignedTx', (tx, resolve) => {
-      const newTx = new Transaction(tx);
-      this.isHardwareWallet = this.account.isHardware;
-      this.responseFunction = resolve;
-      this.successMessage = 'Sending Transaction';
-      this.signedTxObject = {
-        rawTransaction: tx,
-        tx: {
-          to: `0x${newTx.to.toString('hex')}`,
-          from: `0x${newTx.from.toString('hex')}`,
-          value: `0x${newTx.value.toString('hex')}`,
-          gas: `0x${newTx.gasPrice.toString('hex')}`,
-          gasLimit: `0x${newTx.gasLimit.toString('hex')}`,
-          data: `0x${newTx.data.toString('hex')}`,
-          nonce: `0x${newTx.nonce.toString('hex')}`,
-          v: `0x${newTx.v.toString('hex')}`,
-          r: `0x${newTx.r.toString('hex')}`,
-          s: `0x${newTx.s.toString('hex')}`
-        }
-      };
-      this.parseRawTx(this.signedTxObject.tx);
-      this.signedTx = this.signedTxObject.rawTransaction;
-      this.confirmationModalOpen();
-    });
-
     this.$eventHub.$on('showWeb3Wallet', (tx, resolve) => {
       this.parseRawTx(tx);
-      this.successMessage = 'Sending Transaction';
       const promiObject = this.wallet.signTransaction(tx);
       resolve(promiObject);
       this.showSuccessModal(
@@ -382,11 +336,6 @@ export default {
     );
   },
   mounted() {
-    this.$refs.successModal.$refs.success.$on('hide', () => {
-      this.successMessage = '';
-      this.linkMessage = 'OK';
-    });
-
     if (this.$refs.hasOwnProperty('confirmModal')) {
       this.$refs.confirmModal.$refs.confirmation.$on('hidden', () => {
         if (this.dismissed) {
@@ -397,19 +346,8 @@ export default {
   },
   methods: {
     ...mapActions('main', ['addNotification']),
-    addListenersAfterWallet() {
-      if (this.$refs.hasOwnProperty('confirmModal')) {
-        this.$refs.confirmModal.$refs.confirmation.$on('hidden', () => {
-          if (this.dismissed) {
-            this.reset();
-          }
-        });
-      }
-      if (this.$refs.hasOwnProperty('signConfirmModal')) {
-        this.$refs.signConfirmModal.$refs.signConfirmation.$on('hidden', () => {
-          this.signedMessage = '';
-        });
-      }
+    closeError() {
+      this.errorMessage = null;
     },
     swapWidgetModalOpen(
       destAddress,
@@ -474,26 +412,16 @@ export default {
       window.scrollTo(0, 0);
       this.$refs.confirmCollectionModal.$refs.confirmCollection.show();
     },
-    confirmationOfflineGenerateModalOpen() {
-      window.scrollTo(0, 0);
-      this.$refs.offlineGenerateConfirmModal.$refs.confirmation.show();
-    },
     signConfirmationModalOpen() {
       window.scrollTo(0, 0);
       this.$refs.signConfirmModal.$refs.signConfirmation.show();
     },
     showSuccessModal(message, linkMessage, txHashExlporrer) {
       this.reset();
-      if (message !== null) this.successMessage = message;
-      if (linkMessage !== null) this.linkMessage = linkMessage;
-      if (txHashExlporrer !== null) this.txHashExlporrer = txHashExlporrer;
+      this.successMessage = message;
+      this.linkMessage = linkMessage || '';
+      this.txHashExlporrer = txHashExlporrer || '';
       this.$refs.successModal.$refs.success.show();
-    },
-    showErrorModal(message, linkMessage) {
-      this.reset();
-      if (message !== null) this.successMessage = message;
-      if (linkMessage !== null) this.linkMessage = linkMessage;
-      this.$refs.errorModal.$refs.errorModal.show();
     },
     parseRawTx(tx) {
       let tokenData = '';
@@ -609,39 +537,41 @@ export default {
     },
     sendTx() {
       this.dismissed = false;
-      this.responseFunction(this.signedTxObject);
+      const promise = this.responseFunction(this.signedTxObject);
       this.$refs.confirmModal.$refs.confirmation.hide();
-
-      if (this.raw.generateOnly) return;
-      this.showSuccessModal(
-        `${this.$t('sendTx.success.sub-title')}`,
-        `${this.$t('common.okay')}`,
-        this.network.type.blockExplorerTX.replace(
-          '[[txHash]]',
-          this.signedTxObject.tx.hash
-        )
-      );
+      if (!this.raw.generateOnly) {
+        promise
+          .once('transactionHash', () =>
+            this.showSuccessModal(
+              `${this.$t('sendTx.success.sub-title')}`,
+              `${this.$t('common.okay')}`,
+              this.network.type.blockExplorerTX.replace(
+                '[[txHash]]',
+                this.signedTxObject.tx.hash
+              )
+            )
+          )
+          .on('error', e => {
+            this.reset();
+            this.errorMessage = e.message;
+          });
+      }
     },
     reset() {
       this.responseFunction = null;
-      this.advancedExpand = false;
       this.addressValid = true;
       this.amount = '';
-      this.amountValid = true;
       this.nonce = '';
       this.gasLimit = '21000';
       this.data = '0x';
       this.gasPrice = '0';
-      this.parsedBalance = 0;
       this.toAddress = '';
       this.transactionFee = '';
       this.raw = {};
       this.signedTx = '';
       this.messageToSign = '';
       this.signedMessage = '';
-      this.messageToSign = '';
       this.signedArray = [];
-      this.txBatch = null;
       this.sending = false;
       this.signCallback = {};
       this.swapWigetData = {
