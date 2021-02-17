@@ -147,7 +147,6 @@ export default {
       window.location.reload();
     },
     async getWeb3Wallet() {
-      if (!this.web3WalletExists) return;
       if (window.ethereum) {
         const web3 = new Web3(window.ethereum);
         try {
