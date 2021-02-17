@@ -65,7 +65,7 @@
           <p>
             {{ convertToEth(details.gasPrice * details.gasUsed) }}
             {{ network.type.name }}
-            <span>
+            <span v-if="network.type.name === 'ETH'">
               (${{ getFiatValue(details.gasPrice * details.gasUsed) }})
             </span>
           </p>
@@ -74,9 +74,12 @@
           <p>{{ $t('sendTx.max-tx-fee') }}:</p>
           <p>
             {{ convertToEth(details.gasPrice * details.gasLimit) }}
-            {{ network.type.name }} (${{
-              getFiatValue(details.gasPrice * details.gasLimit)
-            }})
+            {{
+              network.type.name +
+              (network.type.name === 'ETH'
+                ? ' $' + getFiatValue(details.gasPrice * details.gasLimit)
+                : '')
+            }}
           </p>
         </li>
         <li v-if="notice.hash">
