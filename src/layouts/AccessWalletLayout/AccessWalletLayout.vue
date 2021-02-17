@@ -37,11 +37,7 @@
         :hardware-wallet="hardwareWallet"
       />
 
-      <metamask-modal
-        ref="metamaskModal"
-        :is-meta-mask="isMetaMask"
-        :web3-wallet-exists="web3WalletExists"
-      />
+      <metamask-modal ref="metamaskModal" />
 
       <software-modal
         ref="softwareModal"
@@ -102,7 +98,11 @@
               :desc="$t(button.desc)"
               :recommend="$t(button.recommend)"
               :tooltip="$t(button.tooltip)"
-              :disabled="button.disabled"
+              :disabled="
+                button.classname === 'button-metamask'
+                  ? !isMetaMask || !web3WalletExists
+                  : button.disabled
+              "
               :classname="button.classname"
             />
           </div>
@@ -136,6 +136,8 @@ import Bitbox02Modal from './components/Bitbox02Modal';
 
 import mewConnectImg from '@/assets/images/icons/WalletConnect.svg';
 import hardwareImg from '@/assets/images/icons/button-hardware.svg';
+import metamaskImg from '@/assets/images/icons/button-metamask.svg';
+import metamaskImgDisabled from '@/assets/images/icons/button-metamask-disabled.svg';
 import softwareImg from '@/assets/images/icons/button-software.svg';
 
 import hardwareImgDisabled from '@/assets/images/icons/button-hardware-disabled.svg';
@@ -202,6 +204,16 @@ export default {
           imgDisabled: hardwareImgDisabled,
           disabled: false,
           classname: 'button-hardware'
+        },
+        {
+          func: this.web3WalletModal,
+          title: 'accessWallet.metamask.option-title',
+          recommend: '',
+          tooltip: '',
+          img: metamaskImg,
+          imgDisabled: metamaskImgDisabled,
+          disabled: false,
+          classname: 'button-metamask'
         },
         {
           func: this.softwareModalOpen,
