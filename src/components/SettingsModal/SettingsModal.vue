@@ -494,7 +494,7 @@ export default {
         notifications: notifications
       };
 
-      this.fileName = `mew-export-${time}.json`;
+      this.fileName = `ilgonwallet-${time}.json`;
 
       const file = new Blob([JSON.stringify(exportableObject)], {
         type: 'application/json'
