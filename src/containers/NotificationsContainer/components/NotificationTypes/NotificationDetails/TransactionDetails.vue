@@ -60,8 +60,11 @@
           <p>{{ $t('sendTx.tx-fee') }}:</p>
           <p>
             {{ convertToEth(details.gasPrice * details.gasUsed) }}
-            {{ network.type.name }} (${{
-              getFiatValue(details.gasPrice * details.gasUsed)
+            {{
+              network.type.name +
+              (network.type.name === 'ETH'
+                ? ' $' + getFiatValue(details.gasPrice * details.gasUsed)
+                : '')
             }})
           </p>
         </li>
@@ -69,8 +72,11 @@
           <p>{{ $t('sendTx.max-tx-fee') }}:</p>
           <p>
             {{ convertToEth(details.gasPrice * details.gasLimit) }}
-            {{ network.type.name }} (${{
-              getFiatValue(details.gasPrice * details.gasLimit)
+            {{
+              network.type.name +
+              (network.type.name === 'ETH'
+                ? ' ' + getFiatValue(details.gasPrice * details.gasLimit)
+                : '')
             }})
           </p>
         </li>
