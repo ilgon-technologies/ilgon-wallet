@@ -1,6 +1,6 @@
 <img src="./src/assets/images/logo.png" width="300px"/>
 
-ILGON Wallet is a doorway to the Ilgon blockchain, allowing users to manage their own funds without a centralized platform.
+ILGON Wallet is a fork of MyEtherWallet. ILGON Wallet is a doorway to the Ilgon blockchain that is a fork of MyEtherWallet, allowing users to manage their own funds without a centralized platform.
 
 !["ILGON Wallet Logo](./src/assets/images/mew-screen.png "Ilgon Wallet")
 
