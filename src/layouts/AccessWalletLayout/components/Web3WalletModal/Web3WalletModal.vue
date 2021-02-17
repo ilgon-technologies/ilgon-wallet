@@ -1,11 +1,7 @@
 <template>
   <b-modal
     ref="metamask"
-    :title="
-      isMetaMask
-        ? $t('accessWallet.metamask.modal.title')
-        : $t('mewcx.access-via-mew')
-    "
+    :title="$t('accessWallet.metamask.modal.title')"
     hide-footer
     static
     lazy
@@ -13,7 +9,7 @@
     centered
   >
     <div class="modal-content">
-      <div v-if="isSafari && isMetaMask" class="browser-catch">
+      <div v-if="isSafari" class="browser-catch">
         <h4>{{ $t('accessWallet.metamask.warning.safari') }}</h4>
         <div class="browser-logo-container">
           <a
@@ -27,29 +23,11 @@
           </a>
         </div>
       </div>
-      <div v-if="isSafari && !isMetaMask" class="browser-catch">
-        <h4>{{ $t('mewcx.mewcx-only') }}:</h4>
-        <div class="browser-logo-container">
-          <a
-            v-for="browser in mewSupportedBrowsers"
-            :key="browser.name"
-            :href="browser.link"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img :src="browser.logo" />
-          </a>
-        </div>
-      </div>
-      <div v-else-if="web3WalletExists">
+      <div v-else>
         <div class="modal-multi-icons">
           <img
-            :src="
-              isMetaMask
-                ? require('@/assets/images/icons/button-metamask.svg')
-                : require('@/assets/images/mew-cx-logo.png')
-            "
-            :class="[isMetaMask ? 'metamask' : 'mew', 'icon']"
+            :src="require('@/assets/images/icons/button-metamask.svg')"
+            :class="['metamask', 'icon']"
             alt
           />
           <img alt class="icon" src="~@/assets/images/icons/clip.svg" />
@@ -97,45 +75,6 @@
           >
         </div>
       </div>
-      <div v-else>
-        <div class="modal-multi-icons">
-          <img alt class="icon mew cx" src="@/assets/images/mew-cx-logo.png" />
-        </div>
-        <div class="d-block content-container text-center">
-          <h4>{{ $t('mewcx.install-prompt') }}</h4>
-        </div>
-        <div class="accept-terms hidden">
-          <label class="checkbox-container">
-            <i18n path="accessWallet.metamask.modal.terms" tag="label">
-              <router-link slot="terms" to="/terms-of-service">
-                {{ $t('common.terms') }} </router-link
-              >.
-            </i18n>
-            <input
-              type="checkbox"
-              @click="accessMyWalletBtnDisabled = !accessMyWalletBtnDisabled"
-            />
-            <span class="checkmark" />
-          </label>
-        </div>
-        <div class="button-container">
-          <a
-            v-show="!refreshPage"
-            href="https://www.mewcx.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mid-round-button-green-filled close-button"
-            @click="refreshPage = true"
-            >{{ $t('mewcx.install-mewcx') }}</a
-          >
-          <b-btn
-            v-show="refreshPage"
-            class="mid-round-button-green-filled close-button"
-            @click="reload"
-            >{{ $t('accessWallet.metamask.modal.button-refresh') }}</b-btn
-          >
-        </div>
-      </div>
     </div>
     <!-- .modal-content -->
   </b-modal>
@@ -158,21 +97,12 @@ export default {
     networkAndAddressOpen: {
       type: Function,
       default: function () {}
-    },
-    isMetaMask: {
-      type: Boolean,
-      default: false
-    },
-    web3WalletExists: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
     return {
       accessMyWalletBtnDisabled: true,
       unlockWeb3Wallet: false,
-      refreshPage: false,
       isSafari: false,
       browsers: [
         {
@@ -195,23 +125,6 @@ export default {
           link: 'https://www.google.com/chrome/',
           name: 'chrome'
         }
-      ],
-      mewSupportedBrowsers: [
-        {
-          logo: brave,
-          link: 'https://brave.com/',
-          name: 'brave'
-        },
-        {
-          logo: opera,
-          link: 'https://www.opera.com/',
-          name: 'opera'
-        },
-        {
-          logo: chrome,
-          link: 'https://www.google.com/chrome/',
-          name: 'chrome'
-        }
       ]
     };
   },
@@ -222,7 +135,6 @@ export default {
     this.$refs.metamask.$on('hidden', () => {
       this.accessMyWalletBtnDisabled = true;
       this.unlockWeb3Wallet = false;
-      this.refreshPage = false;
       this.isSafari = false;
     });
     this.$refs.metamask.$on('shown', () => {
