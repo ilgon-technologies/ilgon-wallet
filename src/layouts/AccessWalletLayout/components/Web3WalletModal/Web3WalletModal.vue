@@ -220,7 +220,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('main', ['path'])
+    ...mapState('main', ['path', 'Networks'])
   },
   mounted() {
     this.$refs.metamask.$on('hidden', () => {
@@ -234,7 +234,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions('main', ['decryptWallet']),
+    ...mapActions('main', ['decryptWallet', 'switchNetwork']),
     reload() {
       window.location.reload();
     },
@@ -260,6 +260,15 @@ export default {
         this.signIn(window.web3);
       }
     },
+    changeNetwork(chainId) {
+      const network = Object.values(this.Networks)
+        .flat()
+        .find(n => n.type.chainID === chainId);
+      if (network === undefined) {
+        throw new Error('IW does not support network with chain id' + chainId);
+      }
+      this.switchNetwork(network);
+    },
     async signIn(web3, type) {
       try {
         const acc = await web3.eth.getAccounts();
@@ -269,6 +278,8 @@ export default {
         if (!acc.length) return (this.unlockWeb3Wallet = true);
         const wallet = new Web3Wallet(acc[0]);
         this.decryptWallet([wallet, web3.currentProvider]);
+        const chainId = await web3.eth.getChainId();
+        this.changeNetwork(chainId);
         this.$router.push({
           path: 'interface'
         });
