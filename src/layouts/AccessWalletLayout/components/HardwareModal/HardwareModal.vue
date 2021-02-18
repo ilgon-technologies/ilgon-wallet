@@ -125,7 +125,7 @@ export default {
           text: 'Ledger',
           disabled: false,
           msg: '',
-          link: 'https://www.ledger.com?r=fa4b'
+          link: 'https://www.ledger.com?r=dd50e17fad63'
         },
         {
           name: TREZOR_TYPE,
