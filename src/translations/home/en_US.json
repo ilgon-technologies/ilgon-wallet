@@ -1,9 +1,9 @@
 {
   "tagline1": "ILGON's",
   "tagline2": "Original Wallet",
-  "subheading": "ILGON Wallet (our friends call us IW) is a free, client-side interface helping you interact with the Ethereum blockchain. Our easy-to-use, open-source platform allows you to generate wallets, interact with smart contracts, and so much more.",
+  "subheading": "ILGON Wallet (our friends call us IW) is a free, client-side interface helping you interact with the Ilgon blockchain. Our easy-to-use, open-source platform allows you to generate wallets, interact with smart contracts, and so much more.",
   "create-new-wallet": {
-    "text": "Generate your own unique Ethereum wallet. Receive a public address (0x...) and choose a method for access and recovery."
+    "text": "Generate your own unique Ilgon wallet. Receive a public address (0x...) and choose a method for access and recovery."
   },
   "access-my-wallet": {
     "text": "Connect to the blockchain using the wallet of your choice.",
@@ -14,11 +14,11 @@
   },
   "about-mew": {
     "title": "About IW",
-    "text": "ILGON Wallet - please, call us IW - puts the Ethereum blockchain at your fingertips. We are a team of crypto-enthusiasts dedicated to bring you the most secure, most intuitive, and dare we say prettiest way to manage your ETH and ERC20 tokens. We're always here to help, and we're never giving away ETH. Cheers!"
+    "text": "ILGON Wallet - please, call us IW - puts the Ilgon blockchain at your fingertips. We are a team of crypto-enthusiasts dedicated to bring you the most secure, most intuitive, and dare we say prettiest way to manage your ILG and ERC20 tokens. We're always here to help, and we're never giving away ILG. Cheers!"
   },
   "join-mew": {
     "title": "Join IW",
-    "text": "Access the Ethereum blockchain's original and most-trusted wallet client, now with a host of new features all contained in an elegant, easy-to-use interface."
+    "text": "Access the Ilgon blockchain's original and most-trusted wallet client, now with a host of new features all contained in an elegant, easy-to-use interface."
   },
   "hardware-support": {
     "title": "Hardware Wallet Support",
@@ -42,19 +42,19 @@
     },
     "mewconnect": {
       "title": "What is MEWconnect?",
-      "text": "MEWconnect is our companion mobile app for ILGON Wallet. We call it a hardware wallet without all the hardware. Now available for all Android and iOS smartphones! Read more"
+      "text": "MEWconnect is our companion mobile app for ILGON Wallet. We call it a hardware wallet without all the hardware. Now available for all Android and iOS smartphones!"
     },
     "other-wallets": {
       "title": "Can IW work with other wallets?",
-      "text": "IW supports many different wallet types including hardware wallets, such as the Ledger Nano S or Trezor, and third-party wallets like MetaMask. We are also open for anyone to use their Ethereum wallets with the appropriate information. Read more"
+      "text": "IW supports many different wallet types including hardware wallets, such as the Ledger Nano S or Trezor, and third-party wallets like MetaMask. We are also open for anyone to use their Ilgon wallets with the appropriate information."
     },
     "send-txs": {
       "title": "How can I send a transaction?",
-      "text": "IW lets anyone with a balance of ETH or ERC20 tokens send a transaction, without additional charges. Using the Ethereum blockchain takes gas, which is paid for in ETH, so we recommend having at least .01 ETH to cover around 2 - 3 transactions. Read more"
+      "text": "IW lets anyone with a balance of ILG or ERC20 tokens send a transaction, without additional charges. Using the Ilgon blockchain takes gas, which is paid for in ILG, so we recommend having at least .01 ILG to cover around 2 - 3 transactions."
     },
     "forgot-pwd": {
       "title": "I forgot my password/private key! What can I do?",
-      "text": "IW does not offer support to recover or reset passwords/private keys. We always suggest writing down private keys and passwords on physical paper/notebooks for safekeeping. Maybe you saved it on your computer! For ideas on what to look for, read more"
+      "text": "IW does not offer support to recover or reset passwords/private keys. We always suggest writing down private keys and passwords on physical paper/notebooks for safekeeping. Maybe you saved it on your computer!"
     }
   },
   "social": {
