@@ -641,7 +641,7 @@ export default {
     async generateInformation(data) {
       if (data.address === '') return;
       this.genInfo['address'] = data.address;
-      this.genInfo['gasPrice'] = await this.web3.eth.getGasPrice();
+      this.genInfo['gasPrice'] = this.web3.eth.fromWei('10000', 'gwei');
       this.genInfo['nonce'] = await this.web3.eth.getTransactionCount(
         data.address
       );

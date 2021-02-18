@@ -13,8 +13,7 @@ const networkTypes = (() => {
           return [ILGT, ILGD];
       }
       throw new TypeError('env variable VUE_APP_MODE should be prod or test');
-    })(),
-    ETH
+    })()
   ];
   return Object.fromEntries(usableNetworks.map(n => [n.name, n]));
 })();
