@@ -5,18 +5,7 @@
         <div class="flex-col-vertical-bottom top-title">
           <div class="title">
             <h2>{{ $t('common.faqs') }}</h2>
-            <h5>
-              {{ $t('home.faqs.subtitle') }}
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://kb.myetherwallet.com/"
-              >
-                {{ $t('home.faqs.button-see-more') }}
-              </a>
-            </h5>
           </div>
-          <customer-support />
         </div>
 
         <div class="qa-cards">
@@ -58,53 +47,29 @@
 </template>
 
 <script>
-import CustomerSupport from '@/components/CustomerSupport';
 export default {
-  components: {
-    'customer-support': CustomerSupport
-  },
   data() {
     return {
       faqs: {
-        faq1: {
-          open: false,
-          title: 'home.faqs.mew-wallet.title',
-          content: 'home.faqs.mew-wallet.text',
-          linkText: 'home.faqs.button-learn-more',
-          link:
-            'https://kb.myetherwallet.com/en/mewwallet/mewwallet-user-guide/'
-        },
         faq2: {
           open: false,
           title: 'home.faqs.other-wallets.title',
-          content: 'home.faqs.other-wallets.text',
-          linkText: 'home.faqs.button-here',
-          link:
-            'https://kb.myetherwallet.com/en/getting-started/how-to-access-your-wallet/'
+          content: 'home.faqs.other-wallets.text'
         },
         faq3: {
           open: false,
           title: 'home.faqs.send-txs.title',
-          content: 'home.faqs.send-txs.text',
-          linkText: 'home.faqs.button-here',
-          link:
-            'https://kb.myetherwallet.com/en/transactions/how-to-send-a-transaction/'
+          content: 'home.faqs.send-txs.text'
         },
         faq4: {
           open: false,
           title: 'home.faqs.forgot-pwd.title',
-          content: 'home.faqs.forgot-pwd.text',
-          linkText: 'home.faqs.button-here',
-          link:
-            'https://kb.myetherwallet.com/en/security-and-privacy/lost-private-key/'
+          content: 'home.faqs.forgot-pwd.text'
         },
         faq5: {
           open: false,
           title: 'home.faqs.create-wallet.title',
-          content: 'home.faqs.create-wallet.text',
-          linkText: 'home.faqs.button-here',
-          link:
-            'https://kb.myetherwallet.com/en/getting-started/how-to-create-a-wallet/'
+          content: 'home.faqs.create-wallet.text'
         }
       }
     };
