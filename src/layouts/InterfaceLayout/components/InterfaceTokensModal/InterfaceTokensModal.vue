@@ -62,11 +62,6 @@
           >
             {{ $t('common.save') }}
           </button>
-          <interface-bottom-text
-            :link-text="$t('common.help-center')"
-            :question="$t('common.dont-know')"
-            link="https://kb.myetherwallet.com"
-          />
         </div>
       </form>
     </b-modal>
@@ -74,14 +69,10 @@
 </template>
 
 <script>
-import InterfaceBottomText from '@/components/InterfaceBottomText';
 import { mapState } from 'vuex';
 import { isAddress } from '@/helpers/addressUtils';
 
 export default {
-  components: {
-    'interface-bottom-text': InterfaceBottomText
-  },
   props: {
     addToken: {
       type: Function,
