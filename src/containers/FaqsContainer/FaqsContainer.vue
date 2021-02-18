@@ -6,6 +6,7 @@
           <div class="title">
             <h2>{{ $t('common.faqs') }}</h2>
           </div>
+          <customer-support />
         </div>
 
         <div class="qa-cards">
@@ -47,7 +48,11 @@
 </template>
 
 <script>
+import CustomerSupport from '@/components/CustomerSupport';
 export default {
+  components: {
+    'customer-support': CustomerSupport
+  },
   data() {
     return {
       faqs: {
