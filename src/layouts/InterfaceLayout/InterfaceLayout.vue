@@ -830,10 +830,8 @@ export default {
       const getCustomGas = getOther();
       this.web3.eth
         .getGasPrice()
-        .then(res => {
-          const parsedGas = getEconomy(
-            this.web3.utils.fromWei(res, 'gwei')
-          ).toString();
+        .then(() => {
+          const parsedGas = getEconomy('10000').toString();
           if (gasType === 'economy') {
             this.setGasPrice(parsedGas);
           } else if (gasType === 'other' && getCustomGas) {
