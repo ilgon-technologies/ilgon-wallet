@@ -3,7 +3,7 @@ const affiliates = [
     text: 'footer.ledger',
     price: '59.00',
     description: 'buyHardwareWallet.desc.ledger',
-    href: 'https://www.ledger.com?r=fa4b',
+    href: 'https://www.ledger.com?r=dd50e17fad63',
     currency: '$',
     logo: 'ledger'
   },
