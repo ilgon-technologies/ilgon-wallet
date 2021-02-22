@@ -131,7 +131,7 @@ import { mapState } from 'vuex';
 
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { ILG, ILGT } from '@/networks/types';
+import { ILGT } from '@/networks/types';
 // eslint-disable-next-line no-unused-vars
 import { Contract } from 'web3-eth-contract';
 import Vue from 'vue';
@@ -183,7 +183,7 @@ function initContract({
   network: any;
   web3: Web3;
 }): Contract | null {
-  if ([ILG, ILGT].includes(network.type)) {
+  if ([ILGT].includes(network.type)) {
     const contract = network.type.contracts[0];
     return (new web3.eth.Contract(
       contract.abi,
