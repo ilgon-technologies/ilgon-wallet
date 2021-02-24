@@ -432,7 +432,7 @@ export default {
       return [ETH, ILG, ILGT, ILGD].some(networkTypeEq(this.network.type));
     },
     canShowTxFeeInUsd() {
-      return [ETH /*,ILG*/].some(networkTypeEq(this.network.type));
+      return [ETH, ILG].some(networkTypeEq(this.network.type));
     },
     clear() {
       this.toData = '';
@@ -573,20 +573,18 @@ export default {
         ).data.ETH.quotes.USD.price;
       }
 
-      async function fetchOneIlgInBtc() {
-        const resp = await fetch(
-          'https://whitebit.com/api/v1/public/ticker?market=ILG_BTC'
-        ).then(r => r.json());
-        if (resp.success === true) {
-          return resp.result.last;
+      async function fetchOneIlgInUsd() {
+        const resp = await fetch('http://localhost:3000/prices').then(r =>
+          r.json()
+        );
+        switch (resp.type) {
+          case 'SUCCESS':
+            return resp.usd;
+          case 'ERROR':
+            throw new Error('Error happened while fetching USD price of ILG');
+          default:
+            throw new Error('Illegal response. ' + JSON.stringify(resp));
         }
-        throw new Error(JSON.stringify(resp.message));
-      }
-
-      async function fetchOneBtcInUsd() {
-        return (
-          await fetch('https://blockchain.info/ticker').then(r => r.json())
-        ).USD.last;
       }
 
       this.ethPrice = await (async () => {
@@ -594,13 +592,7 @@ export default {
           if (networkTypeEq(this.network.type)(ETH)) {
             return await fetchOneEthInUsd();
           } else if (networkTypeEq(this.network.type)(ILG)) {
-            const [oneIlgInBtc, oneBtcInUsd] = await Promise.all([
-              fetchOneIlgInBtc(),
-              fetchOneBtcInUsd()
-            ]);
-            return new BigNumber(oneIlgInBtc)
-              .multipliedBy(oneBtcInUsd)
-              .toFixed();
+            return await fetchOneIlgInUsd();
           }
         } catch (e) {
           Toast.responseHandler(e, Toast.ERROR);

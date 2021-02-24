@@ -82,5 +82,5 @@ module.exports = [
   'https://wallet.ilgointest.e-diploma.org:443',
   'https://wallet.ilgoindev.e-diploma.org:443',
   'https://whitebit.com',
-  'https://blockchain.info/'
+  'http://localhost:3000/'
 ];
