@@ -432,7 +432,7 @@ export default {
       return [ETH, ILG, ILGT, ILGD].some(networkTypeEq(this.network.type));
     },
     canShowTxFeeInUsd() {
-      return [ETH, ILG].some(networkTypeEq(this.network.type));
+      return [ETH /*,ILG*/].some(networkTypeEq(this.network.type));
     },
     clear() {
       this.toData = '';
