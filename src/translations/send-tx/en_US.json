@@ -15,7 +15,7 @@
   "tx-fee": "Transaction Fee",
   "tx-hash": "Transaction Hash",
   "max-tx-fee": "Max Transaction Fee",
-  "cost-eth-convert": "Cost {txFeeEth} ETH = ${convert}",
+  "cost-eth-convert": "Cost {txFeeEth}",
   "add-data-as": {
     "title": "Add Data As",
     "original": "Original",

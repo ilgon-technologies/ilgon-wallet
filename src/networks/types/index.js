@@ -20,4 +20,6 @@ const networkTypes = (() => {
 
 const ilgs = Object.values(networkTypes).filter(n => n !== ETH);
 
-export { ILG, ILGT, ILGD, ETH, ilgs, networkTypes };
+const networkTypeEq = t1 => t2 => t1.name === t2.name;
+
+export { ILG, ILGT, ILGD, ETH, ilgs, networkTypes, networkTypeEq };

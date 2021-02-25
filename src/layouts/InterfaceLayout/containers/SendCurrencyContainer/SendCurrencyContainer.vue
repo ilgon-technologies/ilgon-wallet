@@ -72,10 +72,15 @@
               {{ $t('common.gas.gwei') }}
               <!--(Economic)-->
             </div>
-            <div v-show="network.type.name === 'ETH'" class="usd">
+            <div v-show="canShowTxFee()" class="usd">
               <i18n path="sendTx.cost-eth-convert" tag="div">
-                <span slot="txFeeEth">{{ txFeeEth }}</span>
-                <span slot="convert">{{ convert }}</span>
+                <span slot="txFeeEth">
+                  {{ txFeeEth }}
+                  {{ network.type.currencyName }}
+                  <span v-if="canShowTxFeeInUsd()">
+                    {{ '≈ $' + convert }}
+                  </span>
+                </span>
               </i18n>
             </div>
           </div>
@@ -184,6 +189,7 @@ import ethUnit from 'ethjs-unit';
 import utils from 'web3-utils';
 import fetch from 'node-fetch';
 import DropDownAddressSelector from '@/components/DropDownAddressSelector';
+import { ETH, ILG, ILGT, ILGD, networkTypeEq } from '@/networks/types';
 import AddDataAsPicker from '@/layouts/InterfaceLayout/components/AddDataAsPicker';
 
 export default {
@@ -427,7 +433,8 @@ export default {
       if (this.validInputs) this.estimateGas();
     }, 500),
     network(newVal) {
-      if (this.online && newVal.type.name === 'ETH') this.getEthPrice();
+      if (this.online && [ETH, ILG].some(networkTypeEq(newVal.type)))
+        this.getEthPrice();
     },
     isPrefilled() {
       this.prefillForm();
@@ -435,9 +442,15 @@ export default {
   },
   mounted() {
     this.checkPrefilled();
-    if (this.online && this.network.type.name === 'ETH') this.getEthPrice();
+    if (this.online && this.canShowTxFeeInUsd()) this.getEthPrice();
   },
   methods: {
+    canShowTxFee() {
+      return [ETH, ILG, ILGT, ILGD].some(networkTypeEq(this.network.type));
+    },
+    canShowTxFeeInUsd() {
+      return [ETH /*,ILG*/].some(networkTypeEq(this.network.type));
+    },
     clear() {
       this.toData = '';
       this.toValue = '0';
@@ -580,17 +593,41 @@ export default {
       }
     },
     async getEthPrice() {
-      const price = await fetch(
-        'https://cryptorates.mewapi.io/ticker?filter=ETH'
-      )
-        .then(res => {
-          return res.json();
-        })
-        .catch(e => {
+      async function fetchOneEthInUsd() {
+        return (
+          await fetch(
+            'https://cryptorates.mewapi.io/ticker?filter=ETH'
+          ).then(res => res.json())
+        ).data.ETH.quotes.USD.price;
+      }
+
+      async function fetchOneIlgInUsd() {
+        const resp = await fetch('http://localhost:3000/prices').then(r =>
+          r.json()
+        );
+        switch (resp.type) {
+          case 'SUCCESS':
+            return resp.usd;
+          case 'ERROR':
+            throw new Error('Error happened while fetching USD price of ILG');
+          default:
+            throw new Error('Illegal response. ' + JSON.stringify(resp));
+        }
+      }
+
+      this.ethPrice = await (async () => {
+        try {
+          if (networkTypeEq(this.network.type)(ETH)) {
+            return await fetchOneEthInUsd();
+          } else if (networkTypeEq(this.network.type)(ILG)) {
+            return await fetchOneIlgInUsd();
+          }
+        } catch (e) {
           Toast.responseHandler(e, Toast.ERROR);
-        });
-      this.ethPrice =
-        typeof price === 'object' ? price.data.ETH.quotes.USD.price : 0;
+          return '0';
+        }
+        throw new Error('Illegal state');
+      })();
     },
     showAsUtf8(s) {
       return Misc.validateHexString(this.toData)
