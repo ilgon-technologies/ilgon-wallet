@@ -592,14 +592,10 @@ export default {
         const resp = await fetch('http://localhost:3000/prices').then(r =>
           r.json()
         );
-        switch (resp.type) {
-          case 'SUCCESS':
-            return resp.usd;
-          case 'ERROR':
-            throw new Error('Error happened while fetching USD price of ILG');
-          default:
-            throw new Error('Illegal response. ' + JSON.stringify(resp));
+        if ('data' in resp) {
+          return resp.data.ILG_USD;
         }
+        throw new Error('Error happened while fetching USD price of ILG');
       }
 
       this.ethPrice = await (async () => {
