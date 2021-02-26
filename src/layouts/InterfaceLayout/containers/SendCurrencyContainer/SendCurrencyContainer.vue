@@ -449,7 +449,7 @@ export default {
       return [ETH, ILG, ILGT, ILGD].some(networkTypeEq(this.network.type));
     },
     canShowTxFeeInUsd() {
-      return [ETH /*,ILG*/].some(networkTypeEq(this.network.type));
+      return [ETH, ILG].some(networkTypeEq(this.network.type));
     },
     clear() {
       this.toData = '';
@@ -602,17 +602,13 @@ export default {
       }
 
       async function fetchOneIlgInUsd() {
-        const resp = await fetch('http://localhost:3000/prices').then(r =>
-          r.json()
-        );
-        switch (resp.type) {
-          case 'SUCCESS':
-            return resp.usd;
-          case 'ERROR':
-            throw new Error('Error happened while fetching USD price of ILG');
-          default:
-            throw new Error('Illegal response. ' + JSON.stringify(resp));
+        const resp = await fetch(
+          'https://priceapi.ilgonwallet.com/prices'
+        ).then(r => r.json());
+        if ('data' in resp) {
+          return resp.data.ILG_USD;
         }
+        throw new Error('Error happened while fetching USD price of ILG');
       }
 
       this.ethPrice = await (async () => {
