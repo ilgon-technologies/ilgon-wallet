@@ -83,6 +83,5 @@ module.exports = [
   'https://mainnet-rpc.ilgonwallet.com:443',
   'https://wallet.ilgointest.e-diploma.org:443',
   'https://wallet.ilgoindev.e-diploma.org:443',
-  'https://whitebit.com',
-  'http://localhost:3000/'
+  'https://priceapi.ilgonwallet.com'
 ];
