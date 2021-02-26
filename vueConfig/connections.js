@@ -76,6 +76,8 @@ module.exports = [
   'https://bsc-dataseed1.binance.org:443',
   'https://staked.mewapi.io:443',
   'https://stakedtest.mewapi.io:443',
+  'https://api.ethvm.com:443',
+  'https://stakedtest.mewapi.io:443',
   'https://bsc-dataseed1.binance.org:443',
   'http://18.193.173.193:80',
   'https://mainnet-rpc.ilgonwallet.com:443',

@@ -1,19 +1,45 @@
+### Release v5.7.21
+
+### Bug
+
+- Reset stepper on init [#2840](https://github.com/MyEtherWallet/MyEtherWallet/pull/2840)
+- Fix ETC send offline helper bug[#2852](https://github.com/MyEtherWallet/MyEtherWallet/pull/2852)
+
+### Devop
+
+- Use api instead of token balance for web [#2839](https://github.com/MyEtherWallet/MyEtherWallet/pull/2839)
+
+### Release v5.7.20
+
+### Bug
+
+- Disable button on init [#2832](https://github.com/MyEtherWallet/MyEtherWallet/pull/2832)
+- Fix #2761 [#2811](https://github.com/MyEtherWallet/MyEtherWallet/pull/2811)
+- Fix CryptoKitties UI for Russian language [#2824](https://github.com/MyEtherWallet/MyEtherWallet/pull/2824)
+- store cw appId to prevent reregistering MEW, fix error catch [#2808](https://github.com/MyEtherWallet/MyEtherWallet/pull/2808)
+- Fix send entire amount to contracts [#2820](https://github.com/MyEtherWallet/MyEtherWallet/pull/2820)
+
+### Devop
+
+- Add exited popup for staked status [#2828](https://github.com/MyEtherWallet/MyEtherWallet/pull/2828)
+- Update packages from snyk and from the script [#2806](https://github.com/MyEtherWallet/MyEtherWallet/pull/2806)
+
 ### Release v5.7.19-hotfix.1
 
 ### Devop
 
-* Revert aave package [#2793](https://github.com/MyEtherWallet/MyEtherWallet/pull/2793)
-* Revert aave change [#2794](https://github.com/MyEtherWallet/MyEtherWallet/pull/2794)
+- Revert aave package [#2793](https://github.com/MyEtherWallet/MyEtherWallet/pull/2793)
+- Revert aave change [#2794](https://github.com/MyEtherWallet/MyEtherWallet/pull/2794)
 
 ### Release v5.7.19
 
 ### Devop
 
-* Add terms for changelly [#2783](https://github.com/MyEtherWallet/MyEtherWallet/pull/2783)
+- Add terms for changelly [#2783](https://github.com/MyEtherWallet/MyEtherWallet/pull/2783)
 
 ### Bug
 
-* Fix amount unit for Lend Migrator [#2776](https://github.com/MyEtherWallet/MyEtherWallet/pull/2776)
+- Fix amount unit for Lend Migrator [#2776](https://github.com/MyEtherWallet/MyEtherWallet/pull/2776)
 
 ### Release v5.7.18
 

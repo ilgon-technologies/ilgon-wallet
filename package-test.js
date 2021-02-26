@@ -53,7 +53,14 @@ const EXCEPTIONS = [
   'postcss-url',
   'webpack',
   'copy-webpack-plugin',
-  '@aave/protocol-js'
+  '@aave/protocol-js',
+  // look into updating this after release
+  'is-ipfs',
+  '@stripe/stripe-js',
+  // probably hold off on this one until next iteration
+  '@sentry/browser',
+  '@sentry/integrations',
+  'sass-loader'
 ];
 const CUSTOM_DIST = {
   ['babel-core']: 'bridge'
