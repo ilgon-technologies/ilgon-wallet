@@ -1,7 +1,7 @@
 export default [
   {
     name: 'Staking contract',
-    address: '0x6473b5733b02A36e9703F658549Ecc7b0E7F6c03',
+    address: '0xebE14A98E366196f16529c5E9Ecfea43fbC9940b',
     abi: stakingAbi()
   }
 ];
@@ -18,7 +18,44 @@ function stakingAbi() {
         {
           indexed: true,
           internalType: 'address',
-          name: 'owner',
+          name: 'user',
+          type: 'address'
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'vaultId',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'string',
+          name: 'label',
+          type: 'string'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'enum Staking.DepositType',
+          name: 'depositType',
+          type: 'uint8'
+        }
+      ],
+      name: 'Deposit',
+      type: 'event'
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'user',
           type: 'address'
         },
         {
@@ -55,7 +92,7 @@ function stakingAbi() {
     },
     {
       inputs: [],
-      name: 'isDepositOpen',
+      name: 'deposit',
       outputs: [
         {
           internalType: 'bool',
@@ -63,44 +100,38 @@ function stakingAbi() {
           type: 'bool'
         }
       ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'owner',
-      outputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'previousVoteTime',
-      outputs: [
-        {
-          internalType: 'uint64',
-          name: '',
-          type: 'uint64'
-        }
-      ],
-      stateMutability: 'view',
+      stateMutability: 'payable',
       type: 'function'
     },
     {
       inputs: [
         {
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        },
+        {
+          internalType: 'string',
+          name: 'label',
+          type: 'string'
+        },
+        {
           internalType: 'address',
-          name: '_owner',
+          name: 'target',
           type: 'address'
+        },
+        {
+          internalType: 'enum Staking.DepositType',
+          name: 'depositType',
+          type: 'uint8'
+        },
+        {
+          internalType: 'uint8',
+          name: 'stakingBonus',
+          type: 'uint8'
         }
       ],
-      name: 'replaceOwner',
+      name: 'depositAdmin',
       outputs: [
         {
           internalType: 'bool',
@@ -112,45 +143,43 @@ function stakingAbi() {
       type: 'function'
     },
     {
-      inputs: [],
-      name: 'startTime',
-      outputs: [
+      inputs: [
         {
-          internalType: 'uint64',
-          name: '',
-          type: 'uint64'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'sumDeposits',
-      outputs: [
+          internalType: 'address',
+          name: 'target',
+          type: 'address'
+        },
         {
           internalType: 'uint256',
-          name: '',
+          name: 'vaultId',
           type: 'uint256'
         }
       ],
-      stateMutability: 'view',
+      name: 'forceWithdraw',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
       type: 'function'
     },
     {
       inputs: [
         {
+          internalType: 'address',
+          name: 'target',
+          type: 'address'
+        }
+      ],
+      name: 'getAccumulatedVotingPower',
+      outputs: [
+        {
           internalType: 'uint256',
           name: '',
           type: 'uint256'
-        }
-      ],
-      name: 'vaultUsers',
-      outputs: [
-        {
-          internalType: 'address',
-          name: '',
-          type: 'address'
         }
       ],
       stateMutability: 'view',
@@ -158,20 +187,55 @@ function stakingAbi() {
     },
     {
       inputs: [],
-      name: 'voteTime',
+      name: 'getAdmins',
       outputs: [
         {
-          internalType: 'uint64',
+          internalType: 'address[]',
           name: '',
-          type: 'uint64'
+          type: 'address[]'
         }
       ],
       stateMutability: 'view',
       type: 'function'
     },
     {
-      stateMutability: 'payable',
-      type: 'receive'
+      inputs: [],
+      name: 'getAmountLimits',
+      outputs: [
+        {
+          internalType: 'uint256[]',
+          name: '',
+          type: 'uint256[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getAmountPremiums',
+      outputs: [
+        {
+          internalType: 'uint8[]',
+          name: '',
+          type: 'uint8[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getMinDeposit',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
     },
     {
       inputs: [
@@ -228,152 +292,6 @@ function stakingAbi() {
         }
       ],
       name: 'getUserDeposits',
-      outputs: [
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'getVaultUsersLength',
-      outputs: [
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'getAdmins',
-      outputs: [
-        {
-          internalType: 'address[]',
-          name: '',
-          type: 'address[]'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address[]',
-          name: 'newAdmins',
-          type: 'address[]'
-        }
-      ],
-      name: 'setAdmins',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'getMinDeposit',
-      outputs: [
-        {
-          internalType: 'uint256',
-          name: '',
-          type: 'uint256'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'uint256',
-          name: 'amount',
-          type: 'uint256'
-        }
-      ],
-      name: 'setMinDeposit',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'getAmountPremiums',
-      outputs: [
-        {
-          internalType: 'uint8[]',
-          name: '',
-          type: 'uint8[]'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'uint8[]',
-          name: 'newAmountPremiums',
-          type: 'uint8[]'
-        },
-        {
-          internalType: 'uint256[]',
-          name: 'newAmountLimits',
-          type: 'uint256[]'
-        }
-      ],
-      name: 'setAmountLimitsAndPremiums',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'getAmountLimits',
-      outputs: [
-        {
-          internalType: 'uint256[]',
-          name: '',
-          type: 'uint256[]'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'address',
-          name: 'a',
-          type: 'address'
-        }
-      ],
-      name: 'getVaultsLength',
       outputs: [
         {
           internalType: 'uint256',
@@ -472,26 +390,26 @@ function stakingAbi() {
     },
     {
       inputs: [],
-      name: 'deposit',
+      name: 'getVaultUsersLength',
       outputs: [
         {
-          internalType: 'bool',
+          internalType: 'uint256',
           name: '',
-          type: 'bool'
+          type: 'uint256'
         }
       ],
-      stateMutability: 'payable',
+      stateMutability: 'view',
       type: 'function'
     },
     {
       inputs: [
         {
           internalType: 'address',
-          name: 'target',
+          name: 'a',
           type: 'address'
         }
       ],
-      name: 'readVotingPower',
+      name: 'getVaultsLength',
       outputs: [
         {
           internalType: 'uint256',
@@ -518,7 +436,46 @@ function stakingAbi() {
           type: 'uint256'
         }
       ],
-      stateMutability: 'nonpayable',
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'isCompensationInterestGoing',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'isDepositOpen',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'isInterestGoing',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'view',
       type: 'function'
     },
     {
@@ -535,34 +492,160 @@ function stakingAbi() {
       type: 'function'
     },
     {
+      inputs: [],
+      name: 'owner',
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'previousVoteTime',
+      outputs: [
+        {
+          internalType: 'uint64',
+          name: '',
+          type: 'uint64'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '_owner',
+          type: 'address'
+        }
+      ],
+      name: 'replaceOwner',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
       inputs: [
         {
           internalType: 'uint256',
           name: 'amount',
           type: 'uint256'
-        },
-        {
-          internalType: 'string',
-          name: 'label',
-          type: 'string'
-        },
-        {
-          internalType: 'address',
-          name: 'target',
-          type: 'address'
-        },
-        {
-          internalType: 'enum Staking.DepositType',
-          name: 'depositType',
-          type: 'uint8'
-        },
-        {
-          internalType: 'uint8',
-          name: 'stakingBonus',
-          type: 'uint8'
         }
       ],
-      name: 'depositAdmin',
+      name: 'sendToOwner',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address[]',
+          name: 'newAdmins',
+          type: 'address[]'
+        }
+      ],
+      name: 'setAdmins',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint8[]',
+          name: 'newAmountPremiums',
+          type: 'uint8[]'
+        },
+        {
+          internalType: 'uint256[]',
+          name: 'newAmountLimits',
+          type: 'uint256[]'
+        }
+      ],
+      name: 'setAmountLimitsAndPremiums',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        }
+      ],
+      name: 'setMinDeposit',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'startTime',
+      outputs: [
+        {
+          internalType: 'uint64',
+          name: '',
+          type: 'uint64'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'sumDeposits',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'toggleDepositOpen',
       outputs: [
         {
           internalType: 'bool',
@@ -635,6 +718,38 @@ function stakingAbi() {
       inputs: [
         {
           internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      name: 'vaultUsers',
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'voteTime',
+      outputs: [
+        {
+          internalType: 'uint64',
+          name: '',
+          type: 'uint64'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
           name: 'vaultId',
           type: 'uint256'
         },
@@ -656,62 +771,8 @@ function stakingAbi() {
       type: 'function'
     },
     {
-      inputs: [],
-      name: 'toggleDepositOpen',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'isInterestGoing',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [],
-      name: 'isCompensationInterestGoing',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'view',
-      type: 'function'
-    },
-    {
-      inputs: [
-        {
-          internalType: 'uint256',
-          name: 'amount',
-          type: 'uint256'
-        }
-      ],
-      name: 'sendToOwner',
-      outputs: [
-        {
-          internalType: 'bool',
-          name: '',
-          type: 'bool'
-        }
-      ],
-      stateMutability: 'nonpayable',
-      type: 'function'
+      stateMutability: 'payable',
+      type: 'receive'
     }
   ];
 }
