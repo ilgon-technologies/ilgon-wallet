@@ -35,3 +35,9 @@ If you find a bug, or want a new feature added, please submit it on the [Github 
 3. Set the `VUE_APP_MODE` env variable to `prod` or `test` (this influences the selectable networks)
 4. Run `./build.sh`
 
+#### Deploying to live server
+
+1. `git clone https://github.com/ilgon-technologies/ilgon-wallet-page deployment`
+2. Build
+3. Run ./update_deployment.sh
+4. Commit and push the deployment folder
