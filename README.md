@@ -41,3 +41,18 @@ If you find a bug, or want a new feature added, please submit it on the [Github 
 2. Build
 3. Run `./update_deployment.sh`
 4. Commit and push the repo in the deployment folder
+
+### Location of RPC urls
+
+The `./src/network/nodes` folder contains all nodes seperated in files. In each file the RPC url is the value of the `url` key.
+
+### Location of Staking contract address and ABI
+
+In `./src/network/types` folder `contracts.js` constains the staking contract of the production network, and `contracts-test.js` contains the contract of the test network.
+
+### Modifying ERC20 tokens
+
+#### For ILG
+
+1. Add the logo to `builds/web/public/img/icons/tokens`. The name should be `${TOKEN_SYMBOL}.png`
+2. In `src/networks/types` for live add token to `tokens-ilg.json`, for test add to `tokens-ilgt.json`
