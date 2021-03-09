@@ -199,6 +199,14 @@ function initContract({
   return null;
 }
 
+const try_ = <T>(fn: () => T) => {
+  try {
+    return fn();
+  } catch (e) {
+    return e instanceof Error ? e : new Error(e + '');
+  }
+};
+
 export default Vue.extend({
   components: {
     ErrorModal
@@ -383,15 +391,26 @@ export default Vue.extend({
           throw new Error('Invalid deposit enum: ' + v.depositType);
       }
     },
-    deposit() {
-      try {
-        const value = Web3.utils.toWei(this.depositAmount, 'ether');
-        this.contract!.methods.deposit().send({
-          from: this.account.address,
-          value
-        });
-      } catch (e) {
-        this.errorMessage = e.message;
+    async deposit() {
+      const weiOrFailure = try_(() =>
+        Web3.utils.toWei(this.depositAmount, 'ether')
+      );
+      if (weiOrFailure instanceof Error) {
+        this.errorMessage = weiOrFailure.message;
+      } else {
+        const value = weiOrFailure;
+        const minDeposit = await this.contract!.methods.getMinDeposit().call();
+        if (new BigNumber(value).lt(minDeposit)) {
+          this.errorMessage =
+            'Amount to be deposited is less than the minimum allowed deposit (' +
+            Web3.utils.fromWei(minDeposit) +
+            ')';
+        } else {
+          this.contract!.methods.deposit().send({
+            from: this.account.address,
+            value
+          });
+        }
       }
     },
     withdraw(d: Vault) {
