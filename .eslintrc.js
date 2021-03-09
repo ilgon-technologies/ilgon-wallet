@@ -32,7 +32,10 @@ module.exports = {
     'no-prototype-builtins': 'off'
   },
   parserOptions: {
-    parser: '@typescript-eslint/parser'
+    parser: '@typescript-eslint/parser',
+    ecmaFeatures: {
+      jsx: false
+    }
   },
   plugins: ['security']
 };

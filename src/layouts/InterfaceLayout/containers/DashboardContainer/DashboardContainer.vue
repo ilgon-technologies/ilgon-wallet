@@ -1,5 +1,9 @@
 <template>
   <div class="dashboard-container">
+    <ErrorModal
+      :close="closeError"
+      :messages="errorMessage === null ? [] : [errorMessage]"
+    />
     <div class="container--flex container--top">
       <div v-if="contract !== null" class="container--card block--swap">
         <div class="flex--row--align-center title">
@@ -13,6 +17,7 @@
                 type="number"
                 aria-label="Deposit amount"
                 style="width: 7.5em"
+                step="0.000000000000000001"
               />
               <button
                 :disabled="depositAmount === '' || depositAmount <= 0"
@@ -137,6 +142,7 @@ import { Contract } from 'web3-eth-contract';
 import Vue from 'vue';
 // eslint-disable-next-line no-unused-vars
 import { DateTimeFormatOptions } from 'vue-i18n';
+import ErrorModal from '@/containers/ConfirmationContainer/components/ErrorModal/ErrorModal.vue';
 
 /**
  * @example
@@ -193,15 +199,28 @@ function initContract({
   return null;
 }
 
+const try_ = <T>(fn: () => T) => {
+  try {
+    return fn();
+  } catch (e) {
+    return e instanceof Error ? e : new Error(e + '');
+  }
+};
+
 export default Vue.extend({
+  components: {
+    ErrorModal
+  },
   data() {
     const newVar: {
+      errorMessage: null | string;
       depositAmount: string;
       contract: Contract | null;
       vaults: null | Vault[];
       show: 'not-withdrawn' | 'withdrawn';
       polling: null | NodeJS.Timeout;
     } = {
+      errorMessage: null,
       depositAmount: '',
       vaults: null,
       // null if the network does not support staking
@@ -243,6 +262,9 @@ export default Vue.extend({
     }
   },
   methods: {
+    closeError() {
+      this.errorMessage = null;
+    },
     showDate: (d: Date) => d.toLocaleString([], withoutSeconds),
     updateVaultsLoop() {
       this.contract!.methods.getVaultsLength(this.account.address)
@@ -369,11 +391,27 @@ export default Vue.extend({
           throw new Error('Invalid deposit enum: ' + v.depositType);
       }
     },
-    deposit() {
-      this.contract!.methods.deposit().send({
-        from: this.account.address,
-        value: Web3.utils.toWei(this.depositAmount, 'ether')
-      });
+    async deposit() {
+      const weiOrFailure = try_(() =>
+        Web3.utils.toWei(this.depositAmount, 'ether')
+      );
+      if (weiOrFailure instanceof Error) {
+        this.errorMessage = weiOrFailure.message;
+      } else {
+        const value = weiOrFailure;
+        const minDeposit = await this.contract!.methods.getMinDeposit().call();
+        if (new BigNumber(value).lt(minDeposit)) {
+          this.errorMessage =
+            'Amount to be deposited is less than the minimum allowed deposit (' +
+            Web3.utils.fromWei(minDeposit) +
+            ')';
+        } else {
+          this.contract!.methods.deposit().send({
+            from: this.account.address,
+            value
+          });
+        }
+      }
     },
     withdraw(d: Vault) {
       this.contract!.methods.withdraw(
