@@ -13,6 +13,7 @@
                 type="number"
                 aria-label="Deposit amount"
                 style="width: 7.5em"
+                step="0.000000000000000001"
               />
               <button
                 :disabled="depositAmount === '' || depositAmount <= 0"
