@@ -502,7 +502,7 @@ export default {
             names[idx].expired = isExpired;
             names[
               idx
-              ].expiration = `${expiryDateFormat.toLocaleDateString()} ${expiryDateFormat.toLocaleTimeString()}`;
+            ].expiration = `${expiryDateFormat.toLocaleDateString()} ${expiryDateFormat.toLocaleTimeString()}`;
             names['registrant'] = this.account.address;
           });
 
