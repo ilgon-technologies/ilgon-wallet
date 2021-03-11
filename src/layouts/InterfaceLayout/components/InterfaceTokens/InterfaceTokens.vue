@@ -72,7 +72,12 @@
                   "
                   rel="noopener noreferrer"
                   target="_blank"
-                  >{{ token.symbol }}</a
+                >
+                  <span>{{
+                    token.symbol.length > 10
+                      ? `${token.symbol.substr(0, 15)}...`
+                      : token.symbol
+                  }}</span></a
                 >
               </td>
               <td v-if="token.balance === 'Load'">Loading</td>
