@@ -148,7 +148,7 @@ import PrintModal from './components/PrintModal';
 import { Web3Wallet } from '@/wallets/software';
 import { Toast } from '@/helpers';
 import { toChecksumAddress } from '@/helpers/addressUtils';
-import * as networkTypes from '@/networks/types';
+import { networkTypes } from '@/networks/types';
 import { BigNumber } from 'bignumber.js';
 import store from 'store';
 import sortByBalance from '@/helpers/sortByBalance.js';
@@ -303,10 +303,11 @@ export default {
       'setEthGasPrice'
     ]),
     fetchSetTokens() {
-      this.setTokens().then(res => {
-        this.tokens = res;
-        this.receivedTokens = true;
-      });
+      this.setTokens()
+        .then(res => {
+          this.tokens = res;
+          this.receivedTokens = true;
+        });
     },
     checkPrefilled() {
       const _self = this;
@@ -800,10 +801,11 @@ export default {
           if (this.network.type.name === ETH.name) this.fetchNames();
           this.getBlock();
           this.getBalance();
-          this.setTokens().then(res => {
-            this.tokens = res;
-            this.receivedTokens = true;
-          });
+          this.setTokens()
+            .then(res => {
+              this.tokens = res;
+              this.receivedTokens = true;
+            });
           this.setNonce();
           this.getHighestGas();
           this.getBlockUpdater().then(_sub => {
