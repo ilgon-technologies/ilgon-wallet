@@ -82,10 +82,7 @@ export default {
                 address: _this.account.address,
                 msg: _this.message,
                 sig: _signedMessage,
-                version: '3',
-                signer: _this.account.isHardware
-                  ? _this.account.identifier
-                  : 'MEW'
+                version: '3'
               },
               null,
               2

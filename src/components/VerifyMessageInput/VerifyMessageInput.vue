@@ -76,8 +76,7 @@ export default {
           634c055f91d45615c943db446fb0acc35ef34bf9
           05a78b634d4a88769b80432b4714ba2b19e2fda9
           814a95a1dbb1b",
-        "version": "3",
-        "signer": "MEW"
+        "version": "3"
       }
     `
     };
