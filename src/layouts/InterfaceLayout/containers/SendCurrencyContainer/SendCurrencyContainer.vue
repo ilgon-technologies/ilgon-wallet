@@ -115,20 +115,20 @@
             </div>
             <div v-show="!isToken" class="the-form user-input">
               <p>{{ $t('sendTx.data') }}</p>
+              <textarea
+                v-if="addDataAs === 'text'"
+                :value="showAsUtf8(toData)"
+                :placeholder="$t('sendTx.ph-add-text')"
+                type="text"
+                autocomplete="off"
+                @change="toData = utf8ToData($event.target.value)"
+              />
               <input
-                v-if="addDataAs === 'original'"
+                v-if="addDataAs === 'data'"
                 v-model="toData"
                 :placeholder="$t('sendTx.ph-add-data')"
                 type="text"
                 autocomplete="off"
-              />
-              <textarea
-                v-if="addDataAs === 'utf-8'"
-                :value="showAsUtf8(toData)"
-                :placeholder="$t('sendTx.ph-add-utf-8')"
-                type="text"
-                autocomplete="off"
-                @change="toData = utf8ToData($event.target.value)"
               />
               <i
                 :class="[
@@ -253,7 +253,7 @@ export default {
       toValue: '0',
       gasLimit: '21000',
       toData: '',
-      addDataAs: 'original',
+      addDataAs: 'text',
       selectedCurrency: '',
       ethPrice: 0,
       clearAddress: false

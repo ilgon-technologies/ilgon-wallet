@@ -18,11 +18,11 @@
   "cost-eth-convert": "Cost {txFeeEth} ETH = ${convert}",
   "add-data-as": {
     "title": "Add Data As",
-    "original": "Original",
-    "utf-8": "UTF-8"
+    "text": "Text (UTF-8)",
+    "data": "Data (hex)"
   },
   "ph-add-data": "Add Data (e.g. 0x7834f874g298hf298h234f)",
-  "ph-add-utf-8": "Add UTF-8 (e.g. Lorem ipsum dolor sit amet)",
+  "ph-add-text": "Add Text (e.g. Lorem ipsum dolor sit amet)",
   "nonce": "Nonce",
   "data": "Data",
   "data-gas": "Data & Gas Limit",
