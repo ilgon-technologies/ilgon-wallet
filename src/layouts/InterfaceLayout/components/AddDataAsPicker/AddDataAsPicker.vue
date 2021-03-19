@@ -17,7 +17,7 @@
       <div :class="[open ? 'open' : 'hide', 'dropdown-item-container']">
         <div class="item-container">
           <div
-            v-for="curr in ['original', 'utf-8']"
+            v-for="curr in ['text', 'data']"
             :key="curr"
             :class="[curr === selected ? 'selected' : '', 'item']"
             @click="select(curr)"
@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      selected: 'original',
+      selected: 'text',
       open: false
     };
   },
