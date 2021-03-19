@@ -5,7 +5,6 @@
       <!-- Modal -->
       <div class="wrap">
         <div class="page-container">
-          <h3>Footer</h3>
         </div>
       </div>
     </div>
