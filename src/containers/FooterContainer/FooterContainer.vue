@@ -4,8 +4,7 @@
     <div v-if="!isMewCx" class="footer">
       <!-- Modal -->
       <div class="wrap">
-        <div class="page-container">
-        </div>
+        <div class="page-container"></div>
       </div>
     </div>
   </div>
