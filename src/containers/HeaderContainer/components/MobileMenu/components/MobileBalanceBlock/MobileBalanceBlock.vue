@@ -1,6 +1,5 @@
 <template>
   <div class="mobile-info-block d-flex align-items-center">
-    <interface-balance-modal ref="balanceModal" :balance="accountBalance" />
     <div class="balance-contents">
       <div class="info-block-title text-uppercase font-reset-disabled mb-1">
         {{ $t('common.balance.wallet') }}
@@ -37,10 +36,6 @@
         </ul>
       </div>
     </div>
-
-    <div class="balance-contents ml-auto" @click="showBalanceModal">
-      <i class="setting fa fa-ellipsis-v" aria-hidden="true"></i>
-    </div>
   </div>
 </template>
 
@@ -48,10 +43,8 @@
 import { mapState, mapActions } from 'vuex';
 import { Toast } from '@/helpers';
 import BigNumber from 'bignumber.js';
-import InterfaceBalanceModal from '@/layouts/InterfaceLayout/components/InterfaceBalanceModal';
 
 export default {
-  components: { 'interface-balance-modal': InterfaceBalanceModal },
   data() {
     return {
       equivalentValues: [
@@ -102,10 +95,6 @@ export default {
   },
   methods: {
     ...mapActions('main', ['setAccountBalance']),
-    showBalanceModal() {
-      this.getBalance();
-      this.$refs.balanceModal.$refs.balance.show();
-    },
     getBalance() {
       if (this.account.address) {
         this.web3.eth
