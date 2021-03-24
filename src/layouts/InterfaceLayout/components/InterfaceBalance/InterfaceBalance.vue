@@ -51,13 +51,6 @@
             <img alt src="~@/assets/images/icons/copy.svg" />
           </b-btn>
           <b-popover
-            :content="$t('interface.check-balance.string')"
-            target="balanceCheck"
-            placement="top"
-            triggers="hover"
-            title
-          />
-          <b-popover
             :content="$t('interface.check-balance.refresh')"
             target="refreshBalance"
             placement="top"
