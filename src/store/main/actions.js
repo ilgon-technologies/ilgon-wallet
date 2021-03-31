@@ -17,6 +17,7 @@ import {
   addUpdateSwapNotification
 } from '@/helpers/notificationFormatters';
 import BigNumber from 'bignumber.js';
+import { ILG, networkTypeEq } from '@/networks/types';
 
 const addNotification = function ({ dispatch, commit, state }, val) {
   let address;
@@ -177,8 +178,9 @@ const removeNotification = function ({ commit, state }, val) {
   commit('UPDATE_NOTIFICATION', newNotif);
 };
 
-const setAccountBalance = function ({ commit }, balance) {
+const setAccountBalance = function ({ state, commit }, balance) {
   commit('SET_ACCOUNT_BALANCE', balance);
+  loadUsdPrice(state, commit);
 };
 
 const setGasPrice = function ({ commit }, gasPrice) {
@@ -275,8 +277,37 @@ const setWeb3Instance = function ({ dispatch, commit, state }, provider) {
   commit('SET_WEB3_INSTANCE', web3Instance);
 };
 
-const switchNetwork = function ({ commit }, networkObj) {
+function loadUsdPrice(state, commit) {
+  if (state.usdPrice.t === 'LOADING') {
+    state.usdPrice.controller.abort();
+  }
+  if (networkTypeEq(state.network.type)(ILG)) {
+    const controller = new AbortController();
+    commit('SET_USD_PRICE', { t: 'LOADING', controller });
+    fetch('https://priceapi.ilgonwallet.com/prices', {
+      signal: controller.signal
+    })
+      .then(r => r.json())
+      .then(r => ({
+        t: 'SUCCESS',
+        value: r.data.ILG_USD
+      }))
+      .then(
+        result => commit('SET_USD_PRICE', { t: 'LOADED', result }),
+        e => {
+          if (e.message !== 'The user aborted a request.') {
+            commit('SET_USD_PRICE', { t: 'LOADED', result: { t: 'ERROR' } });
+          }
+        }
+      );
+  } else {
+    commit('SET_USD_PRICE', { t: 'HIDDEN' });
+  }
+}
+
+const switchNetwork = function ({ commit, state }, networkObj) {
   commit('SWITCH_NETWORK', networkObj);
+  loadUsdPrice(state, commit);
 };
 const setENS = function ({ commit }, ens) {
   commit('SET_ENS', ens);

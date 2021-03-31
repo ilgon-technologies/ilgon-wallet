@@ -137,6 +137,8 @@ const SET_ETH_GASPRICE = function (state, val) {
   store.set('fetchedGasPrice', val);
 };
 
+const SET_USD_PRICE = (state, val) => (state.usdPrice = val);
+
 export default {
   ADD_NOTIFICATION,
   ADD_SWAP_TRANSACTION,
@@ -160,5 +162,6 @@ export default {
   SET_ADDRESS_BOOK,
   SET_LOCALE,
   TOGGLE_TEMP_HIDE,
-  SET_ETH_GASPRICE
+  SET_ETH_GASPRICE,
+  SET_USD_PRICE
 };
