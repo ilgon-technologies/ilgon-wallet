@@ -56,3 +56,13 @@ In `./src/network/types` folder `contracts.js` constains the staking contract of
 
 1. Add the logo to `builds/web/public/img/icons/tokens`. The name should be `${TOKEN_SYMBOL}.png`
 2. In `src/networks/types` for live add token to `tokens-ilg.json`, for test add to `tokens-ilgt.json`
+
+#### Deploying to live server
+
+1. make sure `git@github.com:ilgon-technologies/ilgon-wallet-page.git` is checked out to the deployment folder
+2. run `VUE_APP_MODE=prod ./build.sh && ./update_deployment.sh`
+3. commit and push in the deployment folder
+
+#### Deploying to dev server
+
+1. run `deploy_dev.sh $USERNAME` (make sure you replace `$USERNAME`)

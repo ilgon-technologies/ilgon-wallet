@@ -60,7 +60,33 @@ const state = {
   locale: store.get('locale') !== undefined ? store.get('locale') : 'en_US',
   tempHide: false,
   gasLimitWarning: 20000,
-  ethGasPrice: 0
+  ethGasPrice: 0,
+  /*
+type usdPrice =
+  { t: "HIDDEN" }
+  | {
+    t: "LOADING",
+    controller: AbortController
+  }
+  | {
+    t: "LOADED",
+    result: {
+      t: 'SUCCESS',
+      // a decimal number represented in string
+      value: string
+    }
+    | { t: 'ERROR' }
+  }
+      state graph for usdPrice (you can view to with graphviz):
+digraph G {
+  "START" -> "{ t: 'HIDDEN' }"
+  "{ t: 'LOADING' }" -> "{ t: 'LOADED' }" [label = "response received"]
+  "{ t: 'LOADING' }" -> "{ t: 'HIDDEN' }" [label = "switched to non-live"]
+  "{ t: 'LOADED' }" -> "{ t: 'HIDDEN' }" [label = "switched to non-live"]
+  "{ t: 'HIDDEN' }" -> "{ t: 'LOADING' }" [label = "switched to live"]
+}
+  */
+  usdPrice: { t: 'HIDDEN' }
 };
 
 export default state;

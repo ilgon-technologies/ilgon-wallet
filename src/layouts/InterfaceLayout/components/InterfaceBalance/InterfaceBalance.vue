@@ -29,6 +29,19 @@
             </div>
             <i v-show="balance === undefined" class="fa fa-spin fa-spinner" />
           </div>
+          <p v-if="usdPrice.t !== 'HIDDEN'">
+            <template v-if="usdPrice.t === 'LOADING'">
+              $... USD ($.../ILG)
+            </template>
+            <template v-else-if="usdPrice.t === 'LOADED'">
+              <template v-if="usdPrice.result.t === 'ERROR'">
+                $N/A USD ($N/A/ILG)
+              </template>
+              <template v-else-if="usdPrice.result.t === 'SUCCESS'">
+                {{ successfullyLoadedUsdPrice }}
+              </template>
+            </template>
+          </p>
         </div>
         <div class="icon-container">
           <b-btn
@@ -74,6 +87,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import BigNumber from 'bignumber.js';
 import { Toast } from '@/helpers';
 
 export function showWholes(balance) {
@@ -104,7 +118,18 @@ export default {
     };
   },
   computed: {
-    ...mapState('main', ['network'])
+    ...mapState('main', ['network', 'usdPrice']),
+    successfullyLoadedUsdPrice() {
+      const usdPrice = this.usdPrice.result.value;
+      const balanceInUsd = new BigNumber(this.balance)
+        .multipliedBy(usdPrice)
+        .decimalPlaces(0)
+        .toString()
+        // 1000 -> 1,000
+        .replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+      const shownUsdPrice = new BigNumber(usdPrice).decimalPlaces(6).toString();
+      return `$${balanceInUsd} USD ($${shownUsdPrice}/ILG)`;
+    }
   },
   watch: {
     balance() {

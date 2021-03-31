@@ -187,7 +187,6 @@ import { Misc, Toast } from '@/helpers';
 import BigNumber from 'bignumber.js';
 import ethUnit from 'ethjs-unit';
 import utils from 'web3-utils';
-import fetch from 'node-fetch';
 import DropDownAddressSelector from '@/components/DropDownAddressSelector';
 import { ETH, ILG, ILGT, ILGD, networkTypeEq } from '@/networks/types';
 import AddDataAsPicker from '@/layouts/InterfaceLayout/components/AddDataAsPicker';
@@ -258,7 +257,6 @@ export default {
       toData: '',
       addDataAs: 'text',
       selectedCurrency: '',
-      ethPrice: 0,
       clearAddress: false
     };
   },
@@ -271,7 +269,8 @@ export default {
       'network',
       'linkQuery',
       'online',
-      'gasLimitWarning'
+      'gasLimitWarning',
+      'usdPrice'
     ]),
     currency() {
       return this.selectedCurrency.symbol;
@@ -408,14 +407,21 @@ export default {
       );
     },
     convert() {
-      if (this.ethPrice) {
-        return new BigNumber(
-          new BigNumber(this.txFeeEth).times(new BigNumber(this.ethPrice))
-        )
-          .toFixed(2)
-          .toString();
+      switch (this.usdPrice.t) {
+        case 'LOADING':
+          return '...';
+        case 'LOADED':
+          switch (this.usdPrice.result.t) {
+            case 'SUCCESS':
+              return new BigNumber(
+                new BigNumber(this.txFeeEth).times(this.usdPrice.result.value)
+              )
+                .toFixed(2)
+                .toString();
+            case 'ERROR':
+              return 'N/A';
+          }
       }
-      return '--';
     },
     displayedGasPrice() {
       const newVal = this.gasPrice.toString();
@@ -432,24 +438,19 @@ export default {
     multiWatch: utils._.debounce(function () {
       if (this.validInputs) this.estimateGas();
     }, 500),
-    network(newVal) {
-      if (this.online && [ETH, ILG].some(networkTypeEq(newVal.type)))
-        this.getEthPrice();
-    },
     isPrefilled() {
       this.prefillForm();
     }
   },
   mounted() {
     this.checkPrefilled();
-    if (this.online && this.canShowTxFeeInUsd()) this.getEthPrice();
   },
   methods: {
     canShowTxFee() {
       return [ETH, ILG, ILGT, ILGD].some(networkTypeEq(this.network.type));
     },
     canShowTxFeeInUsd() {
-      return [ETH, ILG].some(networkTypeEq(this.network.type));
+      return this.usdPrice.t !== 'HIDDEN';
     },
     clear() {
       this.toData = '';
