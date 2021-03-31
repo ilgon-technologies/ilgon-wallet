@@ -407,7 +407,11 @@ export default {
                 .toString();
             case 'ERROR':
               return 'N/A';
+            default:
+              return 'WHAT';
           }
+        default:
+          return 'WHAT';
       }
     },
     displayedGasPrice() {
