@@ -32,10 +32,6 @@
     "update:swap": "node compileBaseSwapOptions.js"
   },
   "dependencies": {
-    "@aave/protocol-js": "1.0.3",
-    "@coolwallets/eth": "0.2.0-beta.1",
-    "@coolwallets/transport-web-ble": "0.1.0",
-    "@coolwallets/wallet": "0.2.0-beta.1",
     "@sentry/browser": "6.2.3",
     "@sentry/integrations": "6.2.3",
     "@unstoppabledomains/resolution": "2.1.1",
@@ -73,6 +69,7 @@
     "vue-toasted": "1.1.28",
     "vuex": "3.6.2",
     "walletlink": "2.0.3",
+    "web3-eth-contract": "^1.2.7",
     "xss": "1.0.8"
   },
   "devDependencies": {

@@ -60,20 +60,6 @@
       <finney-modal ref="finney" />
       <xwallet-modal ref="xwallet" />
       <enter-pin-number-modal />
-      <bcvault-address-modal
-        ref="bcvault"
-        :addresses="hardwareAddresses"
-        :callback-fn="modalCb"
-      />
-
-      <bitbox-select-modal
-        ref="bitboxSelectModal"
-        @bitbox02Open="bitbox02ModalOpen"
-        @hardwareRequiresPassword="hardwarePasswordModalOpen"
-        @hardwareWalletOpen="hardwareWalletOpen"
-      />
-
-      <bitbox02-modal ref="bitbox02Modal" :device="device" />
 
       <div class="wrap">
         <div class="page-container">
@@ -115,7 +101,6 @@
 
 <script>
 import FaqsContainer from '@/containers/FaqsContainer';
-import FinneyModal from './components/FinneyModal';
 import AccessWalletButton from './components/AccessWalletButton';
 import HardwareModal from './components/HardwareModal';
 import HardwarePasswordModal from './components/HardwarePasswordModal';
@@ -130,9 +115,6 @@ import LedgerAppModal from './components/LedgerAppModal';
 import WalletPasswordModal from '@/components/WalletPasswordModal';
 import EnterPinNumberModal from '@/components/EnterPinNumberModal';
 import XwalletModal from './components/XwalletModal';
-import BcVaultAddressModal from './components/BcVaultAddressModal';
-import BitboxSelectModal from './components/BitboxSelectModal';
-import Bitbox02Modal from './components/Bitbox02Modal';
 
 import mewConnectImg from '@/assets/images/icons/WalletConnect.svg';
 import hardwareImg from '@/assets/images/icons/button-hardware.svg';
@@ -167,11 +149,7 @@ export default {
     'wallet-password-modal': WalletPasswordModal,
     'enter-pin-number-modal': EnterPinNumberModal,
     'ledger-app-modal': LedgerAppModal,
-    'finney-modal': FinneyModal,
-    'xwallet-modal': XwalletModal,
-    'bcvault-address-modal': BcVaultAddressModal,
-    'bitbox-select-modal': BitboxSelectModal,
-    'bitbox02-modal': Bitbox02Modal
+    'xwallet-modal': XwalletModal
   },
   data() {
     return {
