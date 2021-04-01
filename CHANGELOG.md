@@ -1,3 +1,26 @@
+### Release v5.7.26
+
+### Bug
+
+* fix send offline data issue with BSC [#2941](https://github.com/MyEtherWallet/MyEtherWallet/pull/2941)
+
+### Devop
+
+* Add affiliate link for alchemy [#2940](https://github.com/MyEtherWallet/MyEtherWallet/pull/2940)
+* Add Aqua node [#2942](https://github.com/MyEtherWallet/MyEtherWallet/pull/2942)
+
+### Release v5.7.25-majorupdate.1
+
+### Devop
+
+* Update component [#2946](https://github.com/MyEtherWallet/MyEtherWallet/pull/2946)
+
+### Release v5.7.25
+
+### Bug
+
+* fix send offline helper issue [#2930](https://github.com/MyEtherWallet/MyEtherWallet/pull/2930)
+
 ### Release v5.7.24
 
 ### Bug
