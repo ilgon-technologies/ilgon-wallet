@@ -15,7 +15,6 @@ import TopBanner from './components/TopBanner';
 import img from '@/assets/images/ads/1.png';
 import HomeModal from './components/HomeModal';
 import { mapState } from 'vuex';
-import store from 'store';
 
 export default {
   name: 'HomeContainer',
@@ -35,17 +34,6 @@ export default {
   },
   computed: {
     ...mapState('main', ['online'])
-  },
-  mounted() {
-    const currentDate = new Date().getTime();
-    const date1 = 1617260400000;
-    const date2 = 1617346800000;
-    if (currentDate >= date1 && currentDate < date2) {
-      this.on = true;
-    }
-    if (store.get('taskDone')) {
-      this.on = false;
-    }
   },
   methods: {
     showModal() {
