@@ -1,13 +1,4 @@
-import {
-  LedgerWallet,
-  TrezorWallet,
-  BitBoxWallet,
-  BitBox02Wallet,
-  SecalotWallet,
-  KeepkeyWallet,
-  BCVaultWallet,
-  CoolWallet
-} from './hardware';
+import { LedgerWallet, TrezorWallet } from './hardware';
 import WalletInterface from './WalletInterface';
 import { MnemonicWallet } from './software';
 import {
@@ -19,15 +10,9 @@ import {
 export {
   LedgerWallet,
   TrezorWallet,
-  BitBoxWallet,
-  BitBox02Wallet,
-  SecalotWallet,
-  KeepkeyWallet,
-  CoolWallet,
   MewConnectWallet,
   WalletConnectWallet,
   WalletLinkWallet,
   WalletInterface,
-  MnemonicWallet,
-  BCVaultWallet
+  MnemonicWallet
 };

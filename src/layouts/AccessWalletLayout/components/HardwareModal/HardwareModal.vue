@@ -52,22 +52,12 @@ import WalletOption from '../WalletOption';
 import { Toast } from '@/helpers';
 import { isSupported, ensureSupport } from 'u2f-api';
 import platform from 'platform';
-import {
-  KeepkeyWallet,
-  TrezorWallet,
-  SecalotWallet,
-  BCVaultWallet,
-  CoolWallet
-} from '@/wallets';
+import { TrezorWallet } from '@/wallets';
 import {
   LEDGER as LEDGER_TYPE,
   TREZOR as TREZOR_TYPE,
   SECALOT as SECALOT_TYPE,
-  KEEPKEY as KEEPKEY_TYPE,
-  XWALLET as XWALLET_TYPE,
-  FINNEY as FINNEY_TYPE,
-  COOLWALLET as COOLWALLET_TYPE,
-  BCVAULT as BCVAULT_TYPE
+  KEEPKEY as KEEPKEY_TYPE
 } from '@/wallets/bip44/walletTypes';
 export default {
   components: {
@@ -208,50 +198,6 @@ export default {
               this.mayNotBeAttached = true;
               TrezorWallet.errorHandler(e);
             });
-          break;
-        case 'BitBox':
-          this.bitboxSelectOpen();
-          this.$refs.hardware.hide();
-          break;
-        case SECALOT_TYPE:
-          this.$emit('hardwareRequiresPassword', {
-            walletConstructor: SecalotWallet
-          });
-          break;
-        case KEEPKEY_TYPE:
-          KeepkeyWallet(false, this.$eventHub)
-            .then(_newWallet => {
-              this.$emit('hardwareWalletOpen', _newWallet);
-            })
-            .catch(e => {
-              this.mayNotBeAttached = true;
-              KeepkeyWallet.errorHandler(e);
-            });
-          break;
-        case FINNEY_TYPE:
-          this.openFinney();
-          this.$refs.hardware.hide();
-          break;
-        case XWALLET_TYPE:
-          this.openXwallet();
-          this.$refs.hardware.hide();
-          break;
-        case BCVAULT_TYPE:
-          // eslint-disable-next-line
-          const bcvaultInstance = BCVaultWallet();
-          bcvaultInstance
-            .init()
-            .then(res => {
-              this.openBcVault(res, bcvaultInstance);
-            })
-            .catch(e => {
-              BCVaultWallet.errorHandler(e);
-            });
-          break;
-        case COOLWALLET_TYPE:
-          this.$emit('hardwareRequiresPassword', {
-            walletConstructor: CoolWallet
-          });
           break;
         default:
           Toast.responseHandler(
