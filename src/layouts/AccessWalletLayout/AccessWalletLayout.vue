@@ -213,11 +213,6 @@ export default {
     this.$eventHub.$on('userAddresses', (addresses, cb) => {
       this.hardwareAddresses = addresses;
       this.modalCb = cb;
-      this.$refs.bcvault.$refs.bcvaultAddress.show();
-    });
-    this.$refs.bcvault.$refs.bcvaultAddress.$on('hidden', () => {
-      this.hardwareAddresses = [];
-      this.modalCb = () => {};
     });
   },
   methods: {
