@@ -6,12 +6,6 @@
         :networks="Networks"
         @hardwareWalletOpen="hardwareWalletOpen"
       />
-      <mew-connect-modal
-        ref="mewconnectModal"
-        :network-and-address-open="networkAndAddressOpen"
-        :open-wallet-connect="openWalletConnect"
-        :open-wallet-link="openWalletLink"
-      />
 
       <hardware-modal
         ref="hardwareModal"
@@ -57,8 +51,6 @@
       />
 
       <wallet-password-modal />
-      <finney-modal ref="finney" />
-      <xwallet-modal ref="xwallet" />
       <enter-pin-number-modal />
 
       <div class="wrap">
@@ -105,7 +97,6 @@ import AccessWalletButton from './components/AccessWalletButton';
 import HardwareModal from './components/HardwareModal';
 import HardwarePasswordModal from './components/HardwarePasswordModal';
 import Web3WalletModal from './components/Web3WalletModal';
-import MewConnectModal from './components/MewConnectModal';
 import NetworkAndAddressModal from './components/NetworkAndAddressModal';
 import PasswordModal from './components/PasswordModal';
 import PrivateKeyModal from './components/PrivateKeyModal';
@@ -114,7 +105,6 @@ import MnemonicModal from './components/MnemonicModal';
 import LedgerAppModal from './components/LedgerAppModal';
 import WalletPasswordModal from '@/components/WalletPasswordModal';
 import EnterPinNumberModal from '@/components/EnterPinNumberModal';
-import XwalletModal from './components/XwalletModal';
 
 import mewConnectImg from '@/assets/images/icons/WalletConnect.svg';
 import hardwareImg from '@/assets/images/icons/button-hardware.svg';
@@ -130,13 +120,12 @@ import { Toast } from '@/helpers';
 
 import DetectRTC from 'detectrtc';
 
-import { WalletConnectWallet, WalletLinkWallet } from '@/wallets';
+import { WalletConnectWallet } from '@/wallets';
 
 export default {
   name: 'AccessWalletLayout',
   components: {
     faqs: FaqsContainer,
-    'mew-connect-modal': MewConnectModal,
     'network-and-address-modal': NetworkAndAddressModal,
     'hardware-modal': HardwareModal,
     'hardware-password-modal': HardwarePasswordModal,
@@ -148,8 +137,7 @@ export default {
     'access-wallet-button': AccessWalletButton,
     'wallet-password-modal': WalletPasswordModal,
     'enter-pin-number-modal': EnterPinNumberModal,
-    'ledger-app-modal': LedgerAppModal,
-    'xwallet-modal': XwalletModal
+    'ledger-app-modal': LedgerAppModal
   },
   data() {
     return {
@@ -250,17 +238,6 @@ export default {
     },
     openWalletLink() {
       this.$refs.mewconnectModal.$refs.mewConnect.hide();
-      WalletLinkWallet()
-        .then(_newWallet => {
-          this.decryptWallet([_newWallet]).then(() => {
-            this.$router.push({
-              path: 'interface'
-            });
-          });
-        })
-        .catch(e => {
-          WalletLinkWallet.errorHandler(e);
-        });
     },
     checkIsMetamask() {
       this.isMetaMask = window.ethereum && window.ethereum.isMetaMask;
