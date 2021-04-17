@@ -218,7 +218,6 @@ export default {
   methods: {
     ...mapActions('main', ['decryptWallet']),
     openWalletConnect() {
-      this.$refs.mewconnectModal.$refs.mewConnect.hide();
       WalletConnectWallet()
         .then(_newWallet => {
           this.decryptWallet([_newWallet]).then(() => {
