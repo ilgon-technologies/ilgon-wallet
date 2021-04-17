@@ -228,7 +228,6 @@ export default {
             .flat()
             .find(n => n.type.chainID === chainId)
         );
-      this.$refs.mewconnectModal.$refs.mewConnect.hide();
       WalletConnectWallet(changeNetwork)
         .then(([_newWallet, chainId]) =>
           this.decryptWallet([_newWallet]).then(() => changeNetwork(chainId))
