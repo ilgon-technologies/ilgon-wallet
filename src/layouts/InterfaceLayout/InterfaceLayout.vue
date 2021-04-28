@@ -504,13 +504,42 @@ export default {
     },
     fetchTokens() {
       return new Promise(resolve => {
-        if (
-          (this.network.type.chainID === 1 ||
-            this.network.type.chainID === 3) &&
-          !this.network.url.includes('infura')
-        ) {
+        if (true) {
           try {
-            getAddressTokens(this.account.address).then(res => {
+            (this.network.type.chainID === 1
+              ? getAddressTokens(this.account.address)
+              : fetch(
+                  this.network.type.homePage +
+                    '/api?module=account&action=tokenlist&address=' +
+                    this.account.address
+                )
+                  .then(r => r.json())
+                  .then(({ result }) => {
+                    return {
+                      data: {
+                        getOwnersERC20Tokens: {
+                          owners: result.map(
+                            ({
+                              balance,
+                              contractAddress,
+                              decimals,
+                              name,
+                              symbol
+                            }) => ({
+                              balance,
+                              tokenInfo: {
+                                name,
+                                symbol,
+                                decimals,
+                                contract: contractAddress
+                              }
+                            })
+                          )
+                        }
+                      }
+                    };
+                  })
+            ).then(res => {
               const tokens = [];
               const apiTokens = res.data.getOwnersERC20Tokens.owners;
               const parsedApiTokens = apiTokens.map(apiT => {
@@ -518,14 +547,6 @@ export default {
                   {},
                   { balance: apiT.balance },
                   { address: apiT.tokenInfo.contract },
-                  {
-                    logo: {
-                      src: '',
-                      width: '',
-                      height: '',
-                      ipfs_hash: ''
-                    }
-                  },
                   apiT.tokenInfo
                 );
                 newT['balance'] = BigNumber(newT.balance)
@@ -561,7 +582,7 @@ export default {
       this.tokens = [];
       this.receivedTokens = false;
       return new Promise(resolve => {
-        if (this.network.type.name === 'ETH') {
+        if (true) {
           this.fetchTokens().then(res => {
             let tokens = res;
             tokens = tokens

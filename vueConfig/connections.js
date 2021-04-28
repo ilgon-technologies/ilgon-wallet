@@ -84,8 +84,7 @@ module.exports = [
   'https://api.avax-test.network:443',
   'https://staked.mewapi.io:443',
   'https://stakedtest.mewapi.io:443',
-  'https://c.onical.org:443', // aqua
-  'https://tx.info.aquacha.in:443/api', // aqua
+  'https://api.ethvm.com:443',
   'https://rpc.xdaichain.com:443',
   'https://api.ethvm.com:443',
   'https://stakedtest.mewapi.io:443',
@@ -94,5 +93,8 @@ module.exports = [
   'https://mainnet-rpc.ilgonwallet.com:443',
   'https://testnet-rpc.ilgonwallet.com',
   'https://wallet.ilgoindev.e-diploma.org:443',
-  'https://priceapi.ilgonwallet.com'
+  'https://priceapi.ilgonwallet.com',
+  'https://ilgonexplorer.com/',
+  'https://testnet.ilgonexplorer.com',
+  'https://explorer.ilgoindev.e-diploma.org'
 ];
