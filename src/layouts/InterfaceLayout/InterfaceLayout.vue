@@ -303,12 +303,10 @@ export default {
       'setEthGasPrice'
     ]),
     fetchSetTokens() {
-      this.setTokens()
-        .then(res => {
-          this.tokens = res;
-          this.receivedTokens = true;
-        })
-        .then(this.getTokenBalances);
+      this.setTokens().then(res => {
+        this.tokens = res;
+        this.receivedTokens = true;
+      });
     },
     checkPrefilled() {
       const _self = this;
@@ -684,12 +682,6 @@ export default {
         }
       });
     },
-    async getTokenBalances() {
-      await Promise.all(
-        this.tokens.map(async t => (t.balance = await this.getTokenBalance(t)))
-      );
-      this.tokens.sort(sortByBalance);
-    },
     setTokensWithBalance() {
       const customStore = store.get('customTokens');
       if (
@@ -808,12 +800,10 @@ export default {
           if (this.network.type.name === ETH.name) this.fetchNames();
           this.getBlock();
           this.getBalance();
-          this.setTokens()
-            .then(res => {
-              this.tokens = res;
-              this.receivedTokens = true;
-            })
-            .then(this.getTokenBalances);
+          this.setTokens().then(res => {
+            this.tokens = res;
+            this.receivedTokens = true;
+          });
           this.setNonce();
           this.getHighestGas();
           this.getBlockUpdater().then(_sub => {
