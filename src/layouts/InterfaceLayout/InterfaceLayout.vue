@@ -504,7 +504,7 @@ export default {
     },
     fetchTokens() {
       return new Promise(resolve => {
-        if (true) {
+        if (parseInt(1)) {
           try {
             (this.network.type.chainID === 1
               ? getAddressTokens(this.account.address)
@@ -582,7 +582,7 @@ export default {
       this.tokens = [];
       this.receivedTokens = false;
       return new Promise(resolve => {
-        if (true) {
+        if (parseInt(1)) {
           this.fetchTokens().then(res => {
             let tokens = res;
             tokens = tokens
