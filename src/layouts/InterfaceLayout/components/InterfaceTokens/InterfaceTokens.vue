@@ -159,7 +159,7 @@ export default {
         return `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`;
       }
 
-      return this.network.type.icon;
+      return undefined;
     },
     iconFallback(evt) {
       evt.target.src = this.network.type.icon;
