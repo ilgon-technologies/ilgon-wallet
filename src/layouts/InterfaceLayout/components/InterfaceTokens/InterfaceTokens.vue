@@ -152,7 +152,7 @@ export default {
           ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
           : tok.logo && tok.logo.src && tok.logo.src !== ''
           ? `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`
-            : undefined;
+          : undefined;
         return tokenSrc;
       } else if (tok.logo && tok.logo.src && tok.logo.src !== '') {
         return `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`;
