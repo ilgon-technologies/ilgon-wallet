@@ -28,7 +28,7 @@
               :key="token.symbol + index"
             >
               <td class="name-and-icon-container">
-                <figure v-lazy-load class="token-icon">
+                <figure v-if="iconFetch(token)" v-lazy-load class="token-icon">
                   <img :data-url="iconFetch(token)" @error="iconFallback" />
                 </figure>
                 <a
@@ -155,7 +155,7 @@ export default {
             ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
             : tok.logo && tok.logo.src && tok.logo.src !== ''
             ? `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`
-            : this.network.type.icon;
+            : undefined;
         return tokenSrc;
       } else if (tok.logo && tok.logo.src && tok.logo.src !== '') {
         return `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`;
