@@ -1,6 +1,7 @@
+export const STAKING = 'Staking contract';
 export default [
   {
-    name: 'Staking contract',
+    name: STAKING,
     address: '0xebE14A98E366196f16529c5E9Ecfea43fbC9940b',
     abi: stakingAbi()
   }

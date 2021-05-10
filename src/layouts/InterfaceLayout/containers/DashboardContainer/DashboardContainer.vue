@@ -136,13 +136,13 @@ import { mapState } from 'vuex';
 
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
-import { ILG, ILGT } from '@/networks/types';
 // eslint-disable-next-line no-unused-vars
 import { Contract } from 'web3-eth-contract';
 import Vue from 'vue';
 // eslint-disable-next-line no-unused-vars
 import { DateTimeFormatOptions } from 'vue-i18n';
 import ErrorModal from '@/containers/ConfirmationContainer/components/ErrorModal/ErrorModal.vue';
+import { STAKING } from '@/networks/types';
 
 /**
  * @example
@@ -189,14 +189,13 @@ function initContract({
   network: any;
   web3: Web3;
 }): Contract | null {
-  if ([ILG, ILGT].includes(network.type)) {
-    const contract = network.type.contracts[0];
-    return (new web3.eth.Contract(
-      contract.abi,
-      contract.address
-    ) as unknown) as Contract;
-  }
-  return null;
+  const contract = network.type.contracts.find((c: any) => c.name === STAKING);
+  return contract !== undefined
+    ? ((new web3.eth.Contract(
+        contract.abi,
+        contract.address
+      ) as unknown) as Contract)
+    : null;
 }
 
 const try_ = <T>(fn: () => T) => {
