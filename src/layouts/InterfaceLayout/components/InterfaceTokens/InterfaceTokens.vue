@@ -80,8 +80,7 @@
                   }}</span></a
                 >
               </td>
-              <td v-if="token.balance === 'Load'">Loading</td>
-              <td v-else>
+              <td>
                 {{ showBalance(token) }}
               </td>
             </tr>
