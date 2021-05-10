@@ -1,7 +1,7 @@
-import { dummyAbi } from '@/networks/types/contracts';
+import { dummyAbi, STAKING } from '@/networks/types/contracts';
 export default [
   {
-    name: 'Staking contract',
+    name: STAKING,
     address: '0x933cdac7b0bD9519C84e8F1F74Be51b07921e596',
     abi: stakingAbi()
   },

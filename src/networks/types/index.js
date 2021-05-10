@@ -2,6 +2,7 @@ import ILG from './ILG.js';
 import ILGT from './ILGT.js';
 import ILGD from './ILGD.js';
 import ETH from './ETH.js';
+import { STAKING } from './contracts';
 
 const networkTypes = (() => {
   const usableNetworks = [
@@ -22,4 +23,4 @@ const ilgs = Object.values(networkTypes).filter(n => n !== ETH);
 
 const networkTypeEq = t1 => t2 => t1.name === t2.name;
 
-export { ILG, ILGT, ILGD, ETH, ilgs, networkTypes, networkTypeEq };
+export { ILG, ILGT, ILGD, ETH, ilgs, networkTypes, STAKING, networkTypeEq };
