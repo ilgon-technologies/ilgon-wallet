@@ -238,16 +238,15 @@ export default {
     iconFetch(tok) {
       const token = this.networkTokens[toChecksumAddress(tok.address)];
       if (token) {
-        const tokenSrc =
-          token.icon_png !== undefined && ilgs.includes(this.network.type)
-            ? token.icon_png
-            : token.icon_png !== ''
-            ? `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
-            : token.icon !== ''
-            ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
-            : tok.logo && tok.logo.src && tok.logo.src !== ''
-            ? `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`
-            : this.network.type.icon;
+        const tokenSrc = ilgs.includes(this.network.type)
+          ? token.icon_png
+          : token.icon_png !== ''
+          ? `https://img.mewapi.io/?image=${token.icon_png}&width=50&height=50&fit=scale-down`
+          : token.icon !== ''
+          ? `https://img.mewapi.io/?image=${token.icon}&width=50&height=50&fit=scale-down`
+          : tok.logo && tok.logo.src && tok.logo.src !== ''
+          ? `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`
+          : this.network.type.icon;
         return tokenSrc;
       } else if (tok.logo && tok.logo.src && tok.logo.src !== '') {
         return `https://img.mewapi.io/?image=${tok.logo.src}&width=50&height=50&fit=scale-down`;
