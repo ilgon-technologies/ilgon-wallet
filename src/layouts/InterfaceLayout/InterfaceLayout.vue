@@ -632,7 +632,7 @@ export default {
               resolve(tokens);
             });
           } catch (e) {
-            resolve(this.network.type.tokens);
+            resolve([]);
           }
         } else {
           resolve(this.network.type.tokens);
@@ -812,7 +812,7 @@ export default {
         }
       } else {
         this.receivedTokens = true;
-        this.tokens = this.network.type.tokens;
+        this.tokens = [];
       }
     }),
     async getBlockUpdater() {
