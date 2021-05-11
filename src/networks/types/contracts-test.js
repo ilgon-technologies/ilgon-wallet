@@ -1,4 +1,9 @@
-import { dummyAbi, STAKING } from '@/networks/types/contracts';
+import {
+  COMPENSATION,
+  compensationAbi,
+  dummyAbi,
+  STAKING
+} from '@/networks/types/contracts';
 export default [
   {
     name: STAKING,
@@ -9,6 +14,11 @@ export default [
     name: 'Geza Gold',
     address: '0x35B7eeFc753Edf875a8962b075C170166ed5bbDD',
     abi: dummyAbi
+  },
+  {
+    name: COMPENSATION,
+    address: '0xe85e9C016A338967AC6BC2e4286615C6cecC3206',
+    abi: compensationAbi()
   }
 ];
 

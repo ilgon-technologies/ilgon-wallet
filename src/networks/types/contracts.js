@@ -1,4 +1,5 @@
 export const STAKING = 'Staking';
+export const COMPENSATION = 'Compensation';
 export default [
   {
     name: STAKING,
@@ -757,6 +758,667 @@ function stakingAbi() {
         {
           internalType: 'uint256',
           name: 'amount',
+          type: 'uint256'
+        }
+      ],
+      name: 'withdraw',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      stateMutability: 'payable',
+      type: 'receive'
+    }
+  ];
+}
+export function compensationAbi() {
+  return [
+    {
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'constructor'
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'user',
+          type: 'address'
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'vaultId',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'string',
+          name: 'label',
+          type: 'string'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'duration',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'premium',
+          type: 'uint256'
+        }
+      ],
+      name: 'Deposit',
+      type: 'event'
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'user',
+          type: 'address'
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: 'vaultId',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'amountWithdrawn',
+          type: 'uint256'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'interestPaid',
+          type: 'uint256'
+        }
+      ],
+      name: 'Withdraw',
+      type: 'event'
+    },
+    {
+      stateMutability: 'payable',
+      type: 'fallback'
+    },
+    {
+      inputs: [
+        {
+          components: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address'
+            },
+            {
+              internalType: 'uint256',
+              name: 'depositTime',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'withdrawTime',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256'
+            },
+            {
+              internalType: 'string',
+              name: 'label',
+              type: 'string'
+            },
+            {
+              internalType: 'uint256',
+              name: 'duration',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'premium',
+              type: 'uint256'
+            }
+          ],
+          internalType: 'struct Compensation.Vault',
+          name: 'vault',
+          type: 'tuple'
+        }
+      ],
+      name: 'calculateInterest',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'deploymentTime',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        },
+        {
+          internalType: 'string',
+          name: 'label',
+          type: 'string'
+        },
+        {
+          internalType: 'address',
+          name: 'target',
+          type: 'address'
+        },
+        {
+          internalType: 'uint256',
+          name: 'depositType',
+          type: 'uint256'
+        }
+      ],
+      name: 'depositAdmin',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'target',
+          type: 'address'
+        },
+        {
+          internalType: 'uint256',
+          name: 'vaultId',
+          type: 'uint256'
+        }
+      ],
+      name: 'forceWithdraw',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getAdmins',
+      outputs: [
+        {
+          internalType: 'address[]',
+          name: '',
+          type: 'address[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getCompensationPremiums',
+      outputs: [
+        {
+          internalType: 'uint256[]',
+          name: '',
+          type: 'uint256[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getCompensationTimes',
+      outputs: [
+        {
+          internalType: 'uint256[]',
+          name: '',
+          type: 'uint256[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getInterestStartTime',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getMinDeposit',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'a',
+          type: 'address'
+        }
+      ],
+      name: 'getUserData',
+      outputs: [
+        {
+          components: [
+            {
+              internalType: 'uint256',
+              name: 'deposits',
+              type: 'uint256'
+            }
+          ],
+          internalType: 'struct Compensation.UserData',
+          name: '',
+          type: 'tuple'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'a',
+          type: 'address'
+        }
+      ],
+      name: 'getUserDeposits',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'target',
+          type: 'address'
+        },
+        {
+          internalType: 'uint256',
+          name: '_id',
+          type: 'uint256'
+        }
+      ],
+      name: 'getVaultById',
+      outputs: [
+        {
+          components: [
+            {
+              internalType: 'address',
+              name: 'owner',
+              type: 'address'
+            },
+            {
+              internalType: 'uint256',
+              name: 'depositTime',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'withdrawTime',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'amount',
+              type: 'uint256'
+            },
+            {
+              internalType: 'string',
+              name: 'label',
+              type: 'string'
+            },
+            {
+              internalType: 'uint256',
+              name: 'duration',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'premium',
+              type: 'uint256'
+            }
+          ],
+          internalType: 'struct Compensation.Vault',
+          name: 'vault',
+          type: 'tuple'
+        },
+        {
+          internalType: 'uint256',
+          name: 'withdrawableAmount',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getVaultUsersLength',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'a',
+          type: 'address'
+        }
+      ],
+      name: 'getVaultsLength',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'interestStartTime',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'isDepositOpen',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'owner',
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '_owner',
+          type: 'address'
+        }
+      ],
+      name: 'replaceOwner',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        }
+      ],
+      name: 'sendToOwner',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address[]',
+          name: 'newAdmins',
+          type: 'address[]'
+        }
+      ],
+      name: 'setAdmins',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256[]',
+          name: 'newCompensationPremiums',
+          type: 'uint256[]'
+        },
+        {
+          internalType: 'uint256[]',
+          name: 'newCompensationTimes',
+          type: 'uint256[]'
+        }
+      ],
+      name: 'setCompensationTimesAndPremiums',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'time',
+          type: 'uint256'
+        }
+      ],
+      name: 'setInterestStartTime',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
+        }
+      ],
+      name: 'setMinDeposit',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'startTime',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'sumDeposits',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'toggleDepositOpen',
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool'
+        }
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      name: 'vaultUsers',
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'vaultId',
           type: 'uint256'
         }
       ],
