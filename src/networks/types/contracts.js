@@ -1,4 +1,4 @@
-export const STAKING = 'Staking contract';
+export const STAKING = 'Staking';
 export default [
   {
     name: STAKING,
