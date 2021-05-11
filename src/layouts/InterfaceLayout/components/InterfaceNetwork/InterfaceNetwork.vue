@@ -26,7 +26,7 @@
         </div>
         <div class="icon-container">
           <button
-            v-if="account.identifier !== identifier"
+            v-if="account.identifier !== identifier && notWalletConnect"
             id="networkModal"
             class="change-button"
             @click="networkModalOpen"
@@ -49,7 +49,7 @@
 <script>
 import InterfaceNetworkModal from '../InterfaceNetworkModal';
 import { mapState } from 'vuex';
-import { WEB3_WALLET } from '@/wallets/bip44/walletTypes';
+import { WALLET_CONNECT, WEB3_WALLET } from '@/wallets/bip44/walletTypes';
 
 export default {
   components: {
@@ -68,7 +68,10 @@ export default {
     };
   },
   computed: {
-    ...mapState('main', ['network', 'account', 'web3'])
+    ...mapState('main', ['network', 'account', 'web3', 'wallet']),
+    notWalletConnect() {
+      return this.wallet?.identifier !== WALLET_CONNECT;
+    }
   },
   watch: {
     blockNumber(newVal) {
