@@ -17,7 +17,7 @@ export default [
   },
   {
     name: COMPENSATION,
-    address: '0xe85e9C016A338967AC6BC2e4286615C6cecC3206',
+    address: '0x1b06EE9D79209814e4c8f612c7BE25fA942124F6',
     abi: compensationAbi()
   }
 ];
