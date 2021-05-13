@@ -5,127 +5,142 @@
       :messages="errorMessage === null ? [] : [errorMessage]"
     />
     <div class="container--flex container--top">
-      <div v-if="contract !== null" class="container--card block--swap">
-        <div class="flex--row--align-center title">
-          <h4>Staking contract</h4>
-        </div>
-        <div class="swap-info">
-          <div v-if="vaults !== null">
-            <div>
-              <input
-                v-model="depositAmount"
-                type="number"
-                aria-label="Deposit amount"
-                style="width: 7.5em"
-                step="0.000000000000000001"
-              />
-              <button
-                :disabled="depositAmount === '' || depositAmount <= 0"
-                style="margin-left: 0.5em"
-                @click="deposit"
-              >
-                Deposit
-              </button>
-              <span style="margin-left: 1em"><strong>Show only:</strong></span>
-              <div style="display: inline-block">
-                <input
-                  id="not-withdrawn"
-                  v-model="show"
-                  type="radio"
-                  :value="'not-withdrawn'"
-                  style="margin-left: 1.4em"
-                />
-                <label for="not-withdrawn" style="margin-left: 0.3em">
-                  On stake
-                </label>
-              </div>
-              <div style="display: inline-block">
-                <input
-                  id="withdrawn"
-                  v-model="show"
-                  type="radio"
-                  :value="'withdrawn'"
-                  style="margin-left: 1.3em"
-                />
-                <label for="withdrawn" style="margin-left: 0.3em">
-                  Withdrawn
-                </label>
-              </div>
-            </div>
-            <button style="margin-top: 0.25em" @click="refresh">Refresh</button>
-            <br />
-
-            <table id="staking-table" style="width: 100%">
-              <caption>
-                Deposits
-                <span v-if="show === 'not-withdrawn'">
-                  (on stake total: {{ showDepositsAmount() }})
-                </span>
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Label</th>
-                  <th scope="col">Deposit time</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Earnings</th>
-                  <th scope="col">Percent</th>
-                  <th v-if="shouldShowDepositTypeColumn()" scope="col">Type</th>
-                  <template v-if="show === 'withdrawn'">
-                    <th scope="col">Withdraw time</th>
-                  </template>
-                  <template v-else>
-                    <th scope="col">Max withdrawable</th>
-                    <th scope="col" />
-                  </template>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="d in vaults.filter(
-                    v =>
-                      (v.withdrawTime !== undefined) === (show === 'withdrawn')
-                  )"
-                  :key="d.id"
-                >
-                  <td>{{ d.label || '' }}</td>
-                  <td>{{ showDate(d.depositTime) }}</td>
-                  <td>{{ web3.utils.fromWei(d.amount) }}</td>
-                  <td style="font-family: monospace">{{ showInterest(d) }}</td>
-                  <td>{{ percent(d) }}</td>
-                  <td v-if="shouldShowDepositTypeColumn()">
-                    {{ showDepositType(d) }}
-                  </td>
-                  <template v-if="d.withdrawTime !== undefined">
-                    <td>
-                      {{ showDate(d.withdrawTime) }}
-                    </td>
-                  </template>
-                  <template v-else>
-                    <td>
-                      {{ web3.utils.fromWei(d.withdrawableAmount) }}
-                    </td>
-                    <td>
-                      <div style="display: flex">
-                        <input
-                          v-if="d.depositType !== 'NORMAL'"
-                          v-model="d.withdrawInput"
-                          type="number"
-                          aria-label="Withdraw amount"
-                          style="width: 7.5em; margin-right: 0.5em"
-                        />
-                        <button style="margin-left: auto" @click="withdraw(d)">
-                          Withdraw
-                        </button>
-                      </div>
-                    </td>
-                  </template>
-                </tr>
-              </tbody>
-            </table>
+      <div class="container--card block--swap">
+        <div v-if="contract !== null">
+          <div class="flex--row--align-center title">
+            <h4>Staking contract</h4>
           </div>
+          <div class="swap-info">
+            <div v-if="vaults !== null">
+              <div>
+                <input
+                  v-model="depositAmount"
+                  type="number"
+                  aria-label="Deposit amount"
+                  style="width: 7.5em"
+                  step="0.000000000000000001"
+                />
+                <button
+                  :disabled="depositAmount === '' || depositAmount <= 0"
+                  style="margin-left: 0.5em"
+                  @click="deposit"
+                >
+                  Deposit
+                </button>
+                <span style="margin-left: 1em"
+                  ><strong>Show only:</strong></span
+                >
+                <div style="display: inline-block">
+                  <input
+                    id="not-withdrawn"
+                    v-model="show"
+                    type="radio"
+                    :value="'not-withdrawn'"
+                    style="margin-left: 1.4em"
+                  />
+                  <label for="not-withdrawn" style="margin-left: 0.3em">
+                    On stake
+                  </label>
+                </div>
+                <div style="display: inline-block">
+                  <input
+                    id="withdrawn"
+                    v-model="show"
+                    type="radio"
+                    :value="'withdrawn'"
+                    style="margin-left: 1.3em"
+                  />
+                  <label for="withdrawn" style="margin-left: 0.3em">
+                    Withdrawn
+                  </label>
+                </div>
+              </div>
+              <button style="margin-top: 0.25em" @click="refresh">
+                Refresh
+              </button>
+              <br />
 
-          <div v-else>Loading...</div>
+              <table id="staking-table" style="width: 100%">
+                <caption>
+                  Deposits
+                  <span v-if="show === 'not-withdrawn'">
+                    (on stake total: {{ showDepositsAmount() }})
+                  </span>
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Label</th>
+                    <th scope="col">Deposit time</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Earnings</th>
+                    <th scope="col">Percent</th>
+                    <th v-if="shouldShowDepositTypeColumn()" scope="col">
+                      Type
+                    </th>
+                    <template v-if="show === 'withdrawn'">
+                      <th scope="col">Withdraw time</th>
+                    </template>
+                    <template v-else>
+                      <th scope="col">Max withdrawable</th>
+                      <th scope="col" />
+                    </template>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="d in vaults.filter(
+                      v =>
+                        (v.withdrawTime !== undefined) ===
+                        (show === 'withdrawn')
+                    )"
+                    :key="d.id"
+                  >
+                    <td>{{ d.label || '' }}</td>
+                    <td>{{ showDate(d.depositTime) }}</td>
+                    <td>{{ web3.utils.fromWei(d.amount) }}</td>
+                    <td style="font-family: monospace">
+                      {{ showInterest(d) }}
+                    </td>
+                    <td>{{ percent(d) }}</td>
+                    <td v-if="shouldShowDepositTypeColumn()">
+                      {{ showDepositType(d) }}
+                    </td>
+                    <template v-if="d.withdrawTime !== undefined">
+                      <td>
+                        {{ showDate(d.withdrawTime) }}
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td>
+                        {{ web3.utils.fromWei(d.withdrawableAmount) }}
+                      </td>
+                      <td>
+                        <div style="display: flex">
+                          <input
+                            v-if="d.depositType !== 'NORMAL'"
+                            v-model="d.withdrawInput"
+                            type="number"
+                            aria-label="Withdraw amount"
+                            style="width: 7.5em; margin-right: 0.5em"
+                          />
+                          <button
+                            style="margin-left: auto"
+                            @click="withdraw(d)"
+                          >
+                            Withdraw
+                          </button>
+                        </div>
+                      </td>
+                    </template>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div v-else>Loading...</div>
+          </div>
         </div>
+        <CompensationContract />
       </div>
     </div>
   </div>
@@ -143,6 +158,7 @@ import Vue from 'vue';
 import { DateTimeFormatOptions } from 'vue-i18n';
 import ErrorModal from '@/containers/ConfirmationContainer/components/ErrorModal/ErrorModal.vue';
 import { STAKING } from '@/networks/types';
+import CompensationContract from '@/layouts/InterfaceLayout/components/CompensationContract/CompensationContract.vue';
 
 /**
  * @example
@@ -208,6 +224,7 @@ const try_ = <T>(fn: () => T) => {
 
 export default Vue.extend({
   components: {
+    CompensationContract,
     ErrorModal
   },
   data() {
