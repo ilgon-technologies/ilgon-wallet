@@ -10,15 +10,7 @@
         </div>
         <div class="block-progressbar__content text-cented">
           <img alt src="~@/assets/images/icons/drink.svg" />
-          <i18n path="gettingStarted.congratulations.desc" tag="p">
-            <a
-              slot="helpCenter"
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://kb.myetherwallet.com"
-              >{{ $t('common.help-center') }}</a
-            >
-          </i18n>
+          <i18n path="gettingStarted.congratulations.desc" tag="p"> </i18n>
           <div
             class="done-button mid-round-button-green-filled-green-border"
             @click="done"
