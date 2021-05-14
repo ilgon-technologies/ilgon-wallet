@@ -1,3 +1,29 @@
+### Release v5.7.29
+
+### Devop
+
+* Add security policy link to footer [#3085](https://github.com/MyEtherWallet/MyEtherWallet/pull/3085)
+
+### Devop
+
+* Add One Inch Exchange to swap [#3061](https://github.com/MyEtherWallet/MyEtherWallet/pull/3061)
+* Update changelly swap handling  [#3046](https://github.com/MyEtherWallet/MyEtherWallet/pull/3046)
+
+### Bug
+* Fix network change on send tx page [#3086](https://github.com/MyEtherWallet/MyEtherWallet/pull/3086)
+* Add catch when selected address doesn't match signer [#3065](https://github.com/MyEtherWallet/MyEtherWallet/pull/3065)
+* Fix paper wallet blockie color issue [#3064](https://github.com/MyEtherWallet/MyEtherWallet/pull/3064)
+
+### Release v5.7.28
+
+### Bug
+
+* Fix UD 2.0 version upgrade [#3033](https://github.com/MyEtherWallet/MyEtherWallet/pull/3033)
+
+### Devop
+
+* Update packages and add MATIC network [#3035](https://github.com/MyEtherWallet/MyEtherWallet/pull/3035)
+
 ### Release v5.7.27
 
 ### Bug
