@@ -106,7 +106,7 @@ export default {
       const usdPrice = this.usdPrice.result.value;
       const balanceInUsd = new BigNumber(this.balance)
         .multipliedBy(usdPrice)
-        .decimalPlaces(0)
+        .decimalPlaces(2)
         .toString()
         // 1000 -> 1,000
         // eslint-disable-next-line security/detect-unsafe-regex
