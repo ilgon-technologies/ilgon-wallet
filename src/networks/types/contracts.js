@@ -5,6 +5,11 @@ export default [
     name: STAKING,
     address: '0xebE14A98E366196f16529c5E9Ecfea43fbC9940b',
     abi: stakingAbi()
+  },
+  {
+    name: COMPENSATION,
+    address: '0x2AD237C8a3A2e80c7d08c12fA1B1CfAe697DfA88',
+    abi: compensationAbi()
   }
 ];
 function stakingAbi() {
