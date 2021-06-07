@@ -9,7 +9,7 @@ import { Toast } from '@/helpers';
 import debug from 'debug';
 import { utils } from '@/partners';
 
-const errorLogger = debug('v5:partners-dexag');
+const errorLogger = debug('v5:partners-oneinch');
 
 export default class OneInch {
   constructor(props = {}) {
@@ -339,31 +339,31 @@ export default class OneInch {
   getTokenAddress(token) {
     try {
       if (utils.stringEqual(networkSymbols.ETH, token)) {
-        return this.EthereumTokens[token].contractAddress
-          ? this.EthereumTokens[token].contractAddress
-          : this.tokenDetails[token].address;
+        return this.tokenDetails[token]?.address
+          ? this.tokenDetails[token].address
+          : this.EthereumTokens[token].contractAddress;
       }
       return this.web3.utils.toChecksumAddress(
-        this.EthereumTokens[token].contractAddress
+        this.tokenDetails[token]?.address
+          ? this.tokenDetails[token].address
+          : this.EthereumTokens[token].contractAddress
       );
     } catch (e) {
       errorLogger(e);
-      throw Error(`Token [${token}] not included in dex.ag list of tokens`);
+      throw Error(`Token [${token}] not included in one-inch list of tokens`);
     }
   }
 
   getTokenDecimals(token) {
     try {
       return new BigNumber(
-        this.EthereumTokens[token].decimals
+        this.EthereumTokens[token]?.decimals
           ? this.EthereumTokens[token].decimals
           : this.tokenDetails[token].decimals
       ).toNumber();
     } catch (e) {
       errorLogger(e);
-      throw Error(
-        `Token [${token}] not included in dex.ag network list of tokens`
-      );
+      throw Error(`Token [${token}] not included in one-inch list of tokens`);
     }
   }
 
