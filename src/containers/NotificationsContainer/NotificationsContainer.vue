@@ -120,10 +120,8 @@ import store from 'store';
 import unit from 'ethjs-unit';
 import BigNumber from 'bignumber.js';
 
-import SwapNotification from './components/NotificationTypes/SwapNotification';
 import TransactionNotification from './components/NotificationTypes/TransactionNotification';
 import TransactionDetails from './components/NotificationTypes/NotificationDetails';
-import SwapDetails from './components/NotificationTypes/SwapDetails';
 
 import {
   statusTypes,
@@ -137,14 +135,10 @@ import {
   notificationType
 } from '@/helpers/notificationFormatters';
 
-import { SwapProviders } from '@/partners';
-
 export default {
   components: {
-    'swap-notification': SwapNotification,
     'transaction-notification': TransactionNotification,
-    'transaction-details': TransactionDetails,
-    'swap-details': SwapDetails
+    'transaction-details': TransactionDetails
   },
   data() {
     return {
@@ -332,18 +326,12 @@ export default {
       }
       return notice.body.errorMessage;
     },
-    hashLink(hash, currency) {
-      if (currency && SwapProviders.isNotToken(currency)) {
-        return SwapProviders.getBlockChainExplorerUrl(currency, hash);
-      }
+    hashLink(hash) {
       if (this.network.type.blockExplorerTX) {
         return this.network.type.blockExplorerTX.replace('[[txHash]]', hash);
       }
     },
-    addressLink(addr, currency) {
-      if (currency && SwapProviders.isNotToken(currency)) {
-        return SwapProviders.getAddressLookupUrl(currency, addr);
-      }
+    addressLink(addr) {
       if (this.network.type.blockExplorerAddr) {
         return this.network.type.blockExplorerAddr.replace('[[address]]', addr);
       }

@@ -133,10 +133,8 @@ import BigNumber from 'bignumber.js';
 import { isAddress } from '@/helpers/addressUtils';
 import { ExtensionHelpers } from '@/helpers';
 
-import SwapNotification from '@/containers/NotificationsContainer/components/NotificationTypes/SwapNotification/SwapNotification';
 import TransactionNotification from '@/containers/NotificationsContainer/components/NotificationTypes/TransactionNotification/TransactionNotification';
 import TransactionDetails from '@/containers/NotificationsContainer/components/NotificationTypes/NotificationDetails';
-import SwapDetails from '@/containers/NotificationsContainer/components/NotificationTypes/SwapDetails';
 import store from 'store';
 import {
   statusTypes,
@@ -150,14 +148,10 @@ import {
   notificationType
 } from '@/helpers/notificationFormatters';
 
-import { SwapProviders } from '@/partners';
-
 export default {
   components: {
-    'swap-notification': SwapNotification,
     'transaction-notification': TransactionNotification,
-    'transaction-details': TransactionDetails,
-    'swap-details': SwapDetails
+    'transaction-details': TransactionDetails
   },
   data() {
     return {
@@ -394,18 +388,12 @@ export default {
       }
       return notice.body.errorMessage;
     },
-    hashLink(hash, currency) {
-      if (currency && SwapProviders.isNotToken(currency)) {
-        return SwapProviders.getBlockChainExplorerUrl(currency, hash);
-      }
+    hashLink(hash) {
       if (this.network.type.blockExplorerTX) {
         return this.network.type.blockExplorerTX.replace('[[txHash]]', hash);
       }
     },
-    addressLink(addr, currency) {
-      if (currency && SwapProviders.isNotToken(currency)) {
-        return SwapProviders.getAddressLookupUrl(currency, addr);
-      }
+    addressLink(addr) {
       if (this.network.type.blockExplorerAddr) {
         return this.network.type.blockExplorerAddr.replace('[[address]]', addr);
       }
