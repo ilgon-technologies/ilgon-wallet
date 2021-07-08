@@ -1,3 +1,19 @@
+
+### v5.8.3
+### Feat 
+- Update welcome modal text [#3232](https://github.com/MyEtherWallet/MyEtherWallet/pull/3232)
+### v5.8.2
+
+### Devop
+
+- prep for v6 release move v5 to v5.myetherwallet.com [#3197](https://github.com/MyEtherWallet/MyEtherWallet/pull/3197)
+
+### v5.8.1
+
+### Devop
+
+- update packages and token images [#3177](https://github.com/MyEtherWallet/MyEtherWallet/pull/3177)
+
 ### v5.8.0
 
 ### Bug
