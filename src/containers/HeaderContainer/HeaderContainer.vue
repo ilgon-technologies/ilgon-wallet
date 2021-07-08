@@ -204,7 +204,7 @@ export default {
     'mobile-menu': MobileMenu,
     'disconnected-modal': DisconnectedModal,
     'decision-tree': DecisionTree,
-    'cx-header': CxHeader,
+    'cx-header': CxHeader
   },
   data() {
     const isMewCx = Misc.isMewCx();
