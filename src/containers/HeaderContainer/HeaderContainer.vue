@@ -40,15 +40,6 @@
           ]"
           class="fixed-header"
         >
-          <div class="v6-header">
-            A new version is available &nbsp;
-            <a href="https://www.myetherwallet.com" rel="noopener noreferrer"
-              >Try it out here</a
-            >&nbsp;&nbsp;
-            <a href="https://www.myetherwallet.com" rel="noopener noreferrer"
-              >Read about it here</a
-            >
-          </div>
           <div
             :class="[
               (isMobileMenuOpen || !isPageOnTop) && 'mobile-menu-boxshadow',
@@ -178,7 +169,6 @@
       </div>
       <!-- Desktop menu *********************************** -->
     </div>
-    <welcome-modal ref="welcome" :first-time-ru="firstTimeRu" />
   </div>
 </template>
 
@@ -197,7 +187,6 @@ import DisconnectedModal from '@/components/DisconnectedModal';
 import DecisionTree from '@/components/DecisionTree';
 import CxHeader from '@/layouts/ExtensionBrowserAction/components/CxHeader';
 import supportedLang from './supportedLang';
-import WelcomeModal from '@/components/WelcomeModal';
 
 const events = {
   issueModal: 'issueModal',
@@ -216,7 +205,6 @@ export default {
     'disconnected-modal': DisconnectedModal,
     'decision-tree': DecisionTree,
     'cx-header': CxHeader,
-    'welcome-modal': WelcomeModal
   },
   data() {
     const isMewCx = Misc.isMewCx();
@@ -343,13 +331,7 @@ export default {
     languageItemClicked(obj) {
       if (obj.langCode === 'ru_RU' && !store.get('notFirstTimeRU')) {
         this.firstTimeRu = true;
-        this.$refs.welcome.$refs.welcome.show();
       }
-
-      this.$refs.welcome.$refs.welcome.$on('hidden', () => {
-        this.firstTimeRu = false;
-        store.set('notFirstTimeRU', true);
-      });
 
       this.$i18n.locale = obj.langCode;
       this.currentName = obj.name;
@@ -375,18 +357,4 @@ export default {
 
 <style lang="scss" scoped>
 @import 'HeaderContainer.scss';
-.v6-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #22a7c0;
-  background-image: linear-gradient(to right, #22a7c0, #06c0a5);
-  padding: 8px !important;
-  color: $white !important;
-
-  a {
-    color: $white !important;
-    text-decoration: underline;
-  }
-}
 </style>

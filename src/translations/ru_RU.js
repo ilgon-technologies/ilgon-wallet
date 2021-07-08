@@ -24,7 +24,6 @@ import bitbox02Error from './errors-bitbox02/ru_RU';
 import buyHardwareWallet from './other/buy-hardware-wallet/ru_RU';
 import convertUnits from './other/convert-units/ru_RU';
 import verifyMessage from './other/verify-message/ru_RU';
-import welcomeMessage from './welcome-message/ru_RU';
 import sendTx from './send-tx/ru_RU';
 import swap from './swap/ru_RU';
 import contract from './contract/ru_RU';
@@ -70,7 +69,6 @@ const ru_RU = {
   dappsMaker: dappsMaker,
   convertUnits: convertUnits,
   verifyMessage: verifyMessage,
-  welcomeMessage: welcomeMessage,
   sendTx: sendTx,
   swap: swap,
   contract: contract,
