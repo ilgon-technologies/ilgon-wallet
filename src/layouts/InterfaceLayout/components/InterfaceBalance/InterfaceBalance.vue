@@ -110,7 +110,7 @@ export default {
         .toString()
         // 1000 -> 1,000
         // eslint-disable-next-line security/detect-unsafe-regex
-        .replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        .replace(/(\d)(?=(?:\d{3})+?(\.\d?\d)$)/g, '$1,');
       const shownUsdPrice = new BigNumber(usdPrice).decimalPlaces(6).toString();
       return `$${balanceInUsd} USD ($${shownUsdPrice}/ILG)`;
     }
