@@ -3,7 +3,6 @@ import { Misc } from '@/helpers';
 import Resolution, { ResolutionError } from '@unstoppabledomains/resolution';
 import normalise from '@/helpers/normalise';
 import utils from 'web3-utils';
-import { EthereumTokens } from '@/partners';
 import MAValidator from 'multicoin-address-validator';
 import getMultiCoinAddress from '@/helpers/ENSMultiCoin.js';
 import ethMew from '@/networks/nodes/eth-mew';
@@ -81,7 +80,6 @@ const AddrResolver = {
       messageDiv.appendChild(errorPar);
       if (
         (parentCurrency === network.type.name ||
-          EthereumTokens[parentCurrency] ||
           // checks whether this is happening in swap
           !_this.hasOwnProperty('unableToValidate')) &&
         Misc.isValidETHAddress(domain)
@@ -132,10 +130,7 @@ const AddrResolver = {
               }
             })
             .catch(() => {
-              if (
-                parentCurrency === network.type.name ||
-                EthereumTokens[parentCurrency]
-              ) {
+              if (parentCurrency === network.type.name) {
                 ens
                   .resolver(normalise(domain))
                   .addr()

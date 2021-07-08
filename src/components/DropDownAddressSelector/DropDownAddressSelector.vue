@@ -74,18 +74,7 @@
           <div v-if="avatar !== ''" class="avatar-container">
             <img :src="avatar" />
           </div>
-          <div v-if="isToken(currency)">
-            <img
-              :alt="$t('common.currency.ethereum')"
-              class="currency-icon"
-              src="@/assets/images/currency/eth.svg"
-            />
-          </div>
-          <div v-else>
-            <i
-              :class="['currency-icon', 'as-font', 'cc', currency, 'cc-icon']"
-            />
-          </div>
+          <i :class="['currency-icon', 'as-font', 'cc', currency, 'cc-icon']" />
         </div>
         <div class="dropdown-open-button" @click="dropdownOpen = !dropdownOpen">
           <i
@@ -152,7 +141,6 @@
 import '@/assets/images/currency/coins/asFont/cryptocoins.css';
 import '@/assets/images/currency/coins/asFont/cryptocoins-colors.css';
 import Blockie from '@/components/Blockie';
-import { EthereumTokens, BASE_CURRENCY } from '@/partners';
 import { mapState, mapActions } from 'vuex';
 import { Toast } from '@/helpers';
 import utils from 'web3-utils';
@@ -215,7 +203,7 @@ export default {
         ? [
             {
               address: this.currentAddress,
-              currency: BASE_CURRENCY,
+              currency: 'ETH',
               resolverAddr: this.currentAddress
             },
             ...this.sortedAddressBook
@@ -262,9 +250,6 @@ export default {
       ref.select();
       document.execCommand('copy');
       Toast.responseHandler(this.$t('common.copied'), Toast.INFO);
-    },
-    isToken(symbol) {
-      return typeof EthereumTokens[symbol] !== 'undefined';
     },
     listedAddressClick(address) {
       this.toAddressCheckMark = true;
